@@ -1,8 +1,19 @@
 ---
 import Tag from "@/components/ui/Tag.astro";
 import WaterFall from "@/components/ui/WaterFall.astro";
+import { Tag as TagClass } from "@/tags";
 
 import { languageTags } from "@/tags";
+
+// 既定タグあればソレを使用、無ければTag Classの初期化を求める
+const heroTags = [
+    new TagClass("Philosophy", "yellow"),
+    languageTags.filter((tag) => tag.name === "Swift")[0],
+    languageTags.filter((tag) => tag.name === "TypeScript")[0],
+    languageTags.filter((tag) => tag.name === "Tailwind CSS")[0],
+    languageTags.filter((tag) => tag.name === "Astro.js")[0],
+    languageTags.filter((tag) => tag.name === "Haskell")[0],
+];
 ---
 
 <section class="relative py-20 overflow-hidden">
@@ -21,7 +32,7 @@ import { languageTags } from "@/tags";
                 class="flex justify-center gap-2 max-w-sm mx-6 mb-6 p-4 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg"
             >
                 <WaterFall>
-                    {languageTags.map((tag) => <Tag tag={tag} />)}
+                    {heroTags.map((tag) => <Tag tag={tag} />)}
                 </WaterFall>
             </div>
             <div class="flex justify-center gap-4">

@@ -35,7 +35,8 @@ export const languageTags = [
     new Tag("Swift", "orange"),
     new Tag("TypeScript", "blue"),
     new Tag("Astro.js", "purple"),
-    new Tag("Tailwind", "cyan"),
+    new Tag("Tailwind CSS", "cyan"),
+    new Tag("lua", "red"),
     new Tag("Haskell", "rose"),
 ];
 
