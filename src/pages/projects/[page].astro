@@ -1,0 +1,112 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import ProjectCard from "@/components/ui/ProjectCard.astro";
+
+interface Paginate {
+    paginate: (
+        items: any[],
+        options: {
+            pageSize: number;
+        }
+    ) => any;
+}
+
+export async function getStaticPaths({ paginate }: Paginate) {
+    const posts = (await getCollection("projects")).sort(
+        (a, b) =>
+            b.data.version.pubDate.valueOf() - a.data.version.pubDate.valueOf()
+    );
+    return paginate(posts, { pageSize: 10 });
+}
+
+interface Props {
+    page: {
+        data: any[];
+        url: {
+            prev: string | undefined;
+            next: string | undefined;
+        };
+        currentPage: number;
+    };
+}
+
+const posts = (await getCollection("projects")).sort(
+    (a, b) =>
+        b.data.version.pubDate.valueOf() - a.data.version.pubDate.valueOf()
+);
+const { page } = Astro.props as Props;
+
+const lastPage = Math.ceil(posts.length / 10);
+---
+
+<Layout title={`Projects - Page ${page.currentPage} | HALQME`}>
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">
+            Projects
+            <small>
+                - Page {page.currentPage}
+            </small>
+        </h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mx-6">
+            {page.data.map((post) => <ProjectCard project={post} />)}
+        </div>
+
+        <div class="flex justify-center items-center gap-2 mt-8">
+            {
+                page.url.prev && page.currentPage > 2 && (
+                    <a
+                        href={`/projects/1/`}
+                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                    >
+                        «
+                    </a>
+                )
+            }
+            {
+                page.url.prev && page.currentPage - 1 > 2 && (
+                    <span class="px-3 py-2 text-sm text-gray-600">...</span>
+                )
+            }
+            {
+                page.url.prev && (
+                    <a
+                        href={page.url.prev}
+                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                    >
+                        {page.currentPage - 1}
+                    </a>
+                )
+            }
+            <span class="px-3 py-2 rounded-lg text-sm bg-blue-600 text-white">
+                {page.currentPage}
+            </span>
+            {
+                page.url.next && (
+                    <a
+                        href={page.url.next}
+                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                    >
+                        {page.currentPage + 1}
+                    </a>
+                )
+            }
+            {
+                page.url.next && page.currentPage + 1 < lastPage && (
+                    <span class="px-3 py-2 text-sm text-gray-600">...</span>
+                )
+            }
+            {
+                page.url.next && (
+                    <a
+                        href={`/projects/${lastPage}/`}
+                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                    >
+                        »
+                    </a>
+                )
+            }
+        </div>
+    </section>
+</Layout>

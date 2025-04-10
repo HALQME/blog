@@ -1,0 +1,32 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Projects from "@/components/hero/Projects.astro";
+import { getCollection } from "astro:content";
+
+const collections = await getCollection("projects");
+const length = collections.length;
+---
+
+<Layout title="Projects | HALQME">
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">
+            Projects
+        </h1>
+        <div class="mx-6">
+            <Projects limit={10} />
+        </div>
+
+        <div class="flex justify-center items-center gap-2 mt-8">
+            {
+                length > 10 && (
+                    <a
+                        href={`/projects/${Math.ceil(length / 10)}/`}
+                        class="text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                        See all projects
+                    </a>
+                )
+            }
+        </div>
+    </section>
+</Layout>

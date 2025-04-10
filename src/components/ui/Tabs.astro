@@ -1,0 +1,237 @@
+---
+/*
+# Tab View Component
+> requirement: Tailwind CSS (Vite Plugin)
+## Usage
+```astro
+<Tabs>
+    <div slot="tab-1" id="first">Tab 1</div>
+    <div slot="panel-1">Content 1</div>
+    <div slot="tab-2" id="second">Tab 1</div>
+    <div slot="panel-2">Content 1</div>
+</Tabs>
+
+<Tabs id="section2">
+    <div slot="tab-1">Another Tab</div>
+    <div slot="panel-1">Another Content</div>
+</Tabs>
+```
+*/
+export interface Props extends astroHTML.JSX.HTMLAttributes {}
+const props = Astro.props as Props;
+const tabs: string[] = [];
+const panels: string[] = [];
+{
+    let index = 0;
+    Object.entries(Astro.slots).forEach(([name]) => {
+        if (name.startsWith("tab")) {
+            index += 1;
+            tabs.push(name);
+        } else if (name.startsWith("panel")) {
+            index += 1;
+            panels.push(name);
+        }
+    });
+}
+const extractIndex = (name: string) => parseInt(name.split("-")[1]);
+tabs.sort((a, b) => extractIndex(a) - extractIndex(b));
+panels.sort((a, b) => extractIndex(a) - extractIndex(b));
+---
+
+<astro-tabs
+    {...{ ...props, class: undefined, "class:list": undefined }}
+    class:list={["tabs", "relative", props["class:list"], props.class]}
+>
+    <nav
+        class="flex overflow-x-auto border-b border-gray-200 dark:border-gray-700"
+        role="tablist"
+        aria-label="タブナビゲーション"
+    >
+        {
+            tabs.map(async (name, idx) => {
+                const index = idx;
+                if (name.startsWith("tab")) {
+                    const render = await Astro.slots.render(name);
+                    // 正規表現を使用してID属性を抽出
+                    const idMatch = render.match(/id=["']([^"']+)["']/);
+                    const tabId = idMatch ? idMatch[1] : `tab-${index}`;
+
+                    return (
+                        <a
+                            href={`#${tabId}`}
+                            id={`tab-${tabId}`}
+                            data-tab-id={tabId}
+                            data-astro-history="replace"
+                            class:list={[
+                                "tab-button",
+                                "block",
+                                "whitespace-nowrap",
+                                "cursor-pointer",
+                                "py-2",
+                                "px-4",
+                                "font-medium",
+                                "transition-colors",
+                                "duration-300",
+                                "border-b-2",
+                                "text-gray-500",
+                                "hover:text-gray-600",
+                                "border-transparent",
+                                "hover:border-gray-300",
+                                "dark:text-gray-400",
+                                "dark:hover:text-gray-300",
+                                "dark:border-transparent",
+                                "dark:hover:border-gray-700",
+                            ]}
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls={`panel-${tabId}`}
+                            data-tab-index={index}
+                            set:html={render}
+                        />
+                    );
+                }
+            })
+        }
+    </nav>
+
+    <div class="relative" role="tabpanel">
+        {
+            panels.map(async (name, idx) => {
+                const panelIndex = parseInt(name.replace("panel-", ""));
+                const panelId = `panel-${panelIndex}`;
+                const content = await Astro.slots.render(name);
+
+                return (
+                    <div
+                        id={panelId}
+                        data-panel-index={panelIndex}
+                        class:list={[
+                            `panel-${panelIndex}`,
+                            "panel",
+                            "hidden", // 最初はすべて非表示
+                        ]}
+                        aria-labelledby={`tab-${panelId}`}
+                        set:html={content}
+                    />
+                );
+            })
+        }
+    </div>
+</astro-tabs>
+
+<script>
+    class AstroTabs extends HTMLElement {
+        private tabLinks: HTMLAnchorElement[];
+        private panels: HTMLElement[];
+        private tabGroupId: string;
+        private defaultTabClasses = [
+            "text-gray-300",
+            "hover:text-gray-500",
+            "border-transparent",
+            "hover:border-gray-200",
+            "dark:text-gray-600",
+            "dark:hover:text-gray-500",
+            "dark:border-transparent",
+            "dark:hover:border-gray-700",
+        ];
+        private activeTabClasses = [
+            "text-gray-700",
+            "hover:text-gray-800",
+            "border-blue-300",
+            "dark:text-gray-200",
+            "dark:hover:text-gray-100",
+            "dark:border-blue-600",
+        ];
+
+        constructor() {
+            super();
+            this.clearSearchParams();
+            this.tabGroupId = this.getAttribute("id")
+                ? "-" + this.getAttribute("id")
+                : "";
+            this.tabLinks = Array.from(
+                this.querySelectorAll(".tab-button")
+            ) as HTMLAnchorElement[];
+            this.panels = Array.from(this.querySelectorAll(".panel"));
+            this.init();
+        }
+
+        private init() {
+            // タブクリックイベントの設定
+            this.tabLinks.forEach((tabLink, index) => {
+                tabLink.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    this.activateTab(index);
+                });
+            });
+
+            // 常に最初のタブをアクティブにする
+            this.activateTab(0, false);
+
+            // popstateイベントのリスナー
+            window.addEventListener("popstate", () => {
+                const index = this.getTabIndexFromSearchParams();
+                if (index !== null) {
+                    this.activateTab(index, false);
+                }
+            });
+        }
+
+        private getTabIndexFromSearchParams(): number | null {
+            const params = new URLSearchParams(window.location.search);
+            const activeTabId = params.get(`tab${this.tabGroupId}`);
+            if (activeTabId) {
+                const tabIndex = this.tabLinks.findIndex(
+                    (tab) => tab.getAttribute("data-tab-id") === activeTabId
+                );
+                if (tabIndex !== -1) {
+                    return tabIndex;
+                }
+            }
+            return null;
+        }
+
+        private activateTab(index: number, updateHistory = true) {
+            // クラスリストの変更を一括で行う
+            this.tabLinks.forEach((tabLink, i) => {
+                const isActive = i === index;
+                tabLink.setAttribute("aria-selected", isActive.toString());
+                tabLink.classList.remove(
+                    ...(isActive
+                        ? this.defaultTabClasses
+                        : this.activeTabClasses)
+                );
+                tabLink.classList.add(
+                    ...(isActive
+                        ? this.activeTabClasses
+                        : this.defaultTabClasses)
+                );
+            });
+
+            // パネルの表示/非表示を一括で切り替え
+            this.panels.forEach((panel, i) => {
+                panel.classList.toggle("hidden", i !== index);
+                panel.classList.toggle("block", i === index);
+            });
+
+            if (updateHistory) {
+                const params = new URLSearchParams(window.location.search);
+                const activeTabId =
+                    this.tabLinks[index].getAttribute("data-tab-id");
+                params.set(
+                    `tab${this.tabGroupId}`,
+                    activeTabId || index.toString()
+                );
+                const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
+                window.history.replaceState({}, "", newUrl);
+            }
+        }
+
+        private clearSearchParams() {
+            const newUrl = `${window.location.pathname}`;
+            window.history.replaceState({}, "", newUrl);
+        }
+    }
+
+    customElements.define("astro-tabs", AstroTabs);
+</script>

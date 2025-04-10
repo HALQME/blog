@@ -1,0 +1,20 @@
+---
+import { Tag as TagClass } from "@/tags";
+
+interface Props {
+    tag: TagClass;
+}
+
+const { tag } = Astro.props as Props;
+---
+
+<span
+    class={`select-none inline-flex items-center px-3 py-1 rounded-full text-sm ${tag.colorValue()} transition-colors`}
+>
+    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+        <path
+            d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"
+        ></path>
+    </svg>
+    {tag.name}
+</span>
