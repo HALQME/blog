@@ -1,0 +1,86 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Hero from "@/components/hero/Hero.astro";
+import SkillCard from "@/components/hero/SkillCard.astro";
+import Projects from "@/components/hero/Projects.astro";
+import Tabs from "@/components/tools/Tabs.astro";
+import SocialLink from "@/components/hero/SocialLink.astro";
+---
+
+<Layout
+    title="HALQME"
+    description="HALQME のポートフォリオサイト"
+    heroImage="/blog-placeholder-about.jpg"
+>
+    <Hero />
+    <section
+        aria-label="Skills & Technologies"
+        class="py-6 max-w-4xl mx-auto px-4"
+    >
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white my-4">
+            Skills & Technologies
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2">
+            <SkillCard title="Languages" items={["Swift", "TypeScript"]} />
+
+            <SkillCard
+                title="Frameworks & Libraries"
+                items={["Astro", "Tailwind CSS"]}
+            />
+            <SkillCard
+                title="Tools & Platforms"
+                items={["Xcode", "Git", "GitHub"]}
+            />
+
+            <SkillCard
+                title="Learning"
+                items={["React & Next.js", "Node.js", "Haskell"]}
+            />
+        </div>
+    </section>
+    <section aria-label="Projects" class="py-6 max-w-4xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white my-4">
+            Projects
+        </h2>
+        <div class="mx-3">
+            <Projects limit={4} />
+        </div>
+    </section>
+    <section>
+        <div class="px-6">
+            <section aria-label="About Me" class="py-6">
+                <div class="max-w-4xl mx-auto px-4">
+                    <h3
+                        class="text-3xl font-bold text-gray-900 dark:text-white mb-8"
+                    >
+                        About Me
+                    </h3>
+                    <div class="prose prose-lg dark:prose-invert">
+                        <p
+                            class="text-gray-800 dark:text-gray-200 leading-relaxed"
+                        >
+                            大学生です（2023〜）。心理学専攻の文系ですが、部活のWebサイトを作ったり、活動記録用のWebアプリを作ったり、大学生活を助けるサービスを企画したりしています。
+                        </p>
+                        <p>
+                            Swiftとか、TypeScriptとかを勉強しています。Haskellもやろうと思っています。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section aria-label="Biography" class="py-6 grid grid-cols-2">
+                <SocialLink
+                    href="https://twitter.com/halqme_dev"
+                    icon="twitter-logo"
+                    title="Twitter"
+                />
+
+                <SocialLink
+                    href="https://github.com/halqme"
+                    icon="github-logo"
+                    title="GitHub"
+                />
+            </section>
+        </div>
+    </section>
+</Layout>
