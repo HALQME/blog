@@ -9,9 +9,9 @@ interface Props {
     project: Project;
 }
 const { project } = Astro.props;
-const tags = project.data.language
-    ? languageTags.filter((tag) => project.data.language!.includes(tag.name))
-    : [];
+const lang = project.data.language
+    ? languageTags.filter((tag) => project.data.language!.includes(tag.name))[0]
+    : null;
 
 const versionString =
     project.data.version.value.major +
@@ -22,20 +22,20 @@ const versionString =
 ---
 
 <article
-    class="group bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-xl transition-all duration-300"
+    class="group bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
 >
     <a href={`/projects/${project.id}/`} class="block">
-        <div class="p-7">
+        <div class="p-6">
             <h2
-                class="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-3"
+                class="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-4"
             >
                 {project.data.title}
             </h2>
             <div
-                class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-4"
+                class="flex items-center flex-wrap gap-2 text-sm text-gray-600 dark:text-gray-400 mb-4"
             >
                 <div
-                    class="flex items-center bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-full"
+                    class="flex items-center bg-gray-50 dark:bg-gray-700/50 px-3 py-1.5 rounded-full"
                 >
                     <svg
                         class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400"
@@ -50,25 +50,23 @@ const versionString =
                     <FormattedDate date={project.data.version.pubDate} />
                 </div>
                 <span
-                    class="font-mono bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-xs font-medium"
+                    class="font-mono bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-full text-xs font-medium"
                 >
                     v{versionString}
                 </span>
-            </div>
-            <p class="text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
-                {project.data.description}
-            </p>
-            <div class="flex flex-wrap gap-2">
                 {
-                    tags.map((tag) => (
+                    lang && (
                         <span
-                            class={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${tag.colorValue()} bg-opacity-10 dark:bg-opacity-20`}
+                            class={`inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium ${lang.colorValue()} bg-opacity-15 dark:bg-opacity-25`}
                         >
-                            {tag.name}
+                            {lang.name}
                         </span>
-                    ))
+                    )
                 }
             </div>
+            <p class="text-gray-600 dark:text-gray-400 line-clamp-2">
+                {project.data.description}
+            </p>
         </div>
     </a>
 </article>
