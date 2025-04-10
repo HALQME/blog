@@ -1,0 +1,70 @@
+---
+title: "Tabs.astro"
+description: "Astro.js用タブコンポーネント"
+repository: "https://gist.github.com/HALQME/a6d4ec4c03746e861392c921f40c62b4"
+version: { value: "3.0.0", pubDate: "2025-04-10" }
+language: "Astro.js"
+---
+
+import Tabs from "@/components/ui/Tabs.astro";
+
+# Tabs.astro
+
+Astro.js + Tailwind CSS 用のタブコンポーネントです。
+このコンポーネントは、タブの切り替えを簡単に実装できるように設計されています。
+タブの内容は、`<slot>` タグを使用して動的に変更できます。
+
+## 使用例
+
+mdx ファイルで無理やり動作させているため、スタイリングが崩れていますが、実際の使用例は以下のようになります。
+
+```astro
+---
+import Tabs from "path/to/Tabs.astro";
+---
+
+<Tabs>
+    <div slot="tab-1">一つ目のタブ</div>
+    <div slot="tab-2">二つ目のタブ</div>
+    <div slot="tab-3">三つ目のタブ</div>
+
+    <div slot="panel-1" class="h-36">
+        <h1 class="mt-3">一つ目のタブの内容</h1>
+        <p>現在のタブなどの表示が崩れるのは、現在使われているのがmdxファイルだからです！</p>
+        <p>Astro.jsでは適切に動作します。</p>
+    </div>
+    <div slot="panel-2" class="h-36">
+        <h1 class="mt-3">二つ目のタブの内容</h1>
+        <p><code>slot</code> タグを使用して、動的に内容を変更できます。</p>
+    </div>
+    <div slot="panel-3" class="h-36">
+        <h1 class="mt-3">三つ目のタブの内容</h1>
+        <p>このコンポーネントは、<span class="text-violet-500">Astro.js</span> 用に設計されています。</p>
+        <p>タブの内容は、ニーズに応じてカスタマイズ可能です。</p>
+    </div>
+
+</Tabs>
+
+```
+
+<Tabs>
+    <div slot="tab-1">一つ目のタブ</div>
+    <div slot="tab-2">二つ目のタブ</div>
+    <div slot="tab-3">三つ目のタブ</div>
+
+    <div slot="panel-1" class="h-36">
+        <h1 class="mt-3">一つ目のタブの内容</h1>
+        <p>現在のタブなどの表示が崩れるのは、現在使われているのがmdxファイルだからです！</p>
+        <p>Astro.jsでは適切に動作します。</p>
+    </div>
+    <div slot="panel-2" class="h-36">
+        <h1 class="mt-3">二つ目のタブの内容</h1>
+        <p><code>slot</code> タグを使用して、動的に内容を変更できます。</p>
+    </div>
+    <div slot="panel-3" class="h-36">
+        <h1 class="mt-3">三つ目のタブの内容</h1>
+        <p>このコンポーネントは、<span class="text-violet-500">Astro.js</span> 用に設計されています。</p>
+        <p>タブの内容は、ニーズに応じてカスタマイズ可能です。</p>
+    </div>
+
+</Tabs>
