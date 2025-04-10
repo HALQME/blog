@@ -26,13 +26,13 @@ export class Random {
         return min + (r % (max + 1 - min));
     }
 
-    shuffleArray<T>(arrayInout: T[]) {
-        let array = Array(arrayInout.length);
-        for (let i = arrayInout.length - 1; i >= 0; i--) {
+    shuffleArray<T>(arrayInput: T[]) {
+        let array = Array(arrayInput.length);
+        for (let i = arrayInput.length - 1; i >= 0; i--) {
             const j = Math.floor(this.nextInt(0, i));
-            // arrayInoutからj要素を取り出して，削除する
-            array[i] = arrayInout[j];
-            arrayInout.splice(j, 1);
+            // arrayInputからj要素を取り出して，削除する
+            array[i] = arrayInput[j];
+            arrayInput.splice(j, 1);
         }
         return array;
     }

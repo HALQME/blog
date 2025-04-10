@@ -45,5 +45,5 @@ totp.generate(secret: secret) // 現在時刻に基づいたTOTPコードを返�
 // https://tools.ietf.org/html/rfc4226#page-32
 let data = Data(hex: "3132333435363738393031323334353637383930")!
 let hotp = HOTP() // デフォルトでは6桁のコードとSHA1アルゴリズムを使用
-hotp.geneerate(secret: data, counter: 0) // カウンター値0に基づいたHOTPコードを生成
+hotp.generate(secret: data, counter: 0) // カウンター値0に基づいたHOTPコードを生成
 ```
