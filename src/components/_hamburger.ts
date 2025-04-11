@@ -22,10 +22,24 @@ document.addEventListener("astro:after-swap", () => {
 function toggleMenu() {
     isOpen = !isOpen;
     button?.setAttribute("aria-expanded", String(isOpen));
-    menu?.classList.toggle("translate-x-full", !isOpen);
 
-    // inert属性の制御
     if (menu) {
+        if (isOpen) {
+            menu.style.visibility = "visible";
+            menu.classList.remove("translate-x-full");
+        } else {
+            menu.classList.add("translate-x-full");
+            // トランジション終了後にvisibilityを隠す
+            menu.addEventListener(
+                "astro:after-swap",
+                () => {
+                    if (!isOpen) menu!.style.visibility = "hidden";
+                },
+                { once: true }
+            );
+        }
+
+        // inert属性の制御
         if (isOpen) {
             menu.removeAttribute("inert");
         } else {
