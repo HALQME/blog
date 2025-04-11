@@ -4,7 +4,9 @@ import { SITE_TITLE } from "../consts";
 import Search from "./Search.astro";
 ---
 
-<header class="bg-white dark:bg-gray-900 shadow-lg fixed w-full top-0 z-50">
+<header
+    class="bg-white/30 dark:bg-gray-900/30 backdrop-blur-md shadow-lg fixed w-full top-0 z-50"
+>
     <div class="container mx-auto px-6 py-3">
         <div class="flex items-center justify-between">
             <h2 class="text-2xl font-bold">
@@ -72,10 +74,12 @@ import Search from "./Search.astro";
         {/* モバイルメニュー */}
         <div
             id="mobile-menu"
-            class="fixed inset-0 top-[60px] bg-white dark:bg-gray-900 transform transition-transform duration-300 ease-in-out translate-x-full md:hidden z-40 invisible !show:visible"
+            class="fixed inset-0 top-[60px] bg-gray-600/30 dark:bg-gray-800/30 backdrop-blur-xs transform transition-transform duration-300 ease-in-out translate-x-full md:hidden z-40 hidden"
             inert
         >
-            <div class="container mx-auto px-4 py-4 overflow-y-auto">
+            <div
+                class="container mx-auto bg-white dark:bg-gray-900 rounded-b-xl px-4 pt-4 pb-8 overflow-y-auto"
+            >
                 <nav>
                     <div class="space-y-2">
                         <HeaderLink
