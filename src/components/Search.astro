@@ -10,7 +10,7 @@ import "@/styles/pagefind.css";
     🔍 <span class="hidden sm:block ml-1">検索</span></button
 >
 
-<div id="search-modal" class="search-modal">
+<div id="search-modal" class="search-modal z-50">
     <div
         class="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-2 sm:p-4 max-w-lg mx-auto"
     >
@@ -22,4 +22,67 @@ import "@/styles/pagefind.css";
     </div>
 </div>
 
-<script src="./_search.js"></script>
+<script>
+    import { PagefindUI } from "@pagefind/default-ui";
+
+    function initializeSearch() {
+        // 要素の取得
+        const searchButton = document.getElementById("search-button");
+        const searchModal = document.getElementById("search-modal");
+
+        // すでに初期化されている場合は処理しない
+        if (searchButton?.dataset.initialized === "true") {
+            return;
+        }
+
+        // 検索UIの初期化
+        if (document.getElementById("search")) {
+            new PagefindUI({
+                element: "#search",
+                showImages: false,
+                autofocus: true,
+                pageSize: 10,
+            });
+        }
+
+        // 検索ボタンクリックイベント
+        searchButton?.addEventListener("click", () => {
+            searchModal?.classList.add("is-active");
+            document.body.classList.add("search-active"); // 追加: bodyにクラスを追加
+        });
+
+        // 初期化フラグを設定
+        if (searchButton) {
+            searchButton.dataset.initialized = "true";
+        }
+
+        // モーダルの背景部分をクリックして閉じる
+        searchModal?.addEventListener("click", (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove("is-active");
+                document.body.classList.remove("search-active"); // 追加: bodyからクラスを削除
+            }
+        });
+    }
+
+    // グローバルのキーボードイベント（一度だけ設定）
+    function setupGlobalEvents() {
+        // ESCキーを押して閉じる処理
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                const modal = document.getElementById("search-modal");
+                if (modal?.classList.contains("is-active")) {
+                    modal.classList.remove("is-active");
+                    document.body.classList.remove("search-active"); // 追加: bodyからクラスを削除
+                }
+            }
+        });
+    }
+
+    setupGlobalEvents();
+
+    // ページ遷移後の再初期化
+    document.addEventListener("astro:page-load", initializeSearch, {
+        once: false,
+    });
+</script>
