@@ -1,0 +1,87 @@
+---
+import "@/styles/pagefind.css";
+---
+
+<button
+    id="search-button"
+    aria-label="サイト内検索"
+    class="cursor-pointer flex flex-row text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-1 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+>
+    🔍 <span class="hidden sm:block ml-1">検索</span></button
+>
+
+<div id="search-modal" class="search-modal">
+    <div
+        class="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-2 sm:p-4 max-w-lg mx-auto"
+    >
+        <div
+            class="prose dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-800 dark:hover:prose-a:text-blue-300 max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-li:leading-7 prose-img:rounded-lg prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg"
+        >
+            <div id="search" class="search-content"></div>
+        </div>
+    </div>
+</div>
+
+<style is:inline></style>
+
+<script>
+    import { PagefindUI } from "@pagefind/default-ui";
+
+    function initializeSearch() {
+        // 要素の取得
+        const searchButton = document.getElementById("search-button");
+        const searchModal = document.getElementById("search-modal");
+
+        // すでに初期化されている場合は処理しない
+        if (searchButton?.dataset.initialized === "true") {
+            return;
+        }
+
+        // 検索UIの初期化
+        if (document.getElementById("search")) {
+            new PagefindUI({
+                element: "#search",
+                showImages: false,
+                autofocus: true,
+                pageSize: 10,
+            });
+        }
+
+        // 検索ボタンクリックイベント
+        searchButton?.addEventListener("click", () => {
+            searchModal?.classList.add("is-active");
+        });
+
+        // 初期化フラグを設定
+        if (searchButton) {
+            searchButton.dataset.initialized = "true";
+        }
+
+        // モーダルの背景部分をクリックして閉じる
+        searchModal?.addEventListener("click", (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove("is-active");
+            }
+        });
+    }
+
+    // グローバルのキーボードイベント（一度だけ設定）
+    function setupGlobalEvents() {
+        // ESCキーを押して閉じる処理
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                const modal = document.getElementById("search-modal");
+                if (modal?.classList.contains("is-active")) {
+                    modal.classList.remove("is-active");
+                }
+            }
+        });
+    }
+
+    setupGlobalEvents();
+
+    // ページ遷移後の再初期化
+    document.addEventListener("astro:page-load", initializeSearch, {
+        once: false,
+    });
+</script>

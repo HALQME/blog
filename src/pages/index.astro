@@ -15,6 +15,7 @@ import Layout from "@/layouts/Layout.astro";
     <section
         aria-label="Skills & Technologies"
         class="py-6 max-w-4xl mx-auto px-4"
+        data-pagefind-ignore
     >
         <h2 class="text-3xl font-bold text-gray-900 dark:text-white my-4">
             Skills & Technologies
@@ -37,7 +38,11 @@ import Layout from "@/layouts/Layout.astro";
             />
         </div>
     </section>
-    <section aria-label="Projects" class="py-6 max-w-4xl mx-auto px-4">
+    <section
+        aria-label="Projects"
+        class="py-6 max-w-4xl mx-auto px-4"
+        data-pagefind-ignore
+    >
         <h2 class="text-3xl font-bold text-gray-900 dark:text-white my-4">
             Projects
         </h2>
@@ -45,7 +50,7 @@ import Layout from "@/layouts/Layout.astro";
             <Projects limit={4} />
         </div>
     </section>
-    <section>
+    <section data-pagefind-ignore>
         <div class="px-6">
             <section aria-label="About Me" class="py-6">
                 <div class="max-w-4xl mx-auto px-4">
