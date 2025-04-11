@@ -8,6 +8,6 @@ export function GET(): Response {
             `    BASE-URL: self\n` +
             `    Referrer-Policy: strict-origin-when-cross-origin\n` +
             `    Cross-Origin-Opener-Policy: same-origin\n` +
-            `    Content-Security-Policy: default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'`
+            `    Content-Security-Policy: default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'`
     );
 }
