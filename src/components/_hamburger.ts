@@ -7,7 +7,9 @@ function setupEventListeners() {
 
     menu?.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
-            if (isOpen) toggleMenu();
+            link.addEventListener("astro:after-swap", () => {
+                if (isOpen) toggleMenu();
+            });
         });
     });
 }
@@ -21,22 +23,14 @@ document.addEventListener("astro:after-swap", () => {
 
 function toggleMenu() {
     isOpen = !isOpen;
-    button?.setAttribute("aria-expanded", String(isOpen));
 
     if (menu) {
         if (isOpen) {
-            menu.style.visibility = "visible";
+            menu.classList.remove("hidden");
             menu.classList.remove("translate-x-full");
         } else {
             menu.classList.add("translate-x-full");
-            // トランジション終了後にvisibilityを隠す
-            menu.addEventListener(
-                "astro:after-swap",
-                () => {
-                    if (!isOpen) menu!.style.visibility = "hidden";
-                },
-                { once: true }
-            );
+            menu.classList.add("hidden");
         }
 
         // inert属性の制御
@@ -48,6 +42,7 @@ function toggleMenu() {
     }
 
     if (button) {
+        button.setAttribute("aria-expanded", String(isOpen));
         const icon = button.querySelector(".mobile-menu-icon");
         if (icon) {
             if (isOpen) {
