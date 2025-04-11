@@ -1,6 +1,23 @@
-const button = document.getElementById("mobile-menu-button");
-const menu = document.getElementById("mobile-menu");
+let button = document.getElementById("mobile-menu-button");
+let menu = document.getElementById("mobile-menu");
 let isOpen = false;
+
+function setupEventListeners() {
+    button?.addEventListener("click", toggleMenu);
+
+    menu?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            if (isOpen) toggleMenu();
+        });
+    });
+}
+
+document.addEventListener("astro:after-swap", () => {
+    button = document.getElementById("mobile-menu-button");
+    menu = document.getElementById("mobile-menu");
+    isOpen = false;
+    setupEventListeners();
+});
 
 function toggleMenu() {
     isOpen = !isOpen;
@@ -30,14 +47,7 @@ function toggleMenu() {
     }
 }
 
-button?.addEventListener("click", toggleMenu);
-
-// メニュー内のリンクをクリックした時にメニューを閉じる
-menu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-        if (isOpen) toggleMenu();
-    });
-});
+setupEventListeners();
 
 // ESCキーでメニューを閉じる
 document.addEventListener("keydown", (e) => {
