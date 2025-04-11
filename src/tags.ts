@@ -36,8 +36,12 @@ export const languageTags = [
     new Tag("TypeScript", "blue"),
     new Tag("Astro.js", "purple"),
     new Tag("Tailwind CSS", "cyan"),
-    new Tag("lua", "red"),
+    new Tag("Lua", "red"),
     new Tag("Haskell", "rose"),
 ];
 
-export const topicTags = [];
+export const topicTags = [
+    new Tag("Web Development", "purple"),
+    new Tag("Mobile Development", "pink"),
+    new Tag("Virtualization", "blue"),
+];
