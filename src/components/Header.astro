@@ -4,10 +4,11 @@ import { SITE_TITLE } from "../consts";
 import Search from "./Search.astro";
 ---
 
-<header
-    class="bg-white/30 dark:bg-gray-900/30 backdrop-blur-md shadow-lg fixed w-full top-0 z-50"
->
-    <div class="container mx-auto px-6 py-3">
+<header class="bg-transparent fixed w-full top-0 z-50">
+    <div
+        id="header-container"
+        class="container mx-auto px-6 py-3 backdrop-blur-xl"
+    >
         <div class="flex items-center justify-between">
             <h2 class="text-2xl font-bold">
                 <a
@@ -70,41 +71,37 @@ import Search from "./Search.astro";
                 </div>
             </div>
         </div>
-
-        {/* モバイルメニュー */}
-        <div
-            id="mobile-menu"
-            class="fixed inset-0 top-[60px] bg-gray-600/30 dark:bg-gray-800/30 backdrop-blur-xs transform transition-transform duration-300 ease-in-out translate-x-full md:hidden z-40 hidden"
-            inert
-        >
-            <div
-                class="container mx-auto bg-white dark:bg-gray-900 rounded-b-xl px-4 pt-4 pb-8 overflow-y-auto"
-            >
-                <nav>
-                    <div class="space-y-2">
-                        <HeaderLink
-                            href="/"
-                            class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                            Home
-                        </HeaderLink>
-                        <HeaderLink
-                            href="/projects"
-                            class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                            Projects
-                        </HeaderLink>
-                        <HeaderLink
-                            href="/blog"
-                            class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                            Blog
-                        </HeaderLink>
-                    </div>
-                </nav>
-            </div>
-        </div>
     </div>
 </header>
+<div
+    id="mobile-menu"
+    class="fixed inset-0 top-0 pt-16 md:hidden z-30 hidden bg-white/60 dark:bg-gray-900/60 backdrop-blur-md"
+    inert
+>
+    <div class="container mx-auto rounded-b-xl px-4 pt-4 pb-8 overflow-y-auto">
+        <nav>
+            <div class="space-y-2">
+                <HeaderLink
+                    href="/"
+                    class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                    Home
+                </HeaderLink>
+                <HeaderLink
+                    href="/projects"
+                    class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                    Projects
+                </HeaderLink>
+                <HeaderLink
+                    href="/blog"
+                    class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                    Blog
+                </HeaderLink>
+            </div>
+        </nav>
+    </div>
+</div>
 
 <script src="./_hamburger.ts"></script>

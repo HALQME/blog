@@ -1,5 +1,6 @@
 let button = document.getElementById("mobile-menu-button");
 let menu = document.getElementById("mobile-menu");
+let header = document.getElementById("header-container");
 let isOpen = false;
 
 function setupEventListeners() {
@@ -17,6 +18,7 @@ function setupEventListeners() {
 document.addEventListener("astro:after-swap", () => {
     button = document.getElementById("mobile-menu-button");
     menu = document.getElementById("mobile-menu");
+    header = document.getElementById("header-container");
     isOpen = false;
     setupEventListeners();
 });
@@ -28,9 +30,11 @@ function toggleMenu() {
         if (isOpen) {
             menu.classList.remove("hidden");
             menu.classList.remove("translate-x-full");
+            header?.classList.remove("backdrop-blur-xl");
         } else {
             menu.classList.add("translate-x-full");
             menu.classList.add("hidden");
+            header?.classList.add("backdrop-blur-xl");
         }
 
         // inert属性の制御
