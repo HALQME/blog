@@ -1,5 +1,5 @@
 ---
-import "@pagefind/default-ui/css/ui.css";
+import "@/styles/pagefind.css";
 ---
 
 <button
@@ -11,39 +11,18 @@ import "@pagefind/default-ui/css/ui.css";
 >
 
 <div id="search-modal" class="search-modal">
-    <div id="search" class="search-content">
-        <h1 class="text-xl font-bold mb-4">ページ内検索</h1>
+    <div
+        class="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-2 sm:p-4 max-w-lg mx-auto"
+    >
+        <div
+            class="prose dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-800 dark:hover:prose-a:text-blue-300 max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-li:leading-7 prose-img:rounded-lg prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg"
+        >
+            <div id="search" class="search-content"></div>
+        </div>
     </div>
 </div>
 
-<style>
-    .search-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 999;
-        background-color: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(5px);
-        padding: 2rem;
-    }
-
-    .search-modal.is-active {
-        display: block;
-    }
-
-    .search-content {
-        background: white;
-        border-radius: 8px;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 1rem;
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-</style>
+<style is:inline></style>
 
 <script>
     import { PagefindUI } from "@pagefind/default-ui";
@@ -60,11 +39,11 @@ import "@pagefind/default-ui/css/ui.css";
 
         // 検索UIの初期化
         if (document.getElementById("search")) {
-            const pageFind = new PagefindUI({
+            new PagefindUI({
                 element: "#search",
                 showImages: false,
                 autofocus: true,
-                resetStyles: true,
+                pageSize: 10,
             });
         }
 
