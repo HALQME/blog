@@ -1,11 +1,15 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
-import Search from "./Search.astro";
+import SearchButton from "./SearchButton.astro";
+import SearchModal from "./SearchModal.astro";
 ---
 
-<header class="bg-white dark:bg-gray-900 shadow-lg fixed w-full top-0 z-50">
-    <div class="container mx-auto px-6 py-3">
+<header class="bg-transparent fixed w-full top-0 z-50 left-0 right-0">
+    <div
+        id="header-container"
+        class="w-full mx-auto px-6 py-3 backdrop-blur-xl"
+    >
         <div class="flex items-center justify-between">
             <h2 class="text-2xl font-bold">
                 <a
@@ -64,43 +68,115 @@ import Search from "./Search.astro";
                 </button>
 
                 <div class="ml-4">
-                    <Search />
+                    <SearchButton />
                 </div>
-            </div>
-        </div>
-
-        {/* モバイルメニュー */}
-        <div
-            id="mobile-menu"
-            class="fixed inset-0 top-[60px] bg-white dark:bg-gray-900 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden z-40"
-            inert
-        >
-            <div class="container mx-auto px-4 py-4 overflow-y-auto">
-                <nav>
-                    <div class="space-y-2">
-                        <HeaderLink
-                            href="/"
-                            class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                            Home
-                        </HeaderLink>
-                        <HeaderLink
-                            href="/projects"
-                            class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                            Projects
-                        </HeaderLink>
-                        <HeaderLink
-                            href="/blog"
-                            class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                            Blog
-                        </HeaderLink>
-                    </div>
-                </nav>
             </div>
         </div>
     </div>
 </header>
 
-<script src="./_hamburger.ts"></script>
+<!-- モバイルメニュー -->
+<div
+    id="mobile-menu"
+    class="fixed inset-0 top-0 pt-16 md:hidden z-30 hidden bg-white/60 dark:bg-gray-900/60 backdrop-blur-md"
+    inert
+>
+    <div class="container mx-auto rounded-b-xl px-4 pt-4 pb-8 overflow-y-auto">
+        <nav>
+            <div class="space-y-2">
+                <HeaderLink
+                    href="/"
+                    class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                    Home
+                </HeaderLink>
+                <HeaderLink
+                    href="/projects"
+                    class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                    Projects
+                </HeaderLink>
+                <HeaderLink
+                    href="/blog"
+                    class="block text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                    Blog
+                </HeaderLink>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<!-- 検索モーダル -->
+<SearchModal />
+
+<script>
+    let button = document.getElementById("mobile-menu-button");
+    let menu = document.getElementById("mobile-menu");
+    let header = document.getElementById("header-container");
+    let isOpen = false;
+
+    function setupEventListeners() {
+        button?.addEventListener("click", toggleMenu);
+
+        menu?.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                link.addEventListener("astro:after-swap", () => {
+                    if (isOpen) toggleMenu();
+                });
+            });
+        });
+    }
+
+    document.addEventListener("astro:after-swap", () => {
+        button = document.getElementById("mobile-menu-button");
+        menu = document.getElementById("mobile-menu");
+        header = document.getElementById("header-container");
+        isOpen = false;
+        setupEventListeners();
+    });
+
+    function toggleMenu() {
+        isOpen = !isOpen;
+
+        if (menu) {
+            if (isOpen) {
+                menu.classList.remove("hidden");
+                menu.classList.remove("translate-x-full");
+                header?.classList.remove("backdrop-blur-xl");
+            } else {
+                menu.classList.add("translate-x-full");
+                menu.classList.add("hidden");
+                header?.classList.add("backdrop-blur-xl");
+            }
+
+            // inert属性の制御
+            if (isOpen) {
+                menu.removeAttribute("inert");
+            } else {
+                menu.setAttribute("inert", "");
+            }
+        }
+
+        if (button) {
+            button.setAttribute("aria-expanded", String(isOpen));
+            const icon = button.querySelector(".mobile-menu-icon");
+            if (icon) {
+                if (isOpen) {
+                    button.setAttribute("aria-label", "メニューを閉じる");
+                    icon.setAttribute("d", "M6 18L18 6M6 6l12 12");
+                } else {
+                    button.setAttribute("aria-label", "メニューを開く");
+                    icon.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+                }
+            }
+        }
+    }
+
+    setupEventListeners();
+
+    // ESCキーでメニューを閉じる
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isOpen) toggleMenu();
+    });
+</script>

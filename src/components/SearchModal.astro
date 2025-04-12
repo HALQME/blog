@@ -2,27 +2,22 @@
 import "@/styles/pagefind.css";
 ---
 
-<button
-    id="search-button"
-    aria-label="サイト内検索"
-    class="cursor-pointer flex flex-row text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-1 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+<div
+    id="search-modal"
+    class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-md pt-[10vh] px-4 sm:px-6 overflow-y-auto"
 >
-    🔍 <span class="hidden sm:block ml-1">検索</span></button
->
-
-<div id="search-modal" class="search-modal">
     <div
-        class="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-2 sm:p-4 max-w-lg mx-auto"
+        class="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg mx-auto w-full max-w-xl max-h-fit overflow-y-auto"
     >
-        <div
-            class="prose dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-800 dark:hover:prose-a:text-blue-300 max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-li:leading-7 prose-img:rounded-lg prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg"
-        >
-            <div id="search" class="search-content"></div>
+        <div class="p-2 sm:p-4">
+            <div
+                class="prose dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-800 dark:hover:prose-a:text-blue-300 max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-li:leading-7 prose-img:rounded-lg prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg"
+            >
+                <div id="search" class="search-content"></div>
+            </div>
         </div>
     </div>
 </div>
-
-<style is:inline></style>
 
 <script>
     import { PagefindUI } from "@pagefind/default-ui";
@@ -49,7 +44,9 @@ import "@/styles/pagefind.css";
 
         // 検索ボタンクリックイベント
         searchButton?.addEventListener("click", () => {
-            searchModal?.classList.add("is-active");
+            searchModal?.classList.remove("hidden");
+            searchModal?.classList.add("flex");
+            document.body.classList.add("overflow-hidden");
         });
 
         // 初期化フラグを設定
@@ -60,9 +57,16 @@ import "@/styles/pagefind.css";
         // モーダルの背景部分をクリックして閉じる
         searchModal?.addEventListener("click", (e) => {
             if (e.target === searchModal) {
-                searchModal.classList.remove("is-active");
+                closeSearchModal();
             }
         });
+    }
+
+    function closeSearchModal() {
+        const searchModal = document.getElementById("search-modal");
+        searchModal?.classList.add("hidden");
+        searchModal?.classList.remove("flex");
+        document.body.classList.remove("overflow-hidden");
     }
 
     // グローバルのキーボードイベント（一度だけ設定）
@@ -70,10 +74,7 @@ import "@/styles/pagefind.css";
         // ESCキーを押して閉じる処理
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
-                const modal = document.getElementById("search-modal");
-                if (modal?.classList.contains("is-active")) {
-                    modal.classList.remove("is-active");
-                }
+                closeSearchModal();
             }
         });
     }

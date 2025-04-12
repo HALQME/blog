@@ -5,11 +5,13 @@ import sitemap from "@astrojs/sitemap";
 
 import tailwindcss from "@tailwindcss/vite";
 
+import RenameHeaders from "./src/integrations/rename_headers";
+
 // https://astro.build/config
 export default defineConfig({
     output: "static",
     site: "https://halqme.pages.dev",
-    integrations: [mdx(), sitemap()],
+    integrations: [mdx(), sitemap(), RenameHeaders()],
 
     vite: {
         plugins: [tailwindcss()],
