@@ -29,3 +29,16 @@ const projects = collections
         </div>
     )
 }
+
+{
+    limit && length > limit && (
+        <div class="text-center mt-8">
+            <a
+                href="/projects/"
+                class="text-blue-600 dark:text-blue-400 hover:underline"
+            >
+                View all projects
+            </a>
+        </div>
+    )
+}
