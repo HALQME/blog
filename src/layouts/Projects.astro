@@ -3,10 +3,15 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "./Layout.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
 import Content from "./Content.astro";
+import { languageTags } from "@/tags";
 
 type Props = CollectionEntry<"projects">["data"];
 
 const { title, description, version: ver, repository, language } = Astro.props;
+
+const lang = language
+    ? languageTags.filter((tag) => language!.includes(tag.name))[0]
+    : null;
 ---
 
 <Layout title={title} description={description}>
@@ -46,11 +51,13 @@ const { title, description, version: ver, repository, language } = Astro.props;
                     </span>
                 </div>
                 {
-                    language ? (
-                        <span class="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-gray-800 dark:text-gray-200">
-                            {language}
+                    lang && (
+                        <span
+                            class={`inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium ${lang.colorValue()} bg-opacity-15 dark:bg-opacity-25`}
+                        >
+                            {lang.name}
                         </span>
-                    ) : null
+                    )
                 }
             </div>
             <div class="flex flex-col gap-6">
