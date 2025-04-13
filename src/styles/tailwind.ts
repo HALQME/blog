@@ -73,7 +73,7 @@ export const styles = {
 
     // ヘッダーとフッター
     header: {
-        nav: "bg-transparent fixed w-full top-0 z-50 left-0 right-0",
+        nav: "bg-transparent fixed w-full h-[3vh] top-0 z-50 left-0 right-0",
         container:
             "w-full mx-auto px-6 py-3 backdrop-blur-lg bg-white/60 dark:bg-gray-900/60",
     },
