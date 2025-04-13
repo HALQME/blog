@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from "../consts";
 import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
 
 interface Props {
     title: string;
@@ -15,7 +16,35 @@ const {
     description,
     image = "/placeholder/blog-placeholder-1.jpg",
 } = Astro.props;
+
+const schema: string = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: title,
+    description: description,
+    url: Astro.url.toString(),
+    image: new URL(image, Astro.url).toString(),
+    publisher: {
+        "@type": "Organization",
+        name: SITE_TITLE,
+        logo: {
+            "@type": "ImageObject",
+            url: new URL("/favicon.svg", Astro.url).toString(),
+        },
+    },
+});
 ---
+
+{/* DNS Prefetch and Preconnect */}
+<link rel="dns-prefetch" href={Astro.site} />
+<link rel="preconnect" href={Astro.site} crossorigin />
+
+{/* Security Headers */}
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+
+{/* Performance Optimization */}
+<meta http-equiv="Cache-Control" content="max-age=31536000" />
 
 {/* Global Metadata */}
 <meta charset="utf-8" />
@@ -29,7 +58,18 @@ const {
     href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
-<meta name="google-site-verification" content="APHeZ1ksNkZnMeORt0radz6adivtV-MSYw5HuWf1tWs" />
+<meta
+    name="google-site-verification"
+    content="APHeZ1ksNkZnMeORt0radz6adivtV-MSYw5HuWf1tWs"
+/>
+
+{/* PWA Support */}
+<meta name="theme-color" content="#ffffff" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="application-name" content={SITE_TITLE} />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
 
 {/* Canonical URL */}
 <link rel="canonical" href={canonicalURL} />
@@ -52,6 +92,9 @@ const {
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+{/* 構造化データ (JSON-LD) */}
+<script is:inline type="application/ld+json" set:html={schema} />
 
 {/* Client Router */}
 <ClientRouter fallback="animate" />
