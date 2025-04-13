@@ -8,6 +8,7 @@ const posts = (await getCollection("blog")).sort(
 );
 
 import { randInt } from "./_random";
+import { styles } from "@/styles/tailwind";
 function imageGenerate(src: string | undefined, id: string) {
     const slug = randInt(0, 3, id);
     const image = `/placeholder/blog-placeholder-${slug}.jpg`;
@@ -21,23 +22,24 @@ const hasNextPage = posts.length > 10;
 ---
 
 <Layout title="Blog - Top | HALQME">
-    <section class="max-w-6xl mx-auto px-4" data-pagefind-ignore>
-        <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">
-            Blog
-        </h1>
+    <section class={styles.layout.container} data-pagefind-ignore>
+        <h1 class={styles.text.heading.h1}>Blog</h1>
         {
             posts.length === 0 ? (
                 <div class="text-center py-12">
-                    <p class="text-gray-600 dark:text-gray-400">
-                        No posts found.
-                    </p>
+                    <p class={styles.text.body.muted}>No posts found.</p>
                 </div>
             ) : (
                 <>
-                    <article class="group mb-12 px-2 sm:px-16 md:px-20 lg:px-24">
+                    <article
+                        class={
+                            styles.components.card.wrapper +
+                            " px-2 sm:px-16 md:px-20 lg:px-24"
+                        }
+                    >
                         <a href={`/blog/${latestPost.id}/`} class="block">
-                            <div class="relative overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-[1.02]">
-                                <div class="aspect-w-21 aspect-h-9">
+                            <div class={styles.components.card.container}>
+                                <div class={styles.utils.aspectRatio.wide}>
                                     <img
                                         width={1080}
                                         height={540}
@@ -51,8 +53,10 @@ const hasNextPage = posts.length > 10;
                                 </div>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </div>
-                            <div class="mt-4">
-                                <h2 class="text-2xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                            <div class={styles.components.card.content}>
+                                <h2
+                                    class={`${styles.text.heading.h2} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2`}
+                                >
                                     {latestPost.data.title}
                                 </h2>
                                 <div class="flex items-center mt-2 text-sm text-gray-600 dark:text-gray-400">
@@ -74,12 +78,19 @@ const hasNextPage = posts.length > 10;
                             </div>
                         </a>
                     </article>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <hr class="border-gray-200 dark:border-gray-700 my-6" />
+                    <div class={styles.grid.blog}>
                         {remainingPosts.map((post) => (
-                            <article class="group">
+                            <article class={styles.components.card.wrapper}>
                                 <a href={`/blog/${post.id}/`} class="block">
-                                    <div class="relative overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-[1.02]">
-                                        <div class="aspect-w-16 aspect-h-9">
+                                    <div
+                                        class={styles.components.card.container}
+                                    >
+                                        <div
+                                            class={
+                                                styles.utils.aspectRatio.video
+                                            }
+                                        >
                                             <img
                                                 width={720}
                                                 height={360}
@@ -93,7 +104,7 @@ const hasNextPage = posts.length > 10;
                                         </div>
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                     </div>
-                                    <div class="mt-4">
+                                    <div class={styles.components.card.content}>
                                         <h2 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                                             {post.data.title}
                                         </h2>
@@ -122,7 +133,7 @@ const hasNextPage = posts.length > 10;
                         <div class="mt-8 text-center">
                             <a
                                 href={`/blog/1/`}
-                                class="text-blue-600 hover:underline"
+                                class={styles.text.link.default}
                             >
                                 Load more posts
                             </a>

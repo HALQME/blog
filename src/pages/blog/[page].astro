@@ -3,15 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import { randInt } from "./_random";
-
-interface Paginate {
-    paginate: (
-        items: any[],
-        options: {
-            pageSize: number;
-        }
-    ) => any;
-}
+import { styles } from "@/styles/tailwind";
 
 export async function getStaticPaths({ paginate }: Paginate) {
     const posts = (await getCollection("blog")).sort(
@@ -20,21 +12,10 @@ export async function getStaticPaths({ paginate }: Paginate) {
     return paginate(posts, { pageSize: 10 });
 }
 
-interface Props {
-    page: {
-        data: any[];
-        url: {
-            prev: string | undefined;
-            next: string | undefined;
-        };
-        currentPage: number;
-    };
-}
-
 const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-const { page } = Astro.props as Props;
+const { page } = Astro.props as PageProps;
 
 function imageGenerate(src: string | undefined, id: string) {
     const slug = randInt(0, 3, id);
@@ -45,15 +26,15 @@ const lastPage = Math.ceil(posts.length / 10);
 ---
 
 <Layout title={`Blog - Page ${page.currentPage} | HALQME`}>
-    <section class="max-w-6xl mx-auto px-4" data-pagefind-ignore>
-        <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">
+    <section class={styles.layout.container} data-pagefind-ignore>
+        <h1 class={styles.text.heading.h1}>
             Blog
             <small>
                 - Page {page.currentPage}
             </small>
         </h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class={styles.grid.blog}>
             {
                 page.data.map((post) => (
                     <article class="group">
@@ -98,7 +79,7 @@ const lastPage = Math.ceil(posts.length / 10);
             }
         </div>
 
-        <div class="flex justify-center items-center gap-2 mt-8">
+        <div class={styles.pagination.container}>
             {
                 page.url.prev && page.currentPage > 2 && (
                     <a

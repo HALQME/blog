@@ -2,6 +2,7 @@
 import Tag from "@/components/ui/Tag.astro";
 import WaterFall from "@/components/ui/WaterFall.astro";
 import { Tag as TagClass } from "@/tags";
+import { styles } from "@/styles/tailwind";
 
 import { languageTags } from "@/tags";
 
@@ -16,15 +17,15 @@ const heroTags = [
 ];
 ---
 
-<section class="relative py-20 overflow-hidden" data-pagefind-ignore>
+<section class="relative py-16 overflow-hidden" data-pagefind-ignore>
     <div class="absolute inset-0 z-0">
         <div
             class="m-5 rounded-3xl absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-violet-500/20 dark:from-cyan-900/30 dark:to-violet-900/30"
         >
         </div>
     </div>
-    <div class="relative z-10 max-w-4xl mx-auto px-4">
-        <div class="flex flex-col text-center items-center">
+    <div class={`relative z-10 ${styles.layout.sectionIndex}`}>
+        <div class={`${styles.flex.column} text-center items-center`}>
             <h1 class="text-5xl font-bold text-gray-900 dark:text-white mb-6">
                 I'm, HALQME
             </h1>
@@ -36,10 +37,7 @@ const heroTags = [
                 </WaterFall>
             </div>
             <div class="flex justify-center gap-4">
-                <a
-                    href="/blog"
-                    class="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-                >
+                <a href="/blog" class={styles.components.button.primary}>
                     <svg
                         class="w-5 h-5 mr-2"
                         fill="currentColor"
@@ -51,10 +49,7 @@ const heroTags = [
                     </svg>
                     Blog
                 </a>
-                <a
-                    href="/projects"
-                    class="inline-flex items-center px-6 py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
-                >
+                <a href="/projects" class={styles.components.button.secondary}>
                     <svg
                         class="w-5 h-5 mr-2"
                         fill="currentColor"
