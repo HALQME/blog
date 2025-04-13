@@ -3,14 +3,12 @@ import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import SearchButton from "./SearchButton.astro";
 import SearchModal from "./SearchModal.astro";
+import { styles } from "../styles/tailwind";
 ---
 
-<header class="bg-transparent fixed w-full top-0 z-50 left-0 right-0">
-    <div
-        id="header-container"
-        class="w-full mx-auto px-6 py-3 backdrop-blur-lg bg-white/60 dark:bg-gray-900/60"
-    >
-        <div class="flex items-center justify-between">
+<header class={styles.header.nav}>
+    <div id="header-container" class={styles.header.container}>
+        <div class={styles.flex.between}>
             <h2 class="text-2xl font-bold">
                 <a
                     href="/"
@@ -23,27 +21,18 @@ import SearchModal from "./SearchModal.astro";
             {/* デスクトップメニュー */}
             <div class="hidden md:flex items-center" aria-hidden="false">
                 <nav class="internal-links flex items-center space-x-4">
-                    <HeaderLink
-                        href="/"
-                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-1 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                    >
+                    <HeaderLink href="/" class={styles.text.link.nav}>
                         Home
                     </HeaderLink>
-                    <HeaderLink
-                        href="/projects"
-                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-1 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                    >
+                    <HeaderLink href="/projects" class={styles.text.link.nav}>
                         Projects
                     </HeaderLink>
-                    <HeaderLink
-                        href="/blog"
-                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-1 px-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                    >
+                    <HeaderLink href="/blog" class={styles.text.link.nav}>
                         Blog
                     </HeaderLink>
                 </nav>
             </div>
-            <div class="flex flex-row items-center justify-center">
+            <div class={styles.flex.center}>
                 <button
                     type="button"
                     id="mobile-menu-button"
@@ -81,7 +70,9 @@ import SearchModal from "./SearchModal.astro";
     class="fixed inset-0 top-0 pt-16 md:hidden z-30 hidden bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg"
     inert
 >
-    <div class="container mx-auto rounded-b-xl px-4 pt-4 pb-8 overflow-y-auto">
+    <div
+        class={`${styles.layout.container} rounded-b-xl pt-4 pb-8 overflow-y-auto`}
+    >
         <nav>
             <div class="space-y-2">
                 <HeaderLink

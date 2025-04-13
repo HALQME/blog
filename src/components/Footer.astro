@@ -1,11 +1,10 @@
 ---
+import { styles } from "../styles/tailwind";
 const today = new Date();
 ---
 
-<footer
-    class="bg-gray-200 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-800 mt-auto"
->
-    <div class="container mx-auto px-4 py-8">
+<footer class={styles.footer.container}>
+    <div class={styles.footer.content}>
         <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="mb-4 md:mb-0 text-gray-600 dark:text-gray-400 text-sm">
                 &copy; {today.getFullYear()} HALQME. All rights reserved.
@@ -14,7 +13,7 @@ const today = new Date();
                 <a
                     href="https://twitter.com/halqme_dev"
                     target="_blank"
-                    class="text-gray-600 dark:text-gray-400 hover:text-blue-400 transition-colors"
+                    class={styles.text.link.default}
                     aria-label="Twitter"
                 >
                     <span class="sr-only">Follow Me on Twitter</span>
