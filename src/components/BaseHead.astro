@@ -79,6 +79,18 @@ const schema: string = JSON.stringify({
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 
+{/* Colors */}
+<meta
+    name="theme-color"
+    content="#e5e7eb"
+    media="(prefers-color-scheme: light)"
+/>
+<meta
+    name="theme-color"
+    content="#1f2937"
+    media="(prefers-color-scheme: dark)"
+/>
+
 {/* Open Graph / Facebook */}
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
