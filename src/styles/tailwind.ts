@@ -31,7 +31,7 @@ export const styles = {
         card: {
             container:
                 "relative overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-[1.02]",
-            wrapper: "group mb-12",
+            wrapper: "group select-none",
             content: "mt-4",
         },
         button: {
