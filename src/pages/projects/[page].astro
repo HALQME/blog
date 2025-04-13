@@ -3,15 +3,6 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import ProjectCard from "@/components/ui/ProjectCard.astro";
 
-interface Paginate {
-    paginate: (
-        items: any[],
-        options: {
-            pageSize: number;
-        }
-    ) => any;
-}
-
 export async function getStaticPaths({ paginate }: Paginate) {
     const posts = (await getCollection("projects")).sort(
         (a, b) =>
@@ -20,22 +11,11 @@ export async function getStaticPaths({ paginate }: Paginate) {
     return paginate(posts, { pageSize: 10 });
 }
 
-interface Props {
-    page: {
-        data: any[];
-        url: {
-            prev: string | undefined;
-            next: string | undefined;
-        };
-        currentPage: number;
-    };
-}
-
 const posts = (await getCollection("projects")).sort(
     (a, b) =>
         b.data.version.pubDate.valueOf() - a.data.version.pubDate.valueOf()
 );
-const { page } = Astro.props as Props;
+const { page } = Astro.props as PageProps;
 
 const lastPage = Math.ceil(posts.length / 10);
 ---

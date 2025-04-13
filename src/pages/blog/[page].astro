@@ -4,15 +4,6 @@ import { getCollection } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import { randInt } from "./_random";
 
-interface Paginate {
-    paginate: (
-        items: any[],
-        options: {
-            pageSize: number;
-        }
-    ) => any;
-}
-
 export async function getStaticPaths({ paginate }: Paginate) {
     const posts = (await getCollection("blog")).sort(
         (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -20,21 +11,10 @@ export async function getStaticPaths({ paginate }: Paginate) {
     return paginate(posts, { pageSize: 10 });
 }
 
-interface Props {
-    page: {
-        data: any[];
-        url: {
-            prev: string | undefined;
-            next: string | undefined;
-        };
-        currentPage: number;
-    };
-}
-
 const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-const { page } = Astro.props as Props;
+const { page } = Astro.props as PageProps;
 
 function imageGenerate(src: string | undefined, id: string) {
     const slug = randInt(0, 3, id);
