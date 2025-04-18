@@ -20,7 +20,7 @@ import { styles } from "@/styles/tailwind";
         data-pagefind-ignore
     >
         <h2 class={styles.text.heading.h2}>Skills & Technologies</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2">
+        <div class={styles.grid.twoColumn}>
             <SkillCard title="Languages" items={["Swift", "TypeScript"]} />
 
             <SkillCard
@@ -55,7 +55,7 @@ import { styles } from "@/styles/tailwind";
         data-pagefind-ignore
     >
         <h2 class={styles.text.heading.h2}>About Me</h2>
-        <div class="prose prose-lg dark:prose-invert mx-3">
+        <div class={`${styles.utils.proseLg} mx-3`}>
             <p class="text-gray-800 dark:text-gray-200 leading-relaxed">
                 大学生です（2023〜）。心理学専攻の文系ですが、部活のWebサイトを作ったり、活動記録用のWebアプリを作ったり、大学生活を助けるサービスを企画したりしています。
             </p>
@@ -64,7 +64,7 @@ import { styles } from "@/styles/tailwind";
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 my-6 gap-4">
+        <div class={styles.grid.social}>
             <SocialLink
                 href="https://twitter.com/halqme_dev"
                 icon="twitter-logo"

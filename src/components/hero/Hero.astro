@@ -29,9 +29,7 @@ const heroTags = [
             <h1 class="text-5xl font-bold text-gray-900 dark:text-white mb-6">
                 I'm, HALQME
             </h1>
-            <div
-                class="flex justify-center gap-2 max-w-sm mx-4 mb-7 p-4 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg"
-            >
+            <div class={styles.components.heroBanner}>
                 <WaterFall>
                     {heroTags.map((tag) => <Tag tag={tag} />)}
                 </WaterFall>

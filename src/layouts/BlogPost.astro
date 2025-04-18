@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "./Layout.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
 import Content from "./Content.astro";
+import { styles } from "@/styles/tailwind";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -11,7 +12,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
 ---
 
 <Layout title={title} description={description} heroImage={heroImage}>
-    <div class="max-w-4xl mx-auto px-4">
+    <div class={styles.layout.containerLarge}>
         {
             heroImage && (
                 <div class="hero-image mb-8 rounded-lg overflow-hidden shadow-lg">
