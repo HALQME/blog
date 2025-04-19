@@ -32,93 +32,95 @@ const schema = {
 };
 ---
 
-{/* DNS Prefetch and Preconnect */}
-<link rel="dns-prefetch" href={Astro.site} />
-<link rel="preconnect" href={Astro.site} crossorigin />
+<head>
+    {/* DNS Prefetch and Preconnect */}
+    <link rel="dns-prefetch" href={Astro.site} />
+    <link rel="preconnect" href={Astro.site} crossorigin />
 
-{/* Security Headers */}
-<meta http-equiv="X-Content-Type-Options" content="nosniff" />
-<meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    {/* Security Headers */}
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
 
-{/* Performance Optimization */}
-<meta http-equiv="Cache-Control" content="max-age=31536000" />
+    {/* Performance Optimization */}
+    <meta http-equiv="Cache-Control" content="max-age=31536000" />
 
-{/* Route Information */}
-<meta name="route-pattern" content={Astro.url.pathname} />
+    {/* Route Information */}
+    <meta name="route-pattern" content={Astro.url.pathname} />
 
-{/* Global Metadata */}
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<link
-    rel="alternate"
-    type="application/rss+xml"
-    title={SITE_TITLE}
-    href={new URL("rss.xml", Astro.site)}
-/>
-<meta name="generator" content={Astro.generator} />
-<meta
-    name="google-site-verification"
-    content="APHeZ1ksNkZnMeORt0radz6adivtV-MSYw5HuWf1tWs"
-/>
+    {/* Global Metadata */}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+        rel="alternate"
+        type="application/rss+xml"
+        title={SITE_TITLE}
+        href={new URL("rss.xml", Astro.site)}
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+        name="google-site-verification"
+        content="APHeZ1ksNkZnMeORt0radz6adivtV-MSYw5HuWf1tWs"
+    />
 
-{/* PWA Support */}
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="application-name" content={SITE_TITLE} />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
+    {/* PWA Support */}
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content={SITE_TITLE} />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
 
-{/* Canonical URL */}
-<link rel="canonical" href={canonicalURL} />
+    {/* Canonical URL */}
+    <link rel="canonical" href={canonicalURL} />
 
-{/* Primary Meta Tags */}
-<title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
-<meta name="author" content={SITE_TITLE} />
+    {/* Primary Meta Tags */}
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE_TITLE} />
 
-{/* Colors */}
-<meta
-    name="theme-color"
-    content="#f3f4f6"
-    media="(prefers-color-scheme: light)"
-/>
-<meta
-    name="theme-color"
-    content="#1e2939"
-    media="(prefers-color-scheme: dark)"
-/>
+    {/* Colors */}
+    <meta
+        name="theme-color"
+        content="#f3f4f6"
+        media="(prefers-color-scheme: light)"
+    />
+    <meta
+        name="theme-color"
+        content="#1e2939"
+        media="(prefers-color-scheme: dark)"
+    />
 
-{/* Alternative Icons */}
-<link rel="alternate icon" type="image/png" href="/favicon.png" />
-<link rel="mask-icon" href="/favicon.svg" color="#000000" />
+    {/* Alternative Icons */}
+    <link rel="alternate icon" type="image/png" href="/favicon.png" />
+    <link rel="mask-icon" href="/favicon.svg" color="#000000" />
 
-{/* Open Graph / Facebook */}
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
-<meta property="og:site_name" content={SITE_TITLE} />
-<meta property="og:locale" content="ja_JP" />
+    {/* Open Graph / Facebook */}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:locale" content="ja_JP" />
 
-{/* Twitter */}
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
-<meta property="twitter:site" content="@halqme_dev" />
-<meta property="twitter:creator" content="@halqme_dev" />
+    {/* Twitter */}
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    <meta property="twitter:site" content="@halqme_dev" />
+    <meta property="twitter:creator" content="@halqme_dev" />
 
-{/* 構造化データ (JSON-LD) */}
-<script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify(schema)}
-/>
+    {/* 構造化データ (JSON-LD) */}
+    <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(schema)}
+    />
 
-{/* Client Router */}
-<ClientRouter fallback="animate" />
+    {/* Client Router */}
+    <ClientRouter fallback="animate" />
+</head>
