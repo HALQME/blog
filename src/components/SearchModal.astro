@@ -1,18 +1,12 @@
 ---
 import "@/styles/pagefind.css";
+import { styles } from "@/styles/tailwind";
 ---
 
-<div
-    id="search-modal"
-    class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-md pt-[10vh] px-4 sm:px-6 overflow-y-auto"
->
-    <div
-        class="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg mx-auto w-full max-w-xl max-h-fit overflow-y-auto"
-    >
-        <div class="p-2 sm:p-4">
-            <div
-                class="prose dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-800 dark:hover:prose-a:text-blue-300 max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-li:leading-7 prose-img:rounded-lg prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg"
-            >
+<div id="search-modal" class={styles.components.searchOverlay}>
+    <div class={styles.components.modalContainer}>
+        <div class={styles.spacing.modalPadding}>
+            <div class={styles.utils.prose}>
                 <div id="search" class="search-content"></div>
             </div>
         </div>

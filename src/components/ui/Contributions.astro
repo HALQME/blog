@@ -1,0 +1,28 @@
+---
+import Repo from "./Repo.astro";
+
+const contributions = [
+    {
+        name: "Moodle Plus",
+        description:
+            "Moodleを使いやすくするブラウザ拡張機能です。ほんのちょっとだけ貢献しました。",
+        url: "https://github.com/tomo0611/moodle-plus",
+    },
+];
+---
+
+{
+    contributions.length === 0 ? (
+        <div class="text-center py-12">
+            <p class="text-gray-600 dark:text-gray-400">
+                No contributions found.
+            </p>
+        </div>
+    ) : (
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+            {contributions.map((repo) => (
+                <Repo repo={repo} />
+            ))}
+        </div>
+    )
+}

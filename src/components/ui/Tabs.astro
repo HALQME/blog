@@ -73,14 +73,6 @@ panels.sort((a, b) => extractIndex(a) - extractIndex(b));
                                 "transition-colors",
                                 "duration-300",
                                 "border-b-2",
-                                "text-gray-500",
-                                "hover:text-gray-600",
-                                "border-transparent",
-                                "hover:border-gray-300",
-                                "dark:text-gray-400",
-                                "dark:hover:text-gray-300",
-                                "dark:border-transparent",
-                                "dark:hover:border-gray-700",
                             ]}
                             role="tab"
                             aria-selected="false"
@@ -125,21 +117,21 @@ panels.sort((a, b) => extractIndex(a) - extractIndex(b));
         private panels: HTMLElement[];
         private tabGroupId: string;
         private defaultTabClasses = [
-            "text-gray-300",
+            "text-gray-400",
             "hover:text-gray-500",
             "border-transparent",
             "hover:border-gray-200",
-            "dark:text-gray-600",
-            "dark:hover:text-gray-500",
+            "dark:text-gray-500",
+            "dark:hover:text-gray-400",
             "dark:border-transparent",
-            "dark:hover:border-gray-700",
+            "dark:hover:border-gray-500",
         ];
         private activeTabClasses = [
             "text-gray-700",
-            "hover:text-gray-800",
+            "hover:border-blue-400",
             "border-blue-300",
             "dark:text-gray-200",
-            "dark:hover:text-gray-100",
+            "dark:hover:border-blue-600",
             "dark:border-blue-600",
         ];
 

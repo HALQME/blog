@@ -39,7 +39,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.data.map((post) => (
                     <article class="group">
                         <a href={`/blog/${post.id}/`} class="block">
-                            <div class="relative overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-[1.02]">
+                            <div class=`${styles.components.card.container}` >
                                 <div class="aspect-w-16 aspect-h-9">
                                     <img
                                         width={720}
@@ -52,13 +52,13 @@ const lastPage = Math.ceil(posts.length / 10);
                                         class="object-cover w-full h-full"
                                     />
                                 </div>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div class=`${styles.components.card.image.hover}` />
                             </div>
                             <div class="mt-4">
-                                <h2 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                                <h2 class=`${styles.components.card.title}` >
                                     {post.data.title}
                                 </h2>
-                                <div class="flex items-center mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                <div class=`${styles.components.card.icon}`>
                                     <svg
                                         class="w-4 h-4 mr-2"
                                         fill="currentColor"
@@ -84,7 +84,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.prev && page.currentPage > 2 && (
                     <a
                         href={`/blog/1/`}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         «
                     </a>
@@ -99,7 +99,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.prev && (
                     <a
                         href={page.url.prev}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         {page.currentPage - 1}
                     </a>
@@ -112,7 +112,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.next && (
                     <a
                         href={page.url.next}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         {page.currentPage + 1}
                     </a>
@@ -127,7 +127,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.next && (
                     <a
                         href={`/blog/${lastPage}/`}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         »
                     </a>

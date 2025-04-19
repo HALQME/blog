@@ -30,7 +30,7 @@ const lastPage = Math.ceil(posts.length / 10);
             </small>
         </h1>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mx-6">
+        <div class={styles.grid.projectsPage}>
             {page.data.map((post) => <ProjectCard project={post} />)}
         </div>
 
@@ -39,7 +39,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.prev && page.currentPage > 2 && (
                     <a
                         href={`/projects/1/`}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         «
                     </a>
@@ -54,7 +54,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.prev && (
                     <a
                         href={page.url.prev}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         {page.currentPage - 1}
                     </a>
@@ -67,7 +67,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.next && (
                     <a
                         href={page.url.next}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         {page.currentPage + 1}
                     </a>
@@ -82,7 +82,7 @@ const lastPage = Math.ceil(posts.length / 10);
                 page.url.next && (
                     <a
                         href={`/projects/${lastPage}/`}
-                        class="px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                        class=`${styles.components.button.pagination}`
                     >
                         »
                     </a>
