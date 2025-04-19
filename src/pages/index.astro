@@ -2,8 +2,11 @@
 import Hero from "@/components/hero/Hero.astro";
 import Projects from "@/components/hero/Projects.astro";
 import SkillCard from "@/components/hero/SkillCard.astro";
+import Contributions from "@/components/ui/Contributions.astro";
 import SocialLink from "@/components/hero/SocialLink.astro";
 import Layout from "@/layouts/Layout.astro";
+
+import Tabs from "@/components/ui/Tabs.astro";
 
 import { styles } from "@/styles/tailwind";
 ---
@@ -14,39 +17,49 @@ import { styles } from "@/styles/tailwind";
     heroImage="/blog-placeholder-about.jpg"
 >
     <Hero />
-    <section
-        aria-label="Skills & Technologies"
-        class={styles.layout.sectionIndex}
-        data-pagefind-ignore
-    >
-        <h2 class={styles.text.heading.h2}>Skills & Technologies</h2>
-        <div class={styles.grid.twoColumn}>
-            <SkillCard title="Languages" items={["Swift", "TypeScript"]} />
+    <section aria-label="Tab Content" class={styles.layout.sectionIndex}>
+        <Tabs>
+            <p slot="tab-0" id="skills">Skills</p>
+            <p slot="tab-1" id="projects">Projects</p>
+            <p slot="tab-2" id="contributions">Contributions</p>
 
-            <SkillCard
-                title="Frameworks & Libraries"
-                items={["Astro", "Tailwind CSS"]}
-            />
-            <SkillCard
-                title="Tools & Platforms"
-                items={["Xcode", "Git", "GitHub"]}
-            />
+            <section aria-label="Skills" slot="panel-0" data-pagefind-ignore>
+                <h2 class={styles.text.heading.h2}>Skills</h2>
+                <div class={styles.grid.twoColumn}>
+                    <SkillCard
+                        title="Languages"
+                        items={["Swift", "TypeScript"]}
+                    />
 
-            <SkillCard
-                title="Learning"
-                items={["React & Next.js", "Node.js", "Haskell"]}
-            />
-        </div>
-    </section>
-    <section
-        aria-label="Projects"
-        class={styles.layout.sectionIndex}
-        data-pagefind-ignore
-    >
-        <h2 class={styles.text.heading.h2}>Projects</h2>
-        <div class="mx-3">
-            <Projects limit={4} />
-        </div>
+                    <SkillCard
+                        title="Frameworks & Libraries"
+                        items={["Astro", "Tailwind CSS"]}
+                    />
+                    <SkillCard
+                        title="Tools & Platforms"
+                        items={["Xcode", "Git", "GitHub"]}
+                    />
+
+                    <SkillCard
+                        title="Learning"
+                        items={["React & Next.js", "Node.js", "Haskell"]}
+                    />
+                </div>
+            </section>
+            <section aria-label="Projects" slot="panel-1" data-pagefind-ignore>
+                <h2 class={styles.text.heading.h2}>Projects</h2>
+
+                <Projects limit={4} />
+            </section>
+            <section
+                aria-label="Contributions"
+                slot="panel-2"
+                data-pagefind-ignore
+            >
+                <h2 class={styles.text.heading.h2}>Contributions</h2>
+                <Contributions />
+            </section>
+        </Tabs>
     </section>
 
     <section

@@ -66,7 +66,7 @@ export const styles = {
     grid: {
         blog: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
         projects: "grid grid-cols-1 sm:grid-cols-2 gap-8",
-        twoColumn: "grid grid-cols-1 sm:grid-cols-2",
+        twoColumn: "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6",
         default: "grid",
         social: "grid grid-cols-1 md:grid-cols-2 my-6 gap-4",
         projectsPage: "grid grid-cols-1 sm:grid-cols-2 gap-8 mx-6",
@@ -100,7 +100,7 @@ export const styles = {
 
     // ユーティリティ
     utils: {
-        prose: "prose dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-800 dark:hover:prose-a:text-blue-300 max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-li:leading-7 prose-img:rounded-lg prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg",
+        prose: "prose dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:underline prose-a:hover:text-emerald-600 prose-a:hover:dark:text-emerald-400 max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-li:leading-7 prose-img:rounded-lg prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg",
         aspectRatio: {
             video: "aspect-w-16 aspect-h-9",
             wide: "aspect-w-21 aspect-h-9",

@@ -4,6 +4,8 @@ interface Props {
 }
 const { limit } = Astro.props as Props;
 
+import { styles } from "@/styles/tailwind";
+
 import { getCollection } from "astro:content";
 import ProjectCard from "@/components/ui/ProjectCard.astro";
 const collections = await getCollection("projects");
@@ -22,7 +24,7 @@ const projects = collections
             <p class="text-gray-600 dark:text-gray-400">No projects found.</p>
         </div>
     ) : (
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+        <div class={styles.grid.twoColumn}>
             {projects.map((repo) => (
                 <ProjectCard project={repo} />
             ))}
