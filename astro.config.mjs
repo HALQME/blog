@@ -31,7 +31,7 @@ export default defineConfig({
             rollupOptions: {},
         },
         optimizeDeps: {
-            include: ["@astrojs/image", "sharp"],
+            include: ["sharp"],
         },
         assetsInclude: ["**/*.jpg", "**/*.png", "**/*.webp", "**/*.svg"],
     },
