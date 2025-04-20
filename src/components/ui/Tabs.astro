@@ -52,35 +52,78 @@ panels.sort((a, b) => extractIndex(a) - extractIndex(b));
                 const index = idx;
                 if (name.startsWith("tab")) {
                     const render = await Astro.slots.render(name);
-                    // 正規表現を使用してID属性を抽出
                     const idMatch = render.match(/id=["']([^"']+)["']/);
                     const tabId = idMatch ? idMatch[1] : `tab-${index}`;
 
-                    return (
-                        <a
-                            href={`#${tabId}`}
-                            id={`tab-${tabId}`}
-                            data-tab-id={tabId}
-                            data-astro-history="replace"
-                            class:list={[
-                                "tab-button",
-                                "block",
-                                "whitespace-nowrap",
-                                "cursor-pointer",
-                                "py-2",
-                                "px-4",
-                                "font-medium",
-                                "transition-colors",
-                                "duration-300",
-                                "border-b-2",
-                            ]}
-                            role="tab"
-                            aria-selected="false"
-                            aria-controls={`panel-${tabId}`}
-                            data-tab-index={index}
-                            set:html={render}
-                        />
-                    );
+                    if (idx === 0) {
+                        // 1つ目だけ特別な要素
+                        return (
+                            <a
+                                href={`#${tabId}`}
+                                id={`tab-${tabId}`}
+                                data-tab-id={tabId}
+                                data-astro-history="replace"
+                                class:list={[
+                                    "tab-button",
+                                    "block",
+                                    "whitespace-nowrap",
+                                    "cursor-pointer",
+                                    "py-2",
+                                    "px-4",
+                                    "font-medium",
+                                    "transition-colors",
+                                    "duration-300",
+                                    "border-b-2",
+                                    "text-gray-700",
+                                    "hover:border-blue-400",
+                                    "border-blue-300",
+                                    "dark:text-gray-200",
+                                    "dark:hover:border-blue-600",
+                                    "dark:border-blue-600",
+                                ]}
+                                role="tab"
+                                aria-selected="false"
+                                aria-controls={`panel-${tabId}`}
+                                data-tab-index={index}
+                                set:html={render}
+                            />
+                        );
+                    } else {
+                        // 2つ目以降は通常のa要素
+                        return (
+                            <a
+                                href={`#${tabId}`}
+                                id={`tab-${tabId}`}
+                                data-tab-id={tabId}
+                                data-astro-history="replace"
+                                class:list={[
+                                    "tab-button",
+                                    "block",
+                                    "whitespace-nowrap",
+                                    "cursor-pointer",
+                                    "py-2",
+                                    "px-4",
+                                    "font-medium",
+                                    "transition-colors",
+                                    "duration-300",
+                                    "border-b-2",
+                                    "text-gray-400",
+                                    "hover:text-gray-500",
+                                    "border-transparent",
+                                    "hover:border-gray-200",
+                                    "dark:text-gray-500",
+                                    "dark:hover:text-gray-400",
+                                    "dark:border-transparent",
+                                    "dark:hover:border-gray-500",
+                                ]}
+                                role="tab"
+                                aria-selected="false"
+                                aria-controls={`panel-${tabId}`}
+                                data-tab-index={index}
+                                set:html={render}
+                            />
+                        );
+                    }
                 }
             })
         }
@@ -93,6 +136,8 @@ panels.sort((a, b) => extractIndex(a) - extractIndex(b));
                 const panelId = `panel-${panelIndex}`;
                 const content = await Astro.slots.render(name);
 
+                // 最初のパネルだけhiddenを外す
+                const isFirst = idx === 0;
                 return (
                     <div
                         id={panelId}
@@ -100,7 +145,7 @@ panels.sort((a, b) => extractIndex(a) - extractIndex(b));
                         class:list={[
                             `panel-${panelIndex}`,
                             "panel",
-                            "hidden", // 最初はすべて非表示
+                            isFirst ? "block" : "hidden",
                         ]}
                         aria-labelledby={`tab-${panelId}`}
                         set:html={content}

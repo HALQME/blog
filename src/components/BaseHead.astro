@@ -1,6 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
-import { ClientRouter } from "astro:transitions";
+import { ClientRouter, fade } from "astro:transitions";
 import "@/styles/global.css";
 
 interface Props {
@@ -32,7 +32,7 @@ const schema = {
 };
 ---
 
-<head>
+<head transition:animate={fade({ duration: "0.2s" })}>
     {/* DNS Prefetch and Preconnect */}
     <link rel="dns-prefetch" href={Astro.site} />
     <link rel="preconnect" href={Astro.site} crossorigin />
