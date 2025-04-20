@@ -55,75 +55,56 @@ panels.sort((a, b) => extractIndex(a) - extractIndex(b));
                     const idMatch = render.match(/id=["']([^"']+)["']/);
                     const tabId = idMatch ? idMatch[1] : `tab-${index}`;
 
+                    let classList = [
+                        "tab-button",
+                        "block",
+                        "whitespace-nowrap",
+                        "cursor-pointer",
+                        "py-2",
+                        "px-4",
+                        "font-medium",
+                        "transition-colors",
+                        "duration-300",
+                        "border-b-2",
+                    ];
+
                     if (idx === 0) {
                         // 1つ目だけ特別な要素
-                        return (
-                            <a
-                                href={`#${tabId}`}
-                                id={`tab-${tabId}`}
-                                data-tab-id={tabId}
-                                data-astro-history="replace"
-                                class:list={[
-                                    "tab-button",
-                                    "block",
-                                    "whitespace-nowrap",
-                                    "cursor-pointer",
-                                    "py-2",
-                                    "px-4",
-                                    "font-medium",
-                                    "transition-colors",
-                                    "duration-300",
-                                    "border-b-2",
-                                    "text-gray-700",
-                                    "hover:border-blue-400",
-                                    "border-blue-300",
-                                    "dark:text-gray-200",
-                                    "dark:hover:border-blue-600",
-                                    "dark:border-blue-600",
-                                ]}
-                                role="tab"
-                                aria-selected="false"
-                                aria-controls={`panel-${tabId}`}
-                                data-tab-index={index}
-                                set:html={render}
-                            />
+                        classList.push(
+                            "text-gray-700",
+                            "hover:border-blue-400",
+                            "border-blue-300",
+                            "dark:text-gray-200",
+                            "dark:hover:border-blue-600",
+                            "dark:border-blue-600"
                         );
                     } else {
-                        // 2つ目以降は通常のa要素
-                        return (
-                            <a
-                                href={`#${tabId}`}
-                                id={`tab-${tabId}`}
-                                data-tab-id={tabId}
-                                data-astro-history="replace"
-                                class:list={[
-                                    "tab-button",
-                                    "block",
-                                    "whitespace-nowrap",
-                                    "cursor-pointer",
-                                    "py-2",
-                                    "px-4",
-                                    "font-medium",
-                                    "transition-colors",
-                                    "duration-300",
-                                    "border-b-2",
-                                    "text-gray-400",
-                                    "hover:text-gray-500",
-                                    "border-transparent",
-                                    "hover:border-gray-200",
-                                    "dark:text-gray-500",
-                                    "dark:hover:text-gray-400",
-                                    "dark:border-transparent",
-                                    "dark:hover:border-gray-500",
-                                ]}
-                                role="tab"
-                                aria-selected="false"
-                                aria-controls={`panel-${tabId}`}
-                                data-tab-index={index}
-                                set:html={render}
-                            />
+                        classList.push(
+                            "text-gray-400",
+                            "hover:text-gray-500",
+                            "border-transparent",
+                            "hover:border-gray-200",
+                            "dark:text-gray-500",
+                            "dark:hover:text-gray-400",
+                            "dark:border-transparent",
+                            "dark:hover:border-gray-500"
                         );
                     }
+
+                    return (
+                        <a
+                            href={`#${tabId}`}
+                            id={`tab-${tabId}`}
+                            data-tab-id={tabId}
+                            data-astro-history="replace"
+                            class:list={classList}
+                            role="tab"
+                            aria-selected={idx === 0 ? "true" : "false"}
+                            aria-controls={`panel-${index}`}
+                            data-tab-index={index}
+                            set:html={render}
+                        />
+                    );
                 }
             })
         }

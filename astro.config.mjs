@@ -45,7 +45,7 @@ export default defineConfig({
             // X-Frame-Options ヘッダーを HTTP ヘッダーとして設定
             "X-Frame-Options": "SAMEORIGIN",
             // モジュールスクリプトの MIME タイプを適切に設定
-            "Content-Type": "text/javascript; charset=utf-8",
+            // "Content-Type": "text/javascript; charset=utf-8",
         },
     },
 });
