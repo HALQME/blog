@@ -5,7 +5,6 @@ export const styles = {
         section: "py-6 mx-auto px-4",
         sectionIndex: "py-6 max-w-4xl mx-auto px-4",
         sectionPage: "max-w-6xl mx-auto px-4",
-        containerLarge: "max-w-4xl mx-auto px-4",
     },
 
     // テキスト
@@ -116,7 +115,7 @@ export const styles = {
     // スペーシング
     spacing: {
         respMargin: "mx-2 sm:mx-4 lg:mx-6",
-        contentWrapper: "mx-auto px-4 py-8",
+        contentWrapper: "py-4 px-2",
         modalPadding: "p-2 sm:p-4",
     },
 };
