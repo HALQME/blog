@@ -1,0 +1,76 @@
+---
+import Layout from "./Layout.astro";
+import type { CollectionEntry } from "astro:content";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, pubDate, updatedDate, heroImage, tags } =
+  Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <article class="prose prose-lg mx-auto max-w-3xl">
+    {
+      heroImage && (
+        <img
+          width={1020}
+          height={510}
+          src={heroImage}
+          alt=""
+          class="mb-8 rounded-sm border border-gray-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+        />
+      )
+    }
+    <div class="mb-8 text-center">
+      <h1 class="mb-2 text-4xl font-bold text-gray-900">{title}</h1>
+      <div
+        class="flex flex-wrap items-center justify-center gap-4 text-gray-500"
+      >
+        <div class="text-meta">
+          <div class="i-lucide:calendar mr-1"></div>
+          <time datetime={pubDate.toISOString()}>
+            {pubDate.toLocaleDateString("ja-JP")}
+          </time>
+        </div>
+        {
+          updatedDate && (
+            <div class="text-meta italic">
+              <div class="i-lucide:refresh-cw mr-1" />
+              <span>Updated:</span>
+              <time datetime={updatedDate.toISOString()}>
+                {updatedDate.toLocaleDateString("ja-JP")}
+              </time>
+            </div>
+          )
+        }
+      </div>
+      {
+        tags && tags.length > 0 && (
+          <div class="mt-6 flex flex-wrap justify-center gap-2">
+            {tags.map((tag) => (
+              <a
+                href={`/tags/${tag}`}
+                class="tag-base tag-hover bg-white text-gray-700"
+              >
+                <div class="i-lucide:tag text-gray-400" />
+                {tag}
+              </a>
+            ))}
+          </div>
+        )
+      }
+      <div class="mt-4 flex justify-center">
+        <a
+          href="/tags"
+          class="text-meta inline-flex items-center text-gray-500 transition-colors hover:text-black"
+        >
+          <div class="i-lucide:tags mr-1" />
+          すべてのタグ
+        </a>
+      </div>
+    </div>
+    <div class="mt-8">
+      <slot />
+    </div>
+  </article>
+</Layout>

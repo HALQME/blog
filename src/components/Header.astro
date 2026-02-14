@@ -1,0 +1,30 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+];
+---
+
+<header
+  class="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-6 select-none md:px-12"
+>
+  <a
+    href="/"
+    class="text-xl font-black tracking-tighter text-gray-900 transition-colors hover:text-gray-600"
+  >
+    HALQME
+  </a>
+  <nav>
+    <ul class="flex gap-4">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} class="nav-link">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

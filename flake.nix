@@ -1,27 +1,29 @@
 {
-  description = "Node.js development environment with pnpm";
+  description = "Bun development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    bun-overlay.url = "github:oven-sh/bun/flake";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, bun-overlay }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ bun-overlay ];
+        };
       in
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            nodejs
-            pnpm
+            bun
           ];
 
           shellHook = ''
             echo "🚀 Development environment loaded!"
-            echo "Node.js: $(node --version)"
-            echo "pnpm: $(pnpm --version)"
+            echo "Bun: $(bun --version)"
           '';
         };
       }

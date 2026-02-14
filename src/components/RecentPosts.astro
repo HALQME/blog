@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<section class="section-base">
+  <div class="flex items-start justify-between select-none">
+    <h2 class="heading-2">
+      <div class="i-lucide:pen-tool"></div>
+      Recent Posts
+    </h2>
+    <a href="/blog" class="nav-link flex-inline items-center">
+      View all
+      <div class="i-lucide:arrow-right ml-1"></div>
+    </a>
+  </div>
+  <div class="grid gap-6 md:grid-cols-3 px-3">
+    {
+      posts.map((post) => (
+        <a href={`/blog/${post.id}/`} class="group block">
+          <h3 class="mb-2 text-lg font-bold text-gray-900 decoration-2 underline-offset-4 group-hover:underline">
+            {post.data.title}
+          </h3>
+          <div class="text-meta mb-2 select-none">
+            <div class="i-lucide:calendar" />
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString("ja-JP")}
+            </time>
+          </div>
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="pointer-events-none flex flex-wrap gap-2">
+              {post.data.tags.slice(0, 2).map((tag) => (
+                <span class="inline-flex items-center gap-0.5 py-0.5 text-xs text-gray-600">
+                  <div class="i-lucide:tag text-gray-600" />
+                  {tag}
+                </span>
+              ))}
+              {post.data.tags.length > 2 && (
+                <span class="inline-flex items-center py-0.5 text-xs text-gray-700">
+                  +{post.data.tags.length - 2}
+                </span>
+              )}
+            </div>
+          )}
+        </a>
+      ))
+    }
+  </div>
+</section>

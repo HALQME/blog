@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<Layout title="Blog | HALQME">
+  <section>
+    <div class="mb-8 flex items-start justify-between">
+      <h1 class="heading-2 mb-0">
+        <div class="i-lucide:pen-tool mr-2"></div>
+        Blog
+      </h1>
+      <a href="/tags" class="nav-link inline-flex items-center">
+        <div class="i-lucide:tags mr-1"></div>
+        Tags
+      </a>
+    </div>
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+      {
+        posts.map((post) => (
+          <a href={`/blog/${post.id}/`} class="card-interactive group">
+            {post.data.heroImage && (
+              <img
+                width={720}
+                height={360}
+                src={post.data.heroImage}
+                alt=""
+                class="mb-4 h-48 w-full rounded-sm border border-gray-200 object-cover"
+              />
+            )}
+            <h2 class="mb-2 text-xl font-bold text-gray-900 decoration-2 underline-offset-4 group-hover:underline">
+              {post.data.title}
+            </h2>
+            <div class="text-meta mb-4 text-gray-500">
+              <div class="i-lucide:calendar mr-1" />
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString("ja-JP")}
+              </time>
+            </div>
+            <p class="text-sub mb-4 line-clamp-3">{post.data.description}</p>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="pointer-events-none mt-auto flex flex-wrap gap-2">
+                {post.data.tags.map((tag) => (
+                  <span class="tag-base bg-gray-50 text-xs text-gray-600">
+                    <div class="i-lucide:tag text-gray-400" />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,26 @@
+---
+// Tag configuration
+const tags = [
+  "Osaka, Japan",
+  "TypeScript",
+  "Bun",
+  "Vue.js",
+  "Hono",
+  "Swift",
+  "Astro",
+] as const;
+---
+
+<section class="section-base">
+  <h2 class="heading-2 mb-6">About Me</h2>
+  <div class="prose prose-lg text-sub">
+    <p>
+      Hi, I'm HAL (HALQME). I am a university student based in Osaka, Japan,
+      majoring in Psychology. I have a passion for web development and creating
+      useful tools.
+    </p>
+    <ul class="mt-4 flex list-none flex-wrap gap-3 pl-0 select-none">
+      {tags.map((label) => <li class={`tag`}>{label}</li>)}
+    </ul>
+  </div>
+</section>

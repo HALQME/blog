@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "halqme",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2026-01-20",
+  "env": {
+  },
+  "vars": {
+    "BUN_VERSION": "latest"
+  },
+  "build": {
+    "watch_dir": "./src",
+    "command": "bun run build"
+  }
+}
