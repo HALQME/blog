@@ -17,7 +17,7 @@ const posts = (await getCollection("blog"))
       <div class="i-lucide:arrow-right ml-1"></div>
     </a>
   </div>
-  <div class="grid gap-6 md:grid-cols-3 px-3">
+  <div class="grid gap-6 px-3 md:grid-cols-3">
     {
       posts.map((post) => (
         <a href={`/blog/${post.id}/`} class="group block">

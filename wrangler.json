@@ -6,7 +6,7 @@
   "vars": {
     "BUN_VERSION": "latest"
   },
-  "placement":{
+  "placement": {
     "mode": "smart"
   }
 }
