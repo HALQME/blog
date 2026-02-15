@@ -50,7 +50,8 @@ IPアドレスをコピーしておきましょう。
 3. 任意のテキストエディタで `compose.yml`を開く。
    以下のように編集します。
 
-```yaml:compose.yml
+```yaml
+# compose.yml
 services:
   server:
     container_name: mc_server
@@ -155,7 +156,8 @@ docker-compose up -d
 Pluginは`.jar`ファイルを直接設置する方法なのですが、場所がわかりにくいです。
 `compose.yml` の `VOLUME` のところで
 
-```diff:compose.yaml
+```diff
+# compose.yaml
     volumes:
       - ./data:/data
 +     - ./plugins:/plugins
