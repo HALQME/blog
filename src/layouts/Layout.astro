@@ -5,9 +5,24 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  pubDate?: Date;
+  modifiedDate?: Date;
+  tags?: string[];
 }
 
-const { title, description = "HALQME's Portfolio and Blog" } = Astro.props;
+const {
+  title,
+  description = "HALQME's Portfolio and Blog",
+  ogImage,
+  ogType = "website",
+  pubDate,
+  modifiedDate,
+  tags
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
 ---
 
 <!doctype html>
@@ -19,12 +34,42 @@ const { title, description = "HALQME's Portfolio and Blog" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    { ogImage &&
+
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="HALQME" />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    }
+
+
+    {ogType === "article" && pubDate && (
+      <meta property="article:published_time" content={pubDate.toISOString()} />
+    )}
+    {ogType === "article" && modifiedDate && (
+      <meta property="article:modified_time" content={modifiedDate.toISOString()} />
+    )}
+    {ogType === "article" && tags && tags.map(tag => (
+      <meta property="article:tag" content={tag} />
+    ))}
+
+    <link rel="canonical" href={canonicalURL} />
   </head>
   <body
-    class="flex min-h-screen flex-col bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] font-sans text-gray-900"
+    class="flex min-h-screen flex-col bg-white pattern-dots font-sans text-gray-900"
   >
     <Header />
-    <main class="layout-container w-full flex-1">
+    <main class="container-main py-6 md:py-20 w-full flex-1">
       <slot />
     </main>
     <Footer />

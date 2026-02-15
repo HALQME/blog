@@ -27,28 +27,30 @@ const projects = [
 ];
 ---
 
-<section class="section-base">
-  <h2 class="heading-2 mb-8 select-none">
+<section class="section section-border">
+  <h2 class="text-headline flex items-center gap-3 mb-8 select-none">
     <div class="i-lucide:folder-git-2"></div>
     Projects
   </h2>
   <div class="grid gap-6 md:grid-cols-2">
     {
       projects.map((project) => (
-        <a href={project.url} target="_blank" class="card-interactive group">
-          <h3 class="heading-3 mb-2 flex items-center justify-between">
-            <span class="decoration-2 underline-offset-4 group-hover:underline">
-              {project.name}
-            </span>
-            <div class="i-lucide:external-link text-gray-400 transition-colors group-hover:text-black" />
-          </h3>
-          <p class="text-sub mb-2">{project.description}</p>
-          <div class="flex flex-wrap items-center gap-2 select-none">
-            {project.tech.map((t) => (
-              <span class="tag text-xs">{t}</span>
-            ))}
-          </div>
-        </a>
+        <article class="card-interactive">
+          <a href={project.url} target="_blank" class="card-content block group">
+            <h3 class="text-subhead mb-2 flex items-center justify-between">
+              <span class="decoration-2 underline-offset-4 group-hover:underline">
+                {project.name}
+              </span>
+              <div class="i-lucide:external-link text-gray-400 transition-colors group-hover:text-black" />
+            </h3>
+            <p class="text-body mb-2">{project.description}</p>
+            <div class="flex flex-wrap items-center gap-2 select-none">
+              {project.tech.map((t) => (
+                <span class="tag text-xs">{t}</span>
+              ))}
+            </div>
+          </a>
+        </article>
       ))
     }
   </div>

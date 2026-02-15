@@ -2,14 +2,27 @@
 import Layout from "./Layout.astro";
 import type { CollectionEntry } from "astro:content";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & {
+  slug: string;
+};
 
-const { title, description, pubDate, updatedDate, heroImage, tags } =
+const { title, description, pubDate, updatedDate, heroImage, tags, slug } =
   Astro.props;
+
+// OGP画像URLの生成（heroImageがあればそれを使用、なければ自動生成）
+const ogImage = heroImage || `/ogp/${slug}.png`;
 ---
 
-<Layout title={title} description={description}>
-  <article class="prose prose-lg mx-auto max-w-3xl">
+<Layout 
+  title={title} 
+  description={description}
+  ogImage={ogImage}
+  ogType="article"
+  pubDate={pubDate}
+  modifiedDate={updatedDate}
+  tags={tags}
+>
+  <article class="container-narrow py-8">
     {
       heroImage && (
         <img
@@ -22,20 +35,18 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
       )
     }
     <div class="mb-8 text-center">
-      <h1 class="mb-2 text-4xl font-bold text-gray-900">{title}</h1>
-      <div
-        class="flex flex-wrap items-center justify-center gap-4 text-gray-500"
-      >
-        <div class="text-meta">
-          <div class="i-lucide:calendar mr-1"></div>
+      <h1 class="text-title mb-4">{title}</h1>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <div class="text-label">
+          <div class="i-lucide:calendar"></div>
           <time datetime={pubDate.toISOString()}>
             {pubDate.toLocaleDateString("ja-JP")}
           </time>
         </div>
         {
           updatedDate && (
-            <div class="text-meta italic">
-              <div class="i-lucide:refresh-cw mr-1" />
+            <div class="text-label">
+              <div class="i-lucide:refresh-cw"></div>
               <span>Updated:</span>
               <time datetime={updatedDate.toISOString()}>
                 {updatedDate.toLocaleDateString("ja-JP")}
@@ -48,11 +59,8 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
         tags && tags.length > 0 && (
           <div class="mt-6 flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
-              <a
-                href={`/tags/${tag.toLowerCase()}`}
-                class="tag-base bg-white text-gray-700"
-              >
-                <div class="i-lucide:tag text-gray-700" />
+              <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover">
+                <div class="i-lucide:tag text-gray-400"></div>
                 {tag}
               </a>
             ))}
@@ -60,7 +68,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
         )
       }
     </div>
-    <div class="mt-8">
+    <div class="prose prose-lg mx-auto">
       <slot />
     </div>
   </article>

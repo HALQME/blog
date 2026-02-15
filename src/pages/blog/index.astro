@@ -8,51 +8,53 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <Layout title="Blog | HALQME">
-  <section>
+  <section class="section">
     <div class="mb-8 flex items-start justify-between">
-      <h1 class="heading-2 mb-0">
-        <div class="i-lucide:pen-tool mr-2"></div>
+      <h1 class="text-headline flex items-center gap-3 mb-0">
+        <div class="i-lucide:pen-tool"></div>
         Blog
       </h1>
-      <a href="/tags" class="nav-link inline-flex items-center">
-        <div class="i-lucide:tags mr-1"></div>
+      <a href="/tags" class="btn-ghost text-sm">
+        <div class="i-lucide:tags"></div>
         Tags
       </a>
     </div>
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+    <div class="grid gap-8 md:grid-cols-2">
       {
         posts.map((post) => (
-          <a href={`/blog/${post.id}/`} class="card-interactive group">
-            {post.data.heroImage && (
-              <img
-                width={720}
-                height={360}
-                src={post.data.heroImage}
-                alt=""
-                class="mb-4 h-48 w-full rounded-xs border border-gray-200 object-cover"
-              />
-            )}
-            <h2 class="mb-2 text-xl font-bold text-gray-900 decoration-2 underline-offset-4 group-hover:underline">
-              {post.data.title}
-            </h2>
-            <div class="text-meta mb-4 text-gray-500">
-              <div class="i-lucide:calendar mr-1" />
-              <time datetime={post.data.pubDate.toISOString()}>
-                {post.data.pubDate.toLocaleDateString("ja-JP")}
-              </time>
-            </div>
-            <p class="text-sub mb-4 line-clamp-3">{post.data.description}</p>
-            {post.data.tags && post.data.tags.length > 0 && (
-              <div class="pointer-events-none mt-auto flex flex-wrap gap-2">
-                {post.data.tags.map((tag) => (
-                  <span class="tag-base text-xs">
-                    <div class="i-lucide:tag text-gray-400" />
-                    {tag}
-                  </span>
-                ))}
+          <article class="card-interactive flex flex-col">
+            <a href={`/blog/${post.id}/`} class="card-content block group flex-1">
+              {post.data.heroImage && (
+                <img
+                  width={720}
+                  height={360}
+                  src={post.data.heroImage}
+                  alt=""
+                  class="mb-4 h-48 w-full rounded-xs border border-gray-200 object-cover"
+                />
+              )}
+              <h2 class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline">
+                {post.data.title}
+              </h2>
+              <div class="text-label mb-3">
+                <div class="i-lucide:calendar"></div>
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString("ja-JP")}
+                </time>
               </div>
-            )}
-          </a>
+              <p class="text-body mb-4 line-clamp-3">{post.data.description}</p>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag text-xs">
+                      <div class="i-lucide:tag text-gray-400"></div>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </a>
+          </article>
         ))
       }
     </div>

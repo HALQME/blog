@@ -6,46 +6,48 @@ const posts = (await getCollection("blog"))
   .slice(0, 3);
 ---
 
-<section class="section-base">
+<section class="section section-border">
   <div class="flex items-start justify-between select-none">
-    <h2 class="heading-2">
+    <h2 class="text-headline flex items-center gap-3 mb-8">
       <div class="i-lucide:pen-tool"></div>
       Recent Posts
     </h2>
-    <a href="/blog" class="nav-link flex-inline items-center">
+    <a href="/blog" class="btn-ghost text-sm">
       View all
-      <div class="i-lucide:arrow-right ml-1"></div>
+      <div class="i-lucide:arrow-right"></div>
     </a>
   </div>
-  <div class="grid gap-6 px-3 md:grid-cols-3">
+  <div class="grid gap-6 md:grid-cols-3">
     {
       posts.map((post) => (
-        <a href={`/blog/${post.id}/`} class="group block">
-          <h3 class="mb-2 text-lg font-bold text-gray-900 decoration-2 underline-offset-4 group-hover:underline">
-            {post.data.title}
-          </h3>
-          <div class="text-meta mb-2 select-none">
-            <div class="i-lucide:calendar" />
-            <time datetime={post.data.pubDate.toISOString()}>
-              {post.data.pubDate.toLocaleDateString("ja-JP")}
-            </time>
-          </div>
-          {post.data.tags && post.data.tags.length > 0 && (
-            <div class="pointer-events-none flex flex-wrap gap-2">
-              {post.data.tags.slice(0, 2).map((tag) => (
-                <span class="inline-flex items-center gap-0.5 py-0.5 text-xs text-gray-600">
-                  <div class="i-lucide:tag text-gray-600 mr-0.5" />
-                  {tag}
-                </span>
-              ))}
-              {post.data.tags.length > 2 && (
-                <span class="inline-flex items-center py-0.5 text-xs text-gray-700">
-                  +{post.data.tags.length - 2}
-                </span>
-              )}
+        <article class="">
+          <a href={`/blog/${post.id}/`} class="block group">
+            <h3 class="text-subhead mb-2 decoration-2 underline-offset-4 group-hover:underline">
+              {post.data.title}
+            </h3>
+            <div class="text-label mb-3 flex-inline items-center">
+              <div class="i-lucide:calendar"></div>
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString("ja-JP")}
+              </time>
             </div>
-          )}
-        </a>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2">
+                {post.data.tags.slice(0, 2).map((tag) => (
+                  <span class="text-caption">
+                    <div class="i-lucide:tag text-gray-400"></div>
+                    {tag}
+                  </span>
+                ))}
+                {post.data.tags.length > 2 && (
+                  <span class="text-caption">
+                    +{post.data.tags.length - 2}
+                  </span>
+                )}
+              </div>
+            )}
+          </a>
+        </article>
       ))
     }
   </div>
