@@ -2,23 +2,44 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = posts
+      .filter((post) => post.data.tags.includes(tag))
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    return {
+      params: { tag },
+      props: { posts: filteredPosts, tag },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
 ---
 
-<Layout title="Blog | HALQME">
+<Layout title={`#${tag} | Blog | HALQME`}>
   <section>
-    <div class="mb-8 flex items-start justify-between">
-      <h1 class="heading-2 mb-0">
-        <div class="i-lucide:pen-tool mr-2"></div>
-        Blog
-      </h1>
-      <a href="/tags" class="nav-link inline-flex items-center">
-        <div class="i-lucide:tags mr-1"></div>
-        Tags
+    <div class="mb-8">
+      <a
+        href="/tags"
+        class="text-meta mb-2 inline-flex items-center text-gray-500 hover:text-gray-700"
+      >
+        <div class="i-lucide:arrow-left mr-1"></div>
+        すべてのタグ
       </a>
+      <h1 class="heading-2">
+        <div class="i-lucide:tag mr-2"></div>
+        #{tag}
+      </h1>
+      <p class="text-sub mt-2 text-gray-600">
+        {posts.length} 件の記事
+      </p>
     </div>
+
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
       {
         posts.map((post) => (
@@ -44,10 +65,15 @@ const posts = (await getCollection("blog")).sort(
             <p class="text-sub mb-4 line-clamp-3">{post.data.description}</p>
             {post.data.tags && post.data.tags.length > 0 && (
               <div class="pointer-events-none mt-auto flex flex-wrap gap-2">
-                {post.data.tags.map((tag) => (
-                  <span class="tag-base bg-gray-50 text-xs text-gray-600">
+                {post.data.tags.map((t) => (
+                  <span
+                    class:list={[
+                      "tag-base text-xs",
+                      t === tag ? "tag-active" : "bg-gray-50 text-gray-600",
+                    ]}
+                  >
                     <div class="i-lucide:tag text-gray-400" />
-                    {tag}
+                    {t}
                   </span>
                 ))}
               </div>
