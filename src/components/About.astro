@@ -15,12 +15,12 @@ const tags = [
 // Get all unique tags from blog posts
 const blogPosts = await getCollection("blog");
 const blogTags = new Set(
-  blogPosts.flatMap((post) => post.data.tags.map((t) => t.toLowerCase()))
+  blogPosts.flatMap((post) => post.data.tags.map((t) => t.toLowerCase())),
 );
 ---
 
 <section class="section section-border">
-  <h2 class="text-headline flex items-center gap-3 mb-6">About Me</h2>
+  <h2 class="text-headline mb-6 flex items-center gap-3">About Me</h2>
   <div class="prose prose-lg text-body">
     <p>
       Hi, I'm HAL (HALQME). I am a university student based in Osaka, Japan,
@@ -32,10 +32,7 @@ const blogTags = new Set(
         tags.map((label) =>
           blogTags.has(label.toLowerCase()) ? (
             <li class="m-0 p-0">
-              <a
-                href={`/tags/${label.toLowerCase()}`}
-                class="tag underline-0"
-              >
+              <a href={`/tags/${label.toLowerCase()}`} class="tag underline-0">
                 {label}
               </a>
             </li>
@@ -43,7 +40,7 @@ const blogTags = new Set(
             <li class="m-0 p-0">
               <span class="tag">{label}</span>
             </li>
-          )
+          ),
         )
       }
     </ul>

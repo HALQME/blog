@@ -13,8 +13,8 @@ const { title, description, pubDate, updatedDate, heroImage, tags, slug } =
 const ogImage = heroImage || `/ogp/${slug}.png`;
 ---
 
-<Layout 
-  title={title} 
+<Layout
+  title={title}
   description={description}
   ogImage={ogImage}
   ogType="article"
@@ -46,7 +46,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         {
           updatedDate && (
             <div class="text-label">
-              <div class="i-lucide:refresh-cw"></div>
+              <div class="i-lucide:refresh-cw" />
               <span>Updated:</span>
               <time datetime={updatedDate.toISOString()}>
                 {updatedDate.toLocaleDateString("ja-JP")}
@@ -60,7 +60,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
           <div class="mt-6 flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
               <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover">
-                <div class="i-lucide:tag text-gray-400"></div>
+                <div class="i-lucide:tag text-gray-400" />
                 {tag}
               </a>
             ))}

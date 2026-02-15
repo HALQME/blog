@@ -2,28 +2,49 @@ import type { APIRoute, GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
+import { readFile, mkdir, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 
-// フォントデータをキャッシュ
-let notoSansJPRegular: ArrayBuffer | null = null;
-let notoSansJPBold: ArrayBuffer | null = null;
+const CACHE_DIR = join(process.cwd(), "dist", ".cache");
+const FONT_CACHE_DIR = join(CACHE_DIR, "ogp-fonts");
+const IMAGE_CACHE_DIR = join(CACHE_DIR, "ogp-images");
+const REGULAR_FONT_PATH = join(FONT_CACHE_DIR, "noto-sans-jp-400.woff");
+const BOLD_FONT_PATH = join(FONT_CACHE_DIR, "noto-sans-jp-700.woff");
 
 async function loadFonts() {
-  if (!notoSansJPRegular) {
+  // キャッシュディレクトリがなければ作成
+  if (!existsSync(FONT_CACHE_DIR)) {
+    await mkdir(FONT_CACHE_DIR, { recursive: true });
+  }
+
+  let regular: ArrayBuffer;
+  let bold: ArrayBuffer;
+
+  // キャッシュから読み込む、なければダウンロード
+  if (existsSync(REGULAR_FONT_PATH)) {
+    const buffer = await readFile(REGULAR_FONT_PATH);
+    regular = new Uint8Array(buffer).buffer;
+  } else {
     const response = await fetch(
       "https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp@5.0.0/files/noto-sans-jp-japanese-400-normal.woff",
     );
-    notoSansJPRegular = await response.arrayBuffer();
+    regular = await response.arrayBuffer();
+    await writeFile(REGULAR_FONT_PATH, new Uint8Array(regular));
   }
-  if (!notoSansJPBold) {
+
+  if (existsSync(BOLD_FONT_PATH)) {
+    const buffer = await readFile(BOLD_FONT_PATH);
+    bold = new Uint8Array(buffer).buffer;
+  } else {
     const response = await fetch(
       "https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp@5.0.0/files/noto-sans-jp-japanese-700-normal.woff",
     );
-    notoSansJPBold = await response.arrayBuffer();
+    bold = await response.arrayBuffer();
+    await writeFile(BOLD_FONT_PATH, new Uint8Array(bold));
   }
-  return {
-    regular: notoSansJPRegular,
-    bold: notoSansJPBold,
-  };
+
+  return { regular, bold };
 }
 
 function truncateText(text: string, maxLength: number): string {
@@ -31,10 +52,29 @@ function truncateText(text: string, maxLength: number): string {
   return text.slice(0, maxLength - 1) + "…";
 }
 
-export const GET: APIRoute = async ({ props }) => {
+export const GET: APIRoute = async ({ params, props }) => {
+  const slug = params.slug as string;
   const title = props.title || "HALQME";
-  const truncatedTitle = truncateText(title, 60);
 
+  // 開発環境: 画像キャッシュを確認
+  if (import.meta.env.DEV) {
+    if (!existsSync(IMAGE_CACHE_DIR)) {
+      await mkdir(IMAGE_CACHE_DIR, { recursive: true });
+    }
+    const cachedImagePath = join(IMAGE_CACHE_DIR, `${slug}.png`);
+
+    if (existsSync(cachedImagePath)) {
+      const buffer = await readFile(cachedImagePath);
+      return new Response(new Uint8Array(buffer), {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=0",
+        },
+      });
+    }
+  }
+
+  const truncatedTitle = truncateText(title, 60);
   const { regular, bold } = await loadFonts();
 
   const svg = await satori(
@@ -178,6 +218,12 @@ export const GET: APIRoute = async ({ props }) => {
 
   const pngData = resvg.render();
   const pngBuffer = pngData.asPng();
+
+  // 開発環境: 生成した画像をキャッシュ
+  if (import.meta.env.DEV && slug) {
+    const cachedImagePath = join(IMAGE_CACHE_DIR, `${slug}.png`);
+    await writeFile(cachedImagePath, new Uint8Array(pngBuffer));
+  }
 
   // @ts-expect-error - Uint8Array is valid for Response body
   return new Response(pngBuffer, {

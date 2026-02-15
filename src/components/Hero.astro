@@ -1,5 +1,5 @@
 <section class="py-12 text-center md:py-20">
-  <h1 class="text-display mb-4">HALQME</h1>
+  <h1 class="text-display mb-4"><span id="select_target">HAL</span>QME</h1>
   <div class="flex justify-center gap-4 select-none">
     <a href="https://github.com/HALQME" class="btn-primary">
       <div class="i-lucide:github"></div>
@@ -11,3 +11,15 @@
     </a>
   </div>
 </section>
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+  const element = document.getElementById("select_target");
+  if (element && window.getSelection) {
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+});
+</script>

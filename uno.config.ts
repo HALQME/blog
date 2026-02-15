@@ -156,8 +156,7 @@ export default defineConfig({
       // Typography Scale
       // ========================================
       // Headings (Tight, Bold)
-      "text-display":
-        "text-5xl md:text-7xl font-bold tracking-tighter text-black",
+      "text-display": "text-5xl md:text-7xl font-bold tracking-tighter text-black",
       "text-title": "text-3xl md:text-4xl font-bold tracking-tight text-black",
       "text-headline": "text-2xl font-semibold tracking-tight text-black",
       "text-subhead": "text-lg font-semibold tracking-tight text-black",
@@ -168,8 +167,7 @@ export default defineConfig({
       "text-caption": "text-xs text-gray-500",
 
       // Meta/Label
-      "text-label":
-        "text-xs uppercase tracking-wider font-semibold text-gray-500",
+      "text-label": "text-xs uppercase tracking-wider font-semibold text-gray-500",
 
       // ========================================
       // Interactive Components
@@ -181,21 +179,18 @@ export default defineConfig({
       "btn-primary": "btn bg-black text-white border-black hover:bg-gray-800",
       "btn-secondary":
         "btn bg-white text-black border-gray-300 hover:border-black hover:bg-gray-50",
-      "btn-ghost":
-        "btn bg-transparent text-black border-transparent hover:bg-white",
+      "btn-ghost": "btn bg-transparent text-black border-transparent hover:bg-white",
 
       // Link styles
       link: "text-black underline underline-offset-4 hover:text-gray-600 transition-colors",
       "link-subtle": "text-gray-600 hover:text-black transition-colors",
-      "link-nav":
-        "text-sm font-medium text-gray-600 hover:text-black transition-colors",
+      "link-nav": "text-sm font-medium text-gray-600 hover:text-black transition-colors",
 
       // ========================================
       // Card Components
       // ========================================
       card: "bg-white border border-gray-200 rounded-xs transition-all duration-300",
-      "card-hover":
-        "hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
+      "card-hover": "hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
       "card-interactive": "card card-hover cursor-pointer",
       "card-content": "p-6",
 
@@ -203,8 +198,7 @@ export default defineConfig({
       // Tag/Badge Components
       // ========================================
       tag: "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-white border border-gray-200 rounded-xs transition-all duration-200",
-      "tag-hover":
-        "hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
+      "tag-hover": "hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
 
       // ========================================
       // Form Elements

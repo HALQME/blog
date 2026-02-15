@@ -28,7 +28,7 @@ const projects = [
 ---
 
 <section class="section section-border">
-  <h2 class="text-headline flex items-center gap-3 mb-8 select-none">
+  <h2 class="text-headline mb-8 flex items-center gap-3 select-none">
     <div class="i-lucide:folder-git-2"></div>
     Projects
   </h2>
@@ -36,7 +36,11 @@ const projects = [
     {
       projects.map((project) => (
         <article class="card-interactive">
-          <a href={project.url} target="_blank" class="card-content block group">
+          <a
+            href={project.url}
+            target="_blank"
+            class="card-content group block"
+          >
             <h3 class="text-subhead mb-2 flex items-center justify-between">
               <span class="decoration-2 underline-offset-4 group-hover:underline">
                 {project.name}
