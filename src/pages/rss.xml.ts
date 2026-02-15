@@ -1,7 +1,7 @@
 import rss from "@astrojs/rss";
 import { getCollection, type CollectionEntry } from "astro:content";
 
-export async function GET(context: { site?: string | undefined }) {
+export async function GET(context: { site?: URL | undefined }) {
   const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
   return rss({

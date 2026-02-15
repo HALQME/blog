@@ -45,6 +45,7 @@ if (!fs.existsSync(dir)) {
 }
 
 // Write the file
+// @ts-ignore
 await Bun.write(filePath, issueBody);
 
 console.log(`Created file: ${filePath}`);
@@ -52,5 +53,6 @@ console.log(`Created file: ${filePath}`);
 // Output for GitHub Actions
 if (process.env.GITHUB_OUTPUT) {
   const outputFile = process.env.GITHUB_OUTPUT;
+  // @ts-ignore
   await Bun.write(outputFile, `filepath=${filePath}\n`);
 }
