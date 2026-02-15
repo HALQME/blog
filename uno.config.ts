@@ -16,18 +16,18 @@ const tokens = {
     primary: "#000000",
     secondary: "#ffffff",
     text: {
-      base: "#111827", // gray-900
-      muted: "#6b7280", // gray-500
-      subtle: "#4b5563", // gray-600
+      base: "#111827", // neutral-900
+      muted: "#6b7280", // neutral-500
+      subtle: "#4b5563", // neutral-600
     },
     border: {
-      base: "#e5e7eb", // gray-200
-      light: "#d1d5db", // gray-300
-      lighter: "#e5e7eb", // gray-150相当
+      base: "#e5e7eb", // neutral-200
+      light: "#d1d5db", // neutral-300
+      lighter: "#e5e7eb", // neutral-150相当
     },
     bg: {
       base: "#ffffff",
-      subtle: "#f9fafb", // gray-50
+      subtle: "#f9fafb", // neutral-50
     },
   },
   // Spacing Scale (4px base)
@@ -143,7 +143,7 @@ export default defineConfig({
       section: "py-8 md:py-5",
       "section-sm": "py-6 md:py-8",
       "section-lg": "py-10 md:py-14",
-      "section-border": "border-t border-gray-200 first:border-t-0",
+      "section-border": "border-t border-neutral-200 first:border-t-0",
 
       // Layout helpers
       stack: "flex flex-col",
@@ -162,12 +162,12 @@ export default defineConfig({
       "text-subhead": "text-lg font-semibold tracking-tight text-black",
 
       // Body text
-      "text-body": "text-base leading-relaxed text-gray-600",
-      "text-body-sm": "text-sm leading-relaxed text-gray-600",
-      "text-caption": "text-xs text-gray-500",
+      "text-body": "text-base leading-relaxed text-neutral-600",
+      "text-body-sm": "text-sm leading-relaxed text-neutral-600",
+      "text-caption": "text-xs text-neutral-500",
 
       // Meta/Label
-      "text-label": "text-xs uppercase tracking-wider font-semibold text-gray-500",
+      "text-label": "text-xs uppercase tracking-wider font-semibold text-neutral-500",
 
       // ========================================
       // Interactive Components
@@ -176,20 +176,20 @@ export default defineConfig({
       btn: "inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium transition-all duration-300 ease-out cursor-pointer border rounded-xs relative overflow-hidden z-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black",
 
       // Button variants
-      "btn-primary": "btn bg-black text-white border-black hover:bg-gray-800",
+      "btn-primary": "btn bg-black text-white border-black hover:bg-neutral-800",
       "btn-secondary":
-        "btn bg-white text-black border-gray-300 hover:border-black hover:bg-gray-50",
+        "btn bg-white text-black border-neutral-300 hover:border-black hover:bg-neutral-50",
       "btn-ghost": "btn bg-transparent text-black border-transparent hover:bg-white",
 
       // Link styles
-      link: "text-black underline underline-offset-4 hover:text-gray-600 transition-colors",
-      "link-subtle": "text-gray-600 hover:text-black transition-colors",
-      "link-nav": "text-sm font-medium text-gray-600 hover:text-black transition-colors",
+      link: "text-black underline underline-offset-4 hover:text-neutral-600 transition-colors",
+      "link-subtle": "text-neutral-600 hover:text-black transition-colors",
+      "link-nav": "text-sm font-medium text-neutral-600 hover:text-black transition-colors",
 
       // ========================================
       // Card Components
       // ========================================
-      card: "bg-white border border-gray-200 rounded-xs transition-all duration-300",
+      card: "bg-white border border-neutral-200 rounded-xs transition-all duration-300",
       "card-hover": "hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
       "card-interactive": "card card-hover cursor-pointer",
       "card-content": "p-6",
@@ -197,14 +197,14 @@ export default defineConfig({
       // ========================================
       // Tag/Badge Components
       // ========================================
-      tag: "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-white border border-gray-200 rounded-xs transition-all duration-200",
+      tag: "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-white border border-neutral-200 rounded-xs transition-all duration-200",
       "tag-hover": "hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
 
       // ========================================
       // Form Elements
       // ========================================
       input:
-        "w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xs text-base transition-all duration-200 focus:outline-none focus:border-black focus:ring-2 focus:ring-black focus:ring-offset-2",
+        "w-full px-4 py-2.5 bg-white border border-neutral-300 rounded-xs text-base transition-all duration-200 focus:outline-none focus:border-black focus:ring-2 focus:ring-black focus:ring-offset-2",
 
       // ========================================
       // Visual Effects
