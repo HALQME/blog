@@ -11,6 +11,6 @@
     "marksman",
     "vue-language-server",
     "vtsls",
-    "json-language-server",
+    "json-language-server"
   ]
 }
