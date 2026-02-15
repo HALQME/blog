@@ -11,7 +11,7 @@ import {
 // Design Tokens - 単一ソース・オブ・トゥルース
 // ========================================
 const tokens = {
-  // Colors
+  // Colors - 全ての配色を一元管理
   color: {
     primary: "#000000",
     secondary: "#ffffff",
@@ -19,15 +19,54 @@ const tokens = {
       base: "#111827", // neutral-900
       muted: "#6b7280", // neutral-500
       subtle: "#4b5563", // neutral-600
+      light: "#9ca3af", // neutral-400
+      lighter: "#d1d5db", // neutral-300
+      dark: "#1f2937", // neutral-800
+      darker: "#111827", // neutral-900
     },
     border: {
       base: "#e5e7eb", // neutral-200
       light: "#d1d5db", // neutral-300
-      lighter: "#e5e7eb", // neutral-150相当
+      lighter: "#f3f4f6", // neutral-100
+      dark: "#000000",
     },
     bg: {
       base: "#ffffff",
       subtle: "#f9fafb", // neutral-50
+      hover: "#f3f4f6", // neutral-100
+    },
+    shadow: {
+      base: "rgba(0,0,0,1)",
+      subtle: "rgba(0,0,0,0.3)",
+    },
+  },
+  // Dark mode colors
+  dark: {
+    primary: "#ffffff",
+    secondary: "#000000",
+    text: {
+      base: "#f9fafb",
+      muted: "#9ca3af",
+      subtle: "#d1d5db",
+      light: "#6b7280",
+      lighter: "#4b5563",
+      dark: "#e5e7eb",
+      darker: "#f3f4f6",
+    },
+    border: {
+      base: "#374151",
+      light: "#4b5563",
+      lighter: "#1f2937",
+      dark: "#ffffff",
+    },
+    bg: {
+      base: "#111827",
+      subtle: "#1f2937",
+      hover: "#374151",
+    },
+    shadow: {
+      base: "rgba(255,255,255,0.1)",
+      subtle: "rgba(255,255,255,0.05)",
     },
   },
   // Spacing Scale (4px base)
@@ -132,6 +171,38 @@ export default defineConfig({
   shortcuts: [
     {
       // ========================================
+      // Color Utilities - トークンベース
+      // ========================================
+      // Text colors
+      "text-primary": "text-black dark:text-white",
+      "text-secondary": "text-white dark:text-black",
+      "text-base": "text-neutral-900 dark:text-neutral-50",
+      "text-muted": "text-neutral-500 dark:text-neutral-400",
+      "text-subtle": "text-neutral-600 dark:text-neutral-300",
+      "text-light": "text-neutral-400 dark:text-neutral-600",
+      "text-lighter": "text-neutral-300 dark:text-neutral-700",
+
+      // Border colors
+      "border-base": "border-neutral-200 dark:border-neutral-700",
+      "border-light": "border-neutral-300 dark:border-neutral-600",
+      "border-lighter": "border-neutral-100 dark:border-neutral-800",
+      "border-dark": "border-black dark:border-white",
+
+      // Background colors
+      "bg-base": "bg-white dark:bg-neutral-900",
+      "bg-subtle": "bg-neutral-50 dark:bg-neutral-800",
+      "bg-hover": "bg-neutral-100 dark:bg-neutral-700",
+      "bg-primary": "bg-black dark:bg-white",
+
+      // Shadow utilities
+      "shadow-card":
+        "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]",
+      "shadow-card-sm":
+        "shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.1)]",
+      "shadow-card-subtle":
+        "shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.05)]",
+
+      // ========================================
       // Layout Primitives
       // ========================================
       // Container
@@ -156,63 +227,63 @@ export default defineConfig({
       // Typography Scale
       // ========================================
       // Headings (Tight, Bold)
-      "text-display": "text-5xl md:text-7xl font-bold tracking-tighter text-black",
-      "text-title": "text-3xl md:text-4xl font-bold tracking-tight text-black",
-      "text-headline": "text-2xl font-semibold tracking-tight text-black",
-      "text-subhead": "text-lg font-semibold tracking-tight text-black",
+      "text-display": "text-5xl md:text-7xl font-bold tracking-tighter text-primary",
+      "text-title": "text-3xl md:text-4xl font-bold tracking-tight text-primary",
+      "text-headline": "text-2xl font-semibold tracking-tight text-primary",
+      "text-subhead": "text-lg font-semibold tracking-tight text-primary",
 
       // Body text
-      "text-body": "text-base leading-relaxed text-neutral-600",
-      "text-body-sm": "text-sm leading-relaxed text-neutral-600",
-      "text-caption": "text-xs text-neutral-500",
+      "text-body": "text-base leading-relaxed text-subtle",
+      "text-body-sm": "text-sm leading-relaxed text-subtle",
+      "text-caption": "text-xs text-muted",
 
       // Meta/Label
-      "text-label": "text-xs uppercase tracking-wider font-semibold text-neutral-500",
+      "text-label": "text-xs uppercase tracking-wider font-semibold text-muted",
 
       // ========================================
       // Interactive Components
       // ========================================
       // Button base
-      btn: "inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium transition-all duration-300 ease-out cursor-pointer border rounded-xs relative overflow-hidden z-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black",
+      btn: "inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium transition-all duration-300 ease-out cursor-pointer border rounded-xs relative overflow-hidden z-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary",
 
       // Button variants
-      "btn-primary": "btn bg-black text-white border-black hover:bg-neutral-800",
-      "btn-secondary":
-        "btn bg-white text-black border-neutral-300 hover:border-black hover:bg-neutral-50",
-      "btn-ghost": "btn bg-transparent text-black border-transparent hover:bg-white",
+      "btn-primary":
+        "btn bg-primary text-secondary border-dark hover:bg-neutral-800 dark:hover:bg-neutral-200",
+      "btn-secondary": "btn bg-base text-primary border-light hover:border-dark hover:bg-hover",
+      "btn-ghost": "btn bg-transparent text-primary border-transparent hover:bg-base",
 
       // Link styles
-      link: "text-black underline underline-offset-4 hover:text-neutral-600 transition-colors",
-      "link-subtle": "text-neutral-600 hover:text-black transition-colors",
-      "link-nav": "text-sm font-medium text-neutral-600 hover:text-black transition-colors",
+      link: "text-primary underline underline-offset-4 hover:text-subtle transition-colors",
+      "link-subtle": "text-subtle hover:text-primary transition-colors",
+      "link-nav": "text-sm font-medium text-subtle hover:text-primary transition-colors",
 
       // ========================================
       // Card Components
       // ========================================
-      card: "bg-white border border-neutral-200 rounded-xs transition-all duration-300",
-      "card-hover": "hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
+      card: "bg-base border border-base rounded-xs transition-all duration-300",
+      "card-hover": "hover:border-dark hover:shadow-card",
       "card-interactive": "card card-hover cursor-pointer",
       "card-content": "p-6",
 
       // ========================================
       // Tag/Badge Components
       // ========================================
-      tag: "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-white border border-neutral-200 rounded-xs transition-all duration-200",
-      "tag-hover": "hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
+      tag: "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-base border border-base rounded-xs transition-all duration-200",
+      "tag-hover": "hover:border-dark hover:shadow-card-sm",
 
       // ========================================
       // Form Elements
       // ========================================
       input:
-        "w-full px-4 py-2.5 bg-white border border-neutral-300 rounded-xs text-base transition-all duration-200 focus:outline-none focus:border-black focus:ring-2 focus:ring-black focus:ring-offset-2",
+        "w-full px-4 py-2.5 bg-base border border-light rounded-xs text-base transition-all duration-200 focus:outline-none focus:border-dark focus:ring-2 focus:ring-primary focus:ring-offset-2",
 
       // ========================================
       // Visual Effects
       // ========================================
       "gradient-fill":
-        "bg-gradient-to-r from-white to-white bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] bg-left-bottom transition-all duration-500",
+        "bg-gradient-to-r from-base to-base bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] bg-left-bottom transition-all duration-500",
       "pattern-dots":
-        "bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]",
+        "bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] [background-size:16px_16px]",
     },
   ],
 });

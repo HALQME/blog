@@ -30,7 +30,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
           height={510}
           src={heroImage}
           alt=""
-          class="mb-8 rounded-xs border border-neutral-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+          class="border-dark shadow-card mb-8 rounded-xs border"
         />
       )
     }
@@ -60,7 +60,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
           <div class="mt-6 flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
               <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover">
-                <div class="i-lucide:tag text-neutral-400" />
+                <div class="i-lucide:tag text-light" />
                 {tag}
               </a>
             ))}

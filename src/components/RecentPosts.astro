@@ -35,7 +35,7 @@ const posts = (await getCollection("blog"))
               <div class="flex flex-wrap gap-2">
                 {post.data.tags.slice(0, 2).map((tag) => (
                   <span class="text-caption">
-                    <div class="i-lucide:tag text-neutral-400" />
+                    <div class="i-lucide:tag text-light" />
                     {tag}
                   </span>
                 ))}

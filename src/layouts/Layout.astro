@@ -38,6 +38,17 @@ const canonicalURL = new URL(
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
+    <script is:inline>
+      const theme = localStorage.getItem("theme") || "auto";
+      if (
+        theme === "dark" ||
+        (theme === "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+
     {
       ogImage && (
         <>
@@ -82,7 +93,7 @@ const canonicalURL = new URL(
     <link rel="canonical" href={canonicalURL} />
   </head>
   <body
-    class="pattern-dots flex min-h-screen flex-col bg-white font-sans text-neutral-900"
+    class="pattern-dots bg-base flex min-h-screen flex-col font-sans text-base"
   >
     <Header />
     <main class="container-main w-full flex-1 py-6 md:py-20">
@@ -100,5 +111,15 @@ const canonicalURL = new URL(
   ::-moz-selection {
     background-color: black;
     color: white;
+  }
+  @media (prefers-color-scheme: dark) {
+    ::selection {
+      background-color: white;
+      color: black;
+    }
+    ::-moz-selection {
+      background-color: white;
+      color: black;
+    }
   }
 </style>

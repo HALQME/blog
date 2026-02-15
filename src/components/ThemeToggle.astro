@@ -1,0 +1,92 @@
+<button id="theme-toggle" class="btn-ghost p-2" aria-label="テーマ切り替え">
+  <div id="theme-icon-auto" class="i-lucide:monitor text-md"></div>
+  <div id="theme-icon-light" class="i-lucide:sun text-md"></div>
+  <div id="theme-icon-dark" class="i-lucide:moon text-md"></div>
+</button>
+
+<style>
+  #theme-icon-auto,
+  #theme-icon-light,
+  #theme-icon-dark {
+    display: none;
+  }
+  :global(html[data-theme="auto"]) #theme-icon-auto {
+    display: block;
+  }
+  :global(html[data-theme="light"]) #theme-icon-light {
+    display: block;
+  }
+  :global(html[data-theme="dark"]) #theme-icon-dark {
+    display: block;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const getTheme = () => {
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("theme")
+      ) {
+        return localStorage.getItem("theme");
+      }
+      return "auto";
+    };
+
+    const applyTheme = (theme) => {
+      const isDark =
+        theme === "dark" ||
+        (theme === "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+      document.documentElement.classList.toggle("dark", isDark);
+      document.documentElement.setAttribute("data-theme", theme);
+
+      const button = document.getElementById("theme-toggle");
+      if (button) {
+        const labels = { auto: "自動", light: "ライト", dark: "ダーク" };
+        button.setAttribute("aria-label", `テーマ: ${labels[theme]}`);
+      }
+    };
+
+    // 初期適用 (FOUC防止)
+    applyTheme(getTheme());
+
+    // ボタンのセットアップ
+    const setupButton = () => {
+      const button = document.getElementById("theme-toggle");
+      if (button) {
+        // イベントリスナーを再登録する前に古いものを削除するのは難しい（匿名関数なので）
+        // そのため onclick プロパティを使用する
+        button.onclick = () => {
+          const current = getTheme();
+          const next =
+            current === "auto" ? "dark" : current === "dark" ? "light" : "auto";
+          localStorage.setItem("theme", next);
+          applyTheme(next);
+        };
+        // 初期状態の反映（ボタン取得時）
+        applyTheme(getTheme());
+      }
+    };
+
+    // 実行タイミングの制御
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupButton);
+    } else {
+      setupButton();
+    }
+
+    // View Transitions対応
+    document.addEventListener("astro:page-load", setupButton);
+
+    // システム設定の変更監視
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", () => {
+        if (getTheme() === "auto") {
+          applyTheme("auto");
+        }
+      });
+  })();
+</script>
