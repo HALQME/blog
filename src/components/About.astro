@@ -1,4 +1,6 @@
 ---
+import { getCollection } from "astro:content";
+
 // Tag configuration
 const tags = [
   "Osaka, Japan",
@@ -9,6 +11,12 @@ const tags = [
   "Swift",
   "Astro",
 ] as const;
+
+// Get all unique tags from blog posts
+const blogPosts = await getCollection("blog");
+const blogTags = new Set(
+  blogPosts.flatMap((post) => post.data.tags.map((t) => t.toLowerCase()))
+);
 ---
 
 <section class="section-base">
@@ -20,7 +28,24 @@ const tags = [
       useful tools.
     </p>
     <ul class="mt-4 flex list-none flex-wrap gap-3 pl-0 select-none">
-      {tags.map((label) => <li class={`tag`}>{label}</li>)}
+      {
+        tags.map((label) =>
+          blogTags.has(label.toLowerCase()) ? (
+            <li class="m-0 p-0">
+              <a
+                href={`/tags/${label.toLowerCase()}`}
+                class="tag underline-0"
+              >
+                {label}
+              </a>
+            </li>
+          ) : (
+            <li class="m-0 p-0">
+              <span class="tag">{label}</span>
+            </li>
+          )
+        )
+      }
     </ul>
   </div>
 </section>

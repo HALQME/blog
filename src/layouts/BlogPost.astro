@@ -17,7 +17,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
           height={510}
           src={heroImage}
           alt=""
-          class="mb-8 rounded-sm border border-gray-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+          class="mb-8 rounded-xs border border-gray-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
         />
       )
     }
@@ -49,10 +49,10 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
           <div class="mt-6 flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
               <a
-                href={`/tags/${tag}`}
-                class="tag-base tag-hover bg-white text-gray-700"
+                href={`/tags/${tag.toLowerCase()}`}
+                class="tag-base bg-white text-gray-700"
               >
-                <div class="i-lucide:tag text-gray-400" />
+                <div class="i-lucide:tag text-gray-700" />
                 {tag}
               </a>
             ))}

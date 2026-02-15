@@ -29,7 +29,7 @@ const posts = (await getCollection("blog")).sort(
                 height={360}
                 src={post.data.heroImage}
                 alt=""
-                class="mb-4 h-48 w-full rounded-sm border border-gray-200 object-cover"
+                class="mb-4 h-48 w-full rounded-xs border border-gray-200 object-cover"
               />
             )}
             <h2 class="mb-2 text-xl font-bold text-gray-900 decoration-2 underline-offset-4 group-hover:underline">
@@ -45,7 +45,7 @@ const posts = (await getCollection("blog")).sort(
             {post.data.tags && post.data.tags.length > 0 && (
               <div class="pointer-events-none mt-auto flex flex-wrap gap-2">
                 {post.data.tags.map((tag) => (
-                  <span class="tag-base bg-gray-50 text-xs text-gray-600">
+                  <span class="tag-base text-xs">
                     <div class="i-lucide:tag text-gray-400" />
                     {tag}
                   </span>

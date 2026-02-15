@@ -4,11 +4,17 @@ import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+  const uniqueTags = [
+    ...new Set(
+      posts.flatMap((post) => post.data.tags.map((t) => t.toLowerCase()))
+    ),
+  ];
 
   return uniqueTags.map((tag) => {
     const filteredPosts = posts
-      .filter((post) => post.data.tags.includes(tag))
+      .filter((post) =>
+        post.data.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+      )
       .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
     return {
       params: { tag },
@@ -50,7 +56,7 @@ const { posts } = Astro.props;
                 height={360}
                 src={post.data.heroImage}
                 alt=""
-                class="mb-4 h-48 w-full rounded-sm border border-gray-200 object-cover"
+                class="mb-4 h-48 w-full rounded-xs border border-gray-200 object-cover"
               />
             )}
             <h2 class="mb-2 text-xl font-bold text-gray-900 decoration-2 underline-offset-4 group-hover:underline">
@@ -69,7 +75,7 @@ const { posts } = Astro.props;
                   <span
                     class:list={[
                       "tag-base text-xs",
-                      t === tag ? "tag-active" : "bg-gray-50 text-gray-600",
+                      t.toLowerCase() === tag.toLowerCase() ? "tag-active" : "bg-gray-50 text-gray-600",
                     ]}
                   >
                     <div class="i-lucide:tag text-gray-400" />
