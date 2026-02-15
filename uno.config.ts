@@ -8,10 +8,10 @@ import {
 } from "unocss";
 
 // ========================================
-// Design Tokens - 単一ソース・オブ・トゥルース
+// Design Tokens
 // ========================================
 const tokens = {
-  // Colors - 全ての配色を一元管理
+  // Colors
   color: {
     primary: "#000000",
     secondary: "#ffffff",
@@ -171,7 +171,7 @@ export default defineConfig({
   shortcuts: [
     {
       // ========================================
-      // Color Utilities - トークンベース
+      // Color Utilities
       // ========================================
       // Text colors
       "text-primary": "text-black dark:text-white",
@@ -268,7 +268,7 @@ export default defineConfig({
       // ========================================
       // Tag/Badge Components
       // ========================================
-      tag: "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-base border border-base rounded-xs transition-all duration-200",
+      tag: "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-base text-primary border border-base rounded-xs transition-all duration-200",
       "tag-hover": "hover:border-dark hover:shadow-card-sm",
 
       // ========================================

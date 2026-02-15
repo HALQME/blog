@@ -26,7 +26,7 @@ const posts = (await getCollection("blog"))
               {post.data.title}
             </h3>
             <div class="text-label flex-inline mb-3 items-center">
-              <div class="i-lucide:calendar" />
+              <div class="i-lucide:calendar mr-0.5" />
               <time datetime={post.data.pubDate.toISOString()}>
                 {post.data.pubDate.toLocaleDateString("ja-JP")}
               </time>
