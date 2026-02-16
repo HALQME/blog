@@ -1,8 +1,11 @@
 ---
-title: "OrbStackとTailscaleで作る無料のお手軽Minecraftサーバー"
-description: "OrbStackとTailscaleを使って簡単に構築できるMinecraftサーバー"
-pubDate: "2025/10/02"
-tags: ["tailscale", "docker", "minecraft-server"]
+title: OrbStackとTailscaleで作る無料のお手軽Minecraftサーバー
+description: DockerとTailscaleを組み合わせて、安全かつ手軽に自分だけのマイクラサーバーを。面倒なポート開放なしでセキュアなマルチプレイを実現する方法。
+pubDate: 2025-10-02
+tags:
+  - tailscale
+  - docker
+  - minecraft-server
 ---
 
 マイクラサーバー作りたいけどJavaのインストールとかめんどくさいナリ……1ファイルでVanilaサーバーからPaperMCとかのPluginサーバーなどを立てる方法ないっすか？と思って調べてたらかなり良い方法を見つけました。
@@ -14,13 +17,9 @@ tags: ["tailscale", "docker", "minecraft-server"]
 - **Docker**
   `docker compose`が使用できればよいです。私は[OrbStack](https://orbstack.dev/)を使用しています。
 
-https://orbstack.dev/
-
 - **Tailscale**
   離れた家族や友達と一緒に遊びたい場合、サーバーを世界に公開する必要がありますが、当然リスクを伴います。しかし、[Tailscale](https://tailscale.com/)を使えば自分が確認したユーザのみが参加する独自ドメインネットワーク内でP2P通信が出来るようになります。
   **Free PlanではTailnetに参加できるのは3名までですが**ちょっくら家族とやるくらいならそれで十分ですし（そこまで親しくない人といちいちTailnetを共有することはないでしょう）、特定の端末のみ他のTailscalユーザに共有することも可能です。
-
-https://tailscale.com/
 
 ## さくっと手順
 
