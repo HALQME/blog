@@ -49,15 +49,11 @@
       }
     };
 
-    // 初期適用 (FOUC防止)
     applyTheme(getTheme());
 
-    // ボタンのセットアップ
     const setupButton = () => {
       const button = document.getElementById("theme-toggle");
       if (button) {
-        // イベントリスナーを再登録する前に古いものを削除するのは難しい（匿名関数なので）
-        // そのため onclick プロパティを使用する
         button.onclick = () => {
           const current = getTheme();
           const next =
@@ -65,22 +61,18 @@
           localStorage.setItem("theme", next);
           applyTheme(next);
         };
-        // 初期状態の反映（ボタン取得時）
         applyTheme(getTheme());
       }
     };
 
-    // 実行タイミングの制御
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", setupButton);
     } else {
       setupButton();
     }
 
-    // View Transitions対応
     document.addEventListener("astro:page-load", setupButton);
 
-    // システム設定の変更監視
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", () => {

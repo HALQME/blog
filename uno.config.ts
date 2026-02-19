@@ -196,11 +196,11 @@ export default defineConfig({
 
       // Shadow utilities
       "shadow-card":
-        "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]",
+        "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.8)]",
       "shadow-card-sm":
-        "shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.1)]",
+        "shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.8)]",
       "shadow-card-subtle":
-        "shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.05)]",
+        "shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.7)]",
 
       // ========================================
       // Layout Primitives
@@ -283,7 +283,7 @@ export default defineConfig({
       "gradient-fill":
         "bg-gradient-to-r from-base to-base bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] bg-left-bottom transition-all duration-500",
       "pattern-dots":
-        "bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] [background-size:16px_16px]",
+        "bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2f48_1px,transparent_1px)] [background-size:16px_16px]",
     },
   ],
 });

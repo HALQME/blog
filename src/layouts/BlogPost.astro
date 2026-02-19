@@ -35,7 +35,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
       )
     }
     <div class="mb-8 text-center">
-      <h1 class="text-title mb-4">{title}</h1>
+      <h1 class="text-title mb-4" transition:name={`title-${slug}`}>{title}</h1>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <div class="text-label">
           <div class="i-lucide:calendar"></div>
@@ -59,7 +59,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         tags && tags.length > 0 && (
           <div class="mt-6 flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
-              <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover">
+              <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover" transition:name={`tags-${tag}`}>
                 <div class="i-lucide:tag text-light" />
                 {tag}
               </a>

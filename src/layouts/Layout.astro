@@ -1,4 +1,6 @@
 ---
+import { ClientRouter, slide } from 'astro:transitions';
+
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
@@ -36,6 +38,7 @@ const canonicalURL = new URL(
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
     <title>{title}</title>
 
     <script is:inline>
@@ -108,11 +111,15 @@ const canonicalURL = new URL(
     background-color: black;
     color: white;
   }
+  ::-webkit-selection {
+    background-color: black;
+    color: white;
+  }
   ::-moz-selection {
     background-color: black;
     color: white;
   }
-  @media (prefers-color-scheme: dark) {
+  html.dark {
     ::selection {
       background-color: white;
       color: black;
