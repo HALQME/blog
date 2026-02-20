@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  activeTag?: string | null;
+}
+
+const { post, activeTag = null } = Astro.props;
+---
+
+<article class="card-interactive flex flex-col">
+  <a href={`/blog/${post.id}/`} class="group flex-1 p-6">
+    {
+      post.data.heroImage && (
+        <img
+          width={720}
+          height={360}
+          src={post.data.heroImage}
+          alt=""
+          class="border-base mb-4 h-48 w-full rounded-xs border object-cover"
+        />
+      )
+    }
+    <h2
+      class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline"
+      transition:name={`title-${post.id}`}
+    >
+      {post.data.title}
+    </h2>
+    <div class="text-label mb-3">
+      <div class="i-lucide:calendar" />
+      <time datetime={post.data.pubDate.toISOString()}>
+        {post.data.pubDate.toLocaleDateString("ja-JP")}
+      </time>
+    </div>
+    {
+      post.data.description && (
+        <p class="text-body mb-4 line-clamp-3">{post.data.description}</p>
+      )
+    }
+  </a>
+  {
+    post.data.tags && post.data.tags.length > 0 && (
+      <div class="px-6 pb-6 pt-0">
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => (
+            <a
+              href={`/tags/${tag.toLowerCase()}`}
+              class:list={[
+                "tag text-xs",
+                activeTag && activeTag.toLowerCase() === tag.toLowerCase()
+                  ? "border-dark bg-primary text-secondary shadow-card-subtle"
+                  : "",
+              ]}
+            >
+              <div class="i-lucide:tag" />
+              {tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
+</article>

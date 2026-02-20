@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import BlogCard from "../../components/BlogCard.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -23,46 +24,7 @@ const posts = (await getCollection("blog")).sort(
       </a>
     </div>
     <div class="grid gap-8 md:grid-cols-2">
-      {
-        posts.map((post) => (
-          <article class="card-interactive flex flex-col">
-            <a href={`/blog/${post.id}/`} class="p-6 group">
-              {post.data.heroImage && (
-                <img
-                  width={720}
-                  height={360}
-                  src={post.data.heroImage}
-                  alt=""
-                  class="border-base mb-4 h-48 w-full rounded-xs border object-cover"
-                />
-              )}
-              <h2
-                class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline"
-                transition:name={`title-${post.id}`}
-              >
-                {post.data.title}
-              </h2>
-              <div class="text-label mb-3">
-                <div class="i-lucide:calendar" />
-                <time datetime={post.data.pubDate.toISOString()}>
-                  {post.data.pubDate.toLocaleDateString("ja-JP")}
-                </time>
-              </div>
-              <p class="text-body mb-4 line-clamp-3">{post.data.description}</p>
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="flex flex-wrap gap-2">
-                  {post.data.tags.map((tag) => (
-                    <span class="tag text-xs">
-                      <div class="i-lucide:tag text-light" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </a>
-          </article>
-        ))
-      }
+      {posts.map((post) => <BlogCard post={post} />)}
     </div>
   </section>
 </Layout>
