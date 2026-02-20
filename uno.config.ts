@@ -211,7 +211,7 @@ export default defineConfig({
       "container-narrow": "max-w-3xl mx-auto px-6 md:px-12",
 
       // Page sections
-      "section-border": "border-t border-neutral-200 first:border-t-0",
+      "section-border": "py-6 border-t border-neutral-200 first:border-t-0",
 
       // Layout helpers
       stack: "flex flex-col",
