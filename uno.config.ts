@@ -207,6 +207,7 @@ export default defineConfig({
       // ========================================
       // Container
       "container-main": "max-w-5xl mx-auto px-6 md:px-12",
+      "container-article": "max-w-6xl mx-auto px-6 md:px-12",
       "container-wide": "max-w-7xl mx-auto px-6 md:px-12",
       "container-narrow": "max-w-3xl mx-auto px-6 md:px-12",
 

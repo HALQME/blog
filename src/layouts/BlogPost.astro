@@ -2,10 +2,13 @@
 import Layout from "./Layout.astro";
 import type { CollectionEntry } from "astro:content";
 import ShareButtons from "../components/ShareButtons.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import type { MarkdownHeading } from "astro";
 
 type Props = CollectionEntry<"blog">["data"] & {
   slug: string;
   readingTime?: string;
+  headings?: MarkdownHeading[];
 };
 
 const {
@@ -17,6 +20,7 @@ const {
   tags,
   slug,
   readingTime,
+  headings,
 } = Astro.props;
 
 const currentUrl = Astro.url.toString();
@@ -34,7 +38,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
   modifiedDate={updatedDate}
   tags={tags}
 >
-  <article class="container-narrow py-8">
+  <article class="container-article py-8">
     {
       heroImage && (
         <img
@@ -92,13 +96,39 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         )
       }
     </div>
-    <div class="prose prose-lg prose-neutral dark:prose-invert mx-auto">
-      <slot />
-    </div>
 
-    {/* 記事フッター - シェアボタン */}
-    <div class="border-base mt-12 flex justify-end border-t pt-8">
-      <ShareButtons url={currentUrl} title={title} />
+    <div
+      class="relative items-stretch lg:grid lg:grid-cols-[1fr_220px] lg:gap-10"
+    >
+      <div class="min-w-0">
+        {
+          headings && headings.length > 0 && (
+            <details class="bg-base border-base mb-8 rounded-xs border p-4 lg:hidden">
+              <summary class="no-marker flex cursor-pointer items-center select-none">
+                <div class="i-lucide:list text-light mr-2" />
+                <span>目次</span>
+              </summary>
+              <TableOfContents headings={headings} />
+            </details>
+          )
+        }
+        <div class="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+          <slot />
+        </div>
+
+        {/* 記事フッター - シェアボタン */}
+        <div class="border-base mt-12 flex justify-end border-t pt-8">
+          <ShareButtons url={currentUrl} title={title} />
+        </div>
+      </div>
+
+      {
+        headings && headings.length > 0 && (
+          <aside class="relative hidden font-sans lg:block">
+            <TableOfContents headings={headings} />
+          </aside>
+        )
+      }
     </div>
   </article>
 </Layout>
@@ -110,6 +140,16 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
 </script>
 
 <style is:global>
+  summary.no-marker::-webkit-details-marker {
+    display: none;
+  }
+  summary.no-marker::marker {
+    content: none;
+  }
+  summary.no-marker {
+    list-style: none;
+  }
+
   .rlc-container {
     display: flex;
     flex-direction: column-reverse;
