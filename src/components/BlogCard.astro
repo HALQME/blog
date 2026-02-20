@@ -47,9 +47,9 @@ const { post, activeTag = null } = Astro.props;
           {post.data.tags.map((tag) => (
             <a
               href={`/tags/${
-                activeTag && activeTag.toLowerCase() !== tag.toLowerCase()
-                  ? tag.toLowerCase()
-                  : ""
+                activeTag && activeTag.toLowerCase() === tag.toLowerCase()
+                  ? ""
+                  : tag.toLowerCase()
               }`}
               class:list={[
                 "tag text-xs",
