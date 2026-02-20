@@ -59,7 +59,11 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         tags && tags.length > 0 && (
           <div class="mt-6 flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
-              <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover" transition:name={`tags-${tag}`}>
+              <a
+                href={`/tags/${tag.toLowerCase()}`}
+                class="tag tag-hover"
+                transition:name={`tags-${tag}`}
+              >
                 <div class="i-lucide:tag text-light" />
                 {tag}
               </a>
@@ -86,7 +90,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
     --at-apply: "text-subhead mb-1 line-clamp-1";
   }
 
-  .rlc-description{
+  .rlc-description {
     --at-apply: "text-body-sm line-clamp-3 text-light";
   }
 

@@ -8,8 +8,11 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <Layout title="Blog | HALQME">
-  <section >
-    <div class="mb-8 flex items-start justify-between" transition:animate="slide">
+  <section>
+    <div
+      class="mb-8 flex items-start justify-between"
+      transition:animate="slide"
+    >
       <h1 class="text-headline mb-0 flex items-center gap-3">
         <div class="i-lucide:pen-tool"></div>
         Blog
@@ -36,7 +39,10 @@ const posts = (await getCollection("blog")).sort(
                   class="border-base mb-4 h-48 w-full rounded-xs border object-cover"
                 />
               )}
-              <h2 class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline" transition:name={`title-${post.id}`}>
+              <h2
+                class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline"
+                transition:name={`title-${post.id}`}
+              >
                 {post.data.title}
               </h2>
               <div class="text-label mb-3">

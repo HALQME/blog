@@ -224,10 +224,8 @@ export default defineConfig({
       // Typography Scale
       // ========================================
       // Headings (Tight, Bold)
-      "text-display":
-        "text-5xl md:text-7xl font-bold tracking-tighter text-primary",
-      "text-title":
-        "text-3xl md:text-4xl font-bold tracking-tight text-primary",
+      "text-display": "text-5xl md:text-7xl font-bold tracking-tighter text-primary",
+      "text-title": "text-3xl md:text-4xl font-bold tracking-tight text-primary",
       "text-headline": "text-2xl font-semibold tracking-tight text-primary",
       "text-subhead": "text-lg font-semibold tracking-tight text-primary",
 
@@ -248,16 +246,13 @@ export default defineConfig({
       // Button variants
       "btn-primary":
         "btn bg-primary text-secondary border-dark hover:bg-neutral-800 dark:hover:bg-neutral-200",
-      "btn-secondary":
-        "btn bg-base text-primary border-light hover:border-dark hover:bg-hover",
-      "btn-ghost":
-        "btn bg-transparent text-primary border-transparent hover:bg-base",
+      "btn-secondary": "btn bg-base text-primary border-light hover:border-dark hover:bg-hover",
+      "btn-ghost": "btn bg-transparent text-primary border-transparent hover:bg-base",
 
       // Link styles
       link: "text-primary underline underline-offset-4 hover:text-subtle transition-colors",
       "link-subtle": "text-subtle hover:text-primary transition-colors",
-      "link-nav":
-        "text-sm font-medium text-subtle hover:text-primary transition-colors",
+      "link-nav": "text-sm font-medium text-subtle hover:text-primary transition-colors",
 
       // ========================================
       // Card Components
