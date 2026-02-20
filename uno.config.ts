@@ -133,6 +133,14 @@ const tokens = {
 };
 
 export default defineConfig({
+  safelist: [
+    "absolute", "top-2", "right-2", "flex", "items-center", "gap-1", "px-2", "py-1",
+    "text-xs", "font-medium", "text-white", "bg-black/80", "dark:bg-white/20",
+    "backdrop-blur-sm", "rounded", "opacity-0", "group-hover:opacity-100",
+    "transition-opacity", "duration-200", "hover:bg-black", "dark:hover:bg-white/30",
+    "z-10", "i-lucide:copy", "w-3.5", "h-3.5", "i-lucide:check", "text-green-400",
+    "bg-green-900/80", "relative", "group", "block", "w-full", "code-copy-button", "code-block-wrapper"
+  ],
   theme: {
     colors: {
       primary: tokens.color.primary,

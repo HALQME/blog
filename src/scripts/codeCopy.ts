@@ -17,8 +17,9 @@ function generateCodeId(): string {
 }
 
 function addCopyButton(codeBlock: HTMLElement): void {
-  // すでにボタンがある場合はスキップ
-  if (codeBlock.querySelector(".code-copy-button")) return;
+  // すでに処理済みの場合はスキップ
+  if (codeBlock.hasAttribute("data-has-copy-button")) return;
+  codeBlock.setAttribute("data-has-copy-button", "true");
 
   const codeId = generateCodeId();
   codeBlock.dataset.codeId = codeId;
@@ -31,8 +32,19 @@ function addCopyButton(codeBlock: HTMLElement): void {
 
   // ラッパー作成
   const wrapper = document.createElement("div");
-  wrapper.className = "code-block-wrapper relative group";
+  // codeBlock（Astroの<pre>タグ）は通常ブロックレベルなので、それを覆うラッパーも同じ幅になるようにする
+  wrapper.className = "code-block-wrapper relative group block w-full";
   wrapper.style.position = "relative";
+
+  // preタグの外側の余白をラッパーに移す
+  if (typeof window !== "undefined") {
+    const cs = window.getComputedStyle(codeBlock);
+    wrapper.style.marginTop = cs.marginTop;
+    wrapper.style.marginBottom = cs.marginBottom;
+    wrapper.style.marginLeft = cs.marginLeft;
+    wrapper.style.marginRight = cs.marginRight;
+    codeBlock.style.margin = "0";
+  }
 
   // コピーボタン作成
   const button = document.createElement("button");
