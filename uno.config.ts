@@ -260,7 +260,6 @@ export default defineConfig({
       card: "bg-base border border-base rounded-xs transition-all duration-300",
       "card-hover": "hover:border-dark hover:shadow-card",
       "card-interactive": "card card-hover cursor-pointer",
-      "card-content": "p-6",
 
       // ========================================
       // Tag/Badge Components

@@ -26,10 +26,7 @@ const posts = (await getCollection("blog")).sort(
       {
         posts.map((post) => (
           <article class="card-interactive flex flex-col">
-            <a
-              href={`/blog/${post.id}/`}
-              class="card-content group block flex-1"
-            >
+            <a href={`/blog/${post.id}/`} class="p-6 group">
               {post.data.heroImage && (
                 <img
                   width={720}
