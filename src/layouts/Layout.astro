@@ -28,6 +28,11 @@ const canonicalURL = new URL(
   Astro.url.pathname,
   Astro.site || Astro.url.origin,
 );
+
+// OGP画像を絶対URLに変換
+const absoluteOgImage = ogImage
+  ? new URL(ogImage, canonicalURL).toString()
+  : undefined;
 ---
 
 <!doctype html>
@@ -53,20 +58,20 @@ const canonicalURL = new URL(
     </script>
 
     {
-      ogImage && (
+      absoluteOgImage && (
         <>
           <meta property="og:title" content={title} />
           <meta property="og:description" content={description} />
           <meta property="og:type" content={ogType} />
           <meta property="og:url" content={canonicalURL} />
-          <meta property="og:image" content={ogImage} />
+          <meta property="og:image" content={absoluteOgImage} />
           <meta property="og:site_name" content="HALQME" />
           <meta property="og:locale" content="ja_JP" />
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={ogImage} />
+          <meta name="twitter:image" content={absoluteOgImage} />
         </>
       )
     }
