@@ -29,7 +29,7 @@ const { post, activeTag = null } = Astro.props;
       {post.data.title}
     </h2>
     <div class="text-label mb-3">
-      <div class="i-lucide:calendar" />
+      <div class="i-lucide:calendar"></div>
       <time datetime={post.data.pubDate.toISOString()}>
         {post.data.pubDate.toLocaleDateString("ja-JP")}
       </time>
@@ -42,7 +42,7 @@ const { post, activeTag = null } = Astro.props;
   </a>
   {
     post.data.tags && post.data.tags.length > 0 && (
-      <div class="px-6 pb-6 pt-0">
+      <div class="px-6 pt-0 pb-6">
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map((tag) => (
             <a
