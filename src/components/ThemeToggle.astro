@@ -73,6 +73,15 @@
 
     document.addEventListener("astro:page-load", setupButton);
 
+    document.addEventListener("astro:before-swap", (e) => {
+      e.newDocument.documentElement.className =
+        document.documentElement.className;
+      e.newDocument.documentElement.setAttribute(
+        "data-theme",
+        document.documentElement.getAttribute("data-theme") || "auto",
+      );
+    });
+
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", () => {

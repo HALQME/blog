@@ -44,9 +44,9 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => {
         <div class="flex flex-wrap gap-3">
           {sortedTags.map(([tag, count]) => (
             <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover group">
-              <div class="i-lucide:tag text-light group-hover:text-primary transition-colors" />
+              <div class="i-lucide:tag text-light group-hover:text-muted transition-colors" />
               <span class="text-subtle">{tag}</span>
-              <span class="border-base text-light ml-1 border-l pl-1.5 text-xs">
+              <span class="border-base text-muted ml-1 border-l pl-1.5 text-xs">
                 {count}
               </span>
             </a>
