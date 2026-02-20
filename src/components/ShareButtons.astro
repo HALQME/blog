@@ -1,0 +1,159 @@
+---
+export interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props;
+
+// 各SNSのシェアURLを生成
+const shareUrls = {
+  x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
+  bluesky: `https://bsky.app/intent/compose?text=${encodeURIComponent(title + " " + url)}`,
+  mastodon: `https://mastodonshare.com/?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
+  hatena: `https://b.hatena.ne.jp/entry/s/${encodeURIComponent(url.replace(/^https?:\/\//, ""))}`,
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+  copy: url,
+};
+---
+
+<div class="share-buttons flex flex-wrap items-center gap-2">
+  <a
+    href={shareUrls.x}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    aria-label="Xでシェア"
+  >
+    <span class="i-simple-icons:x text-sm"></span>
+    <span
+      class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+    >
+      Xでシェア
+    </span>
+  </a>
+
+  <a
+    href={shareUrls.bluesky}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    aria-label="Blueskyでシェア"
+  >
+    <span class="i-simple-icons:bluesky text-sm"></span>
+    <span
+      class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+    >
+      Blueskyでシェア
+    </span>
+  </a>
+
+  <a
+    href={shareUrls.mastodon}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    aria-label="Mastodonでシェア"
+  >
+    <span class="i-simple-icons:mastodon text-sm"></span>
+    <span
+      class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+    >
+      Mastodonでシェア
+    </span>
+  </a>
+
+  <a
+    href={shareUrls.hatena}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    aria-label="はてなブックマークに追加"
+  >
+    <span class="i-simple-icons:hatenabookmark text-sm"></span>
+    <span
+      class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+    >
+      はてブに追加
+    </span>
+  </a>
+
+  <a
+    href={shareUrls.facebook}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    aria-label="Facebookでシェア"
+  >
+    <span class="i-simple-icons:facebook text-sm"></span>
+    <span
+      class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+    >
+      Facebookでシェア
+    </span>
+  </a>
+
+  <!-- URLコピー -->
+  <button
+    type="button"
+    class="share-btn copy-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    aria-label="URLをコピー"
+    data-url={url}
+  >
+    <span class="i-lucide:link text-sm"></span>
+    <span
+      class="copy-tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-green-600 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity"
+    >
+      コピー完了！
+    </span>
+    <span
+      class="default-tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+    >
+      URLをコピー
+    </span>
+  </button>
+</div>
+
+<script>
+  // URLコピー機能
+  document.addEventListener("DOMContentLoaded", () => {
+    const copyButtons = document.querySelectorAll(".copy-btn");
+
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const url = button.getAttribute("data-url");
+        if (!url) return;
+
+        try {
+          await navigator.clipboard.writeText(url);
+
+          // ツールチップ表示
+          const copyTooltip = button.querySelector(".copy-tooltip");
+          const defaultTooltip = button.querySelector(".default-tooltip");
+
+          if (copyTooltip && defaultTooltip) {
+            defaultTooltip.classList.add("opacity-0");
+            copyTooltip.classList.remove("opacity-0");
+
+            setTimeout(() => {
+              copyTooltip.classList.add("opacity-0");
+            }, 2000);
+          }
+        } catch (err) {
+          console.error("Failed to copy URL:", err);
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .share-btn {
+    position: relative;
+  }
+
+  .share-btn:hover {
+    transform: translateY(-1px);
+  }
+</style>

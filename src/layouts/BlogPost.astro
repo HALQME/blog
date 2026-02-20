@@ -1,15 +1,27 @@
 ---
 import Layout from "./Layout.astro";
 import type { CollectionEntry } from "astro:content";
+import ShareButtons from "../components/ShareButtons.astro";
 
 type Props = CollectionEntry<"blog">["data"] & {
   slug: string;
+  readingTime?: string;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, tags, slug } =
-  Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  tags,
+  slug,
+  readingTime,
+} = Astro.props;
 
-// OGP画像URLの生成（heroImageがあればそれを使用、なければ自動生成）
+const currentUrl = Astro.url.toString();
+
+// OGP画像URLの生成
 const ogImage = heroImage || `/ogp/${slug}.png`;
 ---
 
@@ -54,6 +66,14 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
             </div>
           )
         }
+        {
+          readingTime && (
+            <div class="text-label">
+              <div class="i-lucide:clock" />
+              <span>{readingTime}</span>
+            </div>
+          )
+        }
       </div>
       {
         tags && tags.length > 0 && (
@@ -75,8 +95,19 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
     <div class="prose prose-lg prose-neutral dark:prose-invert mx-auto">
       <slot />
     </div>
+
+    {/* 記事フッター - シェアボタン */}
+    <div class="border-base mt-12 flex justify-end border-t pt-8">
+      <ShareButtons url={currentUrl} title={title} />
+    </div>
   </article>
 </Layout>
+
+{/* JavaScriptスクリプトの読み込み */}
+<script>
+  import "../scripts/codeCopy";
+  import "../scripts/anchorLinks";
+</script>
 
 <style is:global>
   .rlc-container {

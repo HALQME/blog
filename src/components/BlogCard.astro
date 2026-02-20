@@ -46,7 +46,11 @@ const { post, activeTag = null } = Astro.props;
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map((tag) => (
             <a
-              href={`/tags/${tag.toLowerCase()}`}
+              href={`/tags/${
+                activeTag && activeTag.toLowerCase() !== tag.toLowerCase()
+                  ? tag.toLowerCase()
+                  : ""
+              }`}
               class:list={[
                 "tag text-xs",
                 activeTag && activeTag.toLowerCase() === tag.toLowerCase()

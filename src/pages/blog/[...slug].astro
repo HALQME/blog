@@ -13,8 +13,18 @@ export async function getStaticPaths() {
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+// 読了時間を計算（HTMLタグを除去して文字数カウント）
+const html = post.rendered?.html || "";
+const textContent = html
+  .replace(/<[^>]*>/g, "") // HTMLタグを除去
+  .replace(/&nbsp;|&amp;|&lt;|&gt;|&quot;/g, " "); // HTMLエンティティを空白に
+const charCount = textContent.replace(/\s/g, "").length;
+const readingTimeMinutes = Math.ceil(charCount / 400);
+const readingTimeText =
+  readingTimeMinutes < 1 ? "1分未満" : `約${readingTimeMinutes}分`;
 ---
 
-<BlogPost {...post.data} slug={post.id}>
+<BlogPost {...post.data} slug={post.id} readingTime={readingTimeText}>
   <Content />
 </BlogPost>
