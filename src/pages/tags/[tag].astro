@@ -28,20 +28,20 @@ const { posts } = Astro.props;
 ---
 
 <Layout title={`#${tag} | Blog | HALQME`}>
-  <section class="section">
-    <div class="mb-8">
-      <a href="/tags" class="btn-ghost mb-4 inline-flex text-sm">
-        <div class="i-lucide:arrow-left"></div>
-        すべてのタグ
-      </a>
+  <section >
+    <div class="mb-4 flex items-start justify-between" transition:animate="slide">
       <h1 class="text-headline mb-0 flex items-center gap-3">
         <div class="i-lucide:tag"></div>
         {tag}
       </h1>
-      <p class="text-body mt-2">
-        {posts.length} 件の記事
-      </p>
+      <a href="/tags" class="btn-ghost text-sm">
+        <div class="i-lucide:tags"></div>
+        Tags
+      </a>
     </div>
+    <p class="text-body mt-2 mb-4">
+      {posts.length} 件の記事
+    </p>
 
     <div class="grid gap-8 md:grid-cols-2">
       {
@@ -60,7 +60,7 @@ const { posts } = Astro.props;
                   class="border-base mb-4 h-48 w-full rounded-xs border object-cover"
                 />
               )}
-              <h2 class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline">
+              <h2 class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline" transition:name={`title-${post.id}`}>
                 {post.data.title}
               </h2>
               <div class="text-label mb-3">

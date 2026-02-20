@@ -2,7 +2,12 @@
 title: "Apple Silicon Macの仮想化はTartがよかった"
 description: Apple Virtualization Frameworkをフル活用。CUIの操作感でGUIも扱える、Apple Silicon Mac特化の仮想化ツール「Tart」の導入から活用まで。
 pubDate: "2024-08-15"
-tags: ["mac", "virtualization", "tart", "linux"]
+tags:
+  - "mac"
+  - "virtualization"
+  - "tart"
+  - "linux"
+  - "docker"
 ---
 
 ## 最初に
@@ -11,7 +16,9 @@ Apple Silicon Mac で仮想マシンを使うときといえば、GUI なら UTM
 
 そこで、今回紹介するのが、Tart です｡
 
-[cirruslabs/tart](https://github.com/cirruslabs/tart "cirruslabs/tart") は Apple Silicon 上で macOS および Linux 仮想マシンを構築、実行、管理するための仮想化ツールセットです｡Apple Virtualization Framework によって高速な仮想マシンを利用することができます｡（[Toolset to build, run and manage macOS and Linux VMs - Tart Virtualization](https://tart.run/ "Toolset to build, run and manage macOS and Linux VMs - Tart Virtualization")）
+[cirruslabs/tart](https://github.com/cirruslabs/tart "cirruslabs/tart") は Apple Silicon 上で macOS および Linux 仮想マシンを構築、実行、管理するための仮想化ツールセットです｡Apple Virtualization Framework によって高速な仮想マシンを利用することができます｡
+
+https://tart.run/
 
 Tartはcli から仮想マシンの管理を行いますが、仮想マシンを起動すると、GUI が立ち上がります｡
 

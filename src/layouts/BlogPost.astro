@@ -73,3 +73,32 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
     </div>
   </article>
 </Layout>
+
+<style is:global>
+  .rlc-container {
+    display: flex;
+    flex-direction: column-reverse;
+    text-decoration: none !important;
+    --at-apply: "card p-3";
+  }
+
+  .rlc-title {
+    --at-apply: "text-subhead mb-1 line-clamp-1";
+  }
+
+  .rlc-description{
+    --at-apply: "text-body-sm line-clamp-3 text-light";
+  }
+
+  .rlc-url-container {
+    --at-apply: "text-caption flex items-center gap-1";
+  }
+
+  img.rlc-favicon {
+    margin: 0;
+  }
+
+  img.rlc-image {
+    margin: 0;
+  }
+</style>
