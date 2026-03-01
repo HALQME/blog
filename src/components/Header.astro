@@ -3,7 +3,6 @@ import ThemeToggle from "./ThemeToggle.astro";
 
 const links = [
   { href: "/blog", label: "Blog", icon: "i-lucide:pen-tool" },
-  { href: "/halqme_portfolio.pdf", label: "CV", icon: "i-lucide:file-text" },
 ];
 ---
 
@@ -24,7 +23,7 @@ const links = [
             <li>
               <a
                 href={link.href}
-                class="link-nav flex-inline items-center gap-1 px-3 py-1.5"
+                class="link-nav flex-inline items-center gap-1 py-1.5"
               >
                 <div class={link.icon} />
                 {link.label}
@@ -32,6 +31,16 @@ const links = [
             </li>
           ))
         }
+        <li>
+          <a
+            href="/halqme_portfolio.pdf"
+            target="_blank"
+            class="link-nav flex-inline items-center gap-1 py-1.5"
+          >
+            <div class="i-lucide:file-text"></div>
+            CV
+          </a>
+        </li>
       </ul>
     </nav>
     <ThemeToggle />
