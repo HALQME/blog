@@ -1,65 +1,195 @@
-// 新卒向け 技術経験 / 自己PR (Typst)
-
-#set page(paper: "a4", margin: 20mm)
-#set text(font: "UDEV Gothic 35JPDOC", size: 10.5pt)
+#set page(paper: "a4", margin: 16mm)
+#set text(font: "UDEV Gothic 35JPDOC", size: 9pt)
 #set par(justify: true)
+
+
+// 見出し（構造化）のスタイル定義
+#show heading.where(level: 1): it => {
+  v(1.5em)
+  text(size: 14pt, weight: "bold", it.body)
+  v(0.75em)
+}
+
+#show heading.where(level: 2): it => {
+  v(1em)
+  text(size: 12pt, weight: "bold", it.body)
+}
+
+#show heading.where(level: 3): it => {
+  v(1em)
+  text(size: 11pt, weight: "bold", it.body)
+}
+
+#show heading.where(level: 4): it => {
+  text(size: 10pt, weight: "bold", it.body)
+}
 
 #let name = "Miharu KOIKE"
 #let email = "halqme@icloud.com"
 #let github = "https://github.com/HALQME"
 #let website = "https://halqme.pages.dev"
 
+// Components
+#let item(title, link_url, role, period, tech, body, obsession) = {
+  v(0.5em)
+  block(width: 100%)[
+    #grid(
+      columns: (1fr, auto),
+      underline()[
+        #if link_url != "" [
+          ==== #link(link_url)[#title]
+        ] else [
+          ==== #title
+        ]
+      ],
+      text(size: 9pt, fill: luma(100), period)
+    )
+    #if role != "" or tech != "" [
+      #text(size: 8.5pt, fill: luma(100))[
+        #if role != "" [*#role*]
+        #if role != "" and tech != "" [ | ]
+        #if tech != "" [#tech]
+      ]
+    ]
+    #v(0.2em)
+    #text(size: 9.5pt)[#body]
+    #v(0em)
+    #if obsession != [] [
+      #set text(size: 9pt)
+      #obsession
+    ]
+  ]
+  v(0.5em)
+}
+
 // Header
 #align(left)[
-  #text(size: 14pt, weight: "bold")[#name]
+  = #name
 ]
 #align(left)[
-  #text(size: 9pt)[#email · #github · #website]
+  #text(size: 9.5pt)[#email · #github · #website]
 ]
-#line(length: 100%, stroke: 0.5pt)
-#v(0.5em)
+#line(length: 100%)
 
-// Experiences
+#show: columns.with(2)
+
 == 主な経験
 
 === 個人開発
 
+#item(
+  "Fai",
+  "https://github.com/HALQME/Fai",
+  "個人開発",
+  "2025/07~",
+  "Swift",
+  [AppleのFoundationModels Frameworkを活用したCLIツール。],
+  [プラットフォームネイティブの最適化。外部APIに依存せず、OSが提供する推論フレームワークを直接利用することで、セキュアかつ効率的なローカルAI体験の構築に注力した。Foundation Modelsのガードレールが厳格なため、自由なチャットの利用は難しかった。]
+)
 
+#item(
+  "omu-aikido-app",
+  "https://github.com/omu-aikido/omu-aikido-app",
+  "個人開発",
+  "2024/12~",
+  "Vue 3 / TypeScript / Hono / Drizzle ORM",
+  [大阪公立大学合気道部の稽古管理・部活動運営をデジタルでサポートするアプリケーションおよびシステムの構築。],
+  [最新のWeb標準技術を取り入れた高い品質基準と開発体験(DX)の両立。フロントエンドにVue 3と UnoCSS、バックエンドにHono (Cloudflare Workers) とlibSQLを、認証にClerkを採用し、エッジコンピューティングによる低レイテンシとスケーラビリティ、コストパフォーマンスの高さを確保。CI/CDパイプライン (GitHub Actions) の整備やVitest、Playwrightによるテスト環境を導入し、堅牢で保守性の高いシステム運用を徹底している。]
+)
 
+#item(
+  "ポートフォリオサイト",
+  "https://github.com/HALQME/blog",
+  "個人開発",
+  "current",
+  "Astro / UnoCSS / Nix / GitHub Actions / Typst",
+  [自身の経歴や制作物、ブログ記事を発信する静的サイト。],
+  [AstroとUnoCSSを用いた高速な静的サイト。開発環境はNix Flakeによりパッケージや日本語フォントを含め再現性を確保している。GitHub Actionsを活用し、Cloudflare Pagesへの自動デプロイやTypstによる本履歴書PDFのビルドパイプラインを構築。]
+)
 
+=== 共同開発・コントリビューション
 
-#v(0.5em)
+#item(
+  "Moodle Plus",
+  "https://github.com/tomo0611/moodle-plus",
+  "Contoributor",
+  "2024/04~2024/11",
+  "TypeScript",
+  [複数大学で導入されているLMS (Moodle) のUI/UXを改善する拡張機能。大学の先輩のプロジェクトにコントリビュータとして学部独自のシステムに対応できる用パッチを作成。],
+  []
+)
 
-// Skills
+=== 卒業研究
+
+未定。
+
+３回生前期には世界モデル仮説を前提として、GPT-OSSが事前のトレーニングやIn-Context Learningなしにオセロのルールを理解し、それに則った手を選択することが可能かを検証した。
+結果としては、適切なトークン分割を行うことで、合法手の回答を生成する可能性が高まるものの、「有効な手」を明確に打つことは不可能であったという点で、性能とその限界を見極めることに成功した。
+
+=== Agentic Codingの模索
+設計、実装、テストなどの工程をAIエージェントに任せるAgentic Codingの可能性を探求する個人プロジェクト群。
+
+#item(
+  "btuin",
+  "https://github.com/HALQME/btuin",
+  "Agent開発",
+  "2025/11~",
+  "TypeScript (Bun)",
+  [Bunランタイム上で動作する宣言的ターミナルUIフレームワークの構築。],
+  [仮想DOMを排したリアクティビティモデルの採用と、BunのネイティブAPI (TTY/FFI) の直接利用により、極めて高速な描画を実現。同時に、ホットリロードやブラウザベースのインスペクタを実装し、TUI領域にモダンなフロントエンド開発体験 (DX) をもたらすアーキテクチャを設計した。]
+)
+
+#item(
+  "slide_bun",
+  "https://github.com/HALQME/slide_bun",
+  "Agent開発",
+  "2026/01~",
+  "TypeScript (Bun)",
+  [Markdownからスライドを生成するCLIツールの開発。],
+  [Marpのようにスライドの内容をMarkdownで宣言的に記述できると共に、Marpほどデザインの自由度を与えないことで、迷わないスライド生成を実現した。また、BroadcastChannel APIによるタブ間通信により、レーザーポインター機能やスライド送りの同期機能などを実装し、快適なプレゼンテーション体験を提供する設計とした。]
+)
+
+#item(
+  "mee",
+  "https://github.com/HALQME/mee",
+  "Agent開発",
+  "2026/02~",
+  "Go",
+  [プラグインシステムを備え、クロスプラットフォームで動作するコマンドランチャーの開発。],
+  [徹底した速度への追及。Goの並行処理 (Goroutine) を活用した非同期ファジー検索を実装し、大量の項目でも遅延のない操作性を確保。さらに、YaegiインタプリタによるGoプラグインシステムを導入し、コアの軽量さを保ったままユーザーが自由に拡張できる設計とした。名称はYaegiを利用したyagi-agentにインスパイアされ、ホームポジションから打ちやすいヤギの鳴き声をイメージした「メエェ」である。]
+)
+
 == 技術スタック
 
 #grid(
-  columns: (1fr, 1fr, 1fr),
-  gutter: 1em,
+  columns: (1fr),
+  gutter: 0.5em,
   [
-    *フロントエンド*
-    - React
-      - React Router
-    - Vue
+    === *フロントエンド*
+    - React / React Router
+    - Vue 3
     - UnoCSS / Tailwind CSS
   ],
   [
-    *バックエンド*
+    === *バックエンド*
     - Bun / Node.js
       - Hono
+    - Go?
   ],
   [
-    *インフラ/運用*
+    === *インフラ/運用*
     - Cloudflare
-    - SQLite / LibSQL
+    - GitHub Actions (CI/CD)
+    - SQLite / LibSQL (Turso)
     - Docker
   ],
 )
 
 == 学歴
 
-*大阪公立大学 現代システム科学域 心理学類*
-- 2023/04 \~
+=== *大阪公立大学 現代システム科学域 心理学類* \
+#text(fill: luma(100))[2023/04 \~]
+#v(0.5em)
 
-*大阪府立北野高等学校*
-- 2020/04 \~ 2023/03
+=== *大阪府立北野高等学校* \
+#text(fill: luma(100))[2020/04 \~ 2023/03]
