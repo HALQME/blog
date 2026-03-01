@@ -284,7 +284,7 @@ export default defineConfig({
       "btn-primary":
         "btn bg-primary text-secondary border-dark hover:bg-neutral-800 dark:hover:bg-neutral-200",
       "btn-secondary": "btn bg-base text-primary border-light hover:border-dark hover:bg-hover",
-      "btn-ghost": "btn bg-transparent text-primary border-transparent hover:bg-base",
+      "btn-ghost": "btn bg-transparent text-primary border-transparent",
 
       // Link styles
       link: "text-primary underline underline-offset-4 hover:text-subtle transition-colors",
