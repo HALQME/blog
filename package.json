@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:cv": "typst build src/content/cv.typst -o dist/cv.pdf",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write . && oxfmt .",
