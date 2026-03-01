@@ -12,6 +12,8 @@
     "vue-language-server",
     "vtsls",
     "json-language-server",
-    "color-lsp"
+    "color-lsp",
+    "nil",
+    "nixd"
   ]
 }

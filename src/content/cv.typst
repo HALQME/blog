@@ -1,71 +1,64 @@
 // 新卒向け 技術経験 / 自己PR (Typst)
 
-let name = "[氏名]";
-let email = "your.email@example.com";
-let github = "https://github.com/yourid";
-let website = "https://your-site.example";
+#set page(paper: "a4", margin: 20mm)
+#set text(font: "Moralerspace Neon JPDOC", size: 10.5pt)
+#set par(justify: true)
 
-# Heading
-paper(a4, margin: 20mm) {
-  style(font: "IBMPlexSans", size: 11pt)
+#let name = "Miharu KOIKE"
+#let email = "halqme@icloud.com"
+#let github = "https://github.com/HALQME"
+#let website = "https://halqme.pages.dev"
 
-  // Header
-  head {
-    row {
-      text(name, weight: 700, size: 18pt)
-      spacer()
-      text(email + " · " + github + " · " + website, align: right)
-    }
-    rule()
-  }
+// Header
+#align(left)[
+  #text(size: 14pt, weight: "bold")[#name]
+]
+#align(left)[
+  #text(size: 9pt)[#email · #github · #website]
+]
+#line(length: 100%, stroke: 0.5pt)
+#v(0.5em)
 
-  // Summary
-  section("概要") {
-    p("新卒エンジニア。個人開発、長期インターン、ハッカソン、チーム開発、研究を通じて要件定義から設計・実装・運用まで経験。品質・再現性・ドキュメント性を重視し、チームで価値を出すことを得意としています。")
-  }
+// Experiences
+== 主な経験
 
-  // Experiences
-  section("主な経験") {
-    subsection("個人開発") {
-      p("プロダクト名： [プロダクト名] — 目的: ・技術：React, TypeScript, Node.js, PostgreSQL など。こだわり：APIはOpenAPIで設計し、テストカバレッジを確保しました。")
-    }
+=== 個人開発
 
-    subsection("長期インターン") {
-      p("企業： [企業名] — 期間: [期間] ・技術：Go, gRPC, Kubernetes, Terraform。貢献：機能開発・パフォーマンス改善。こだわり：可観測性（Prometheus/Grafana）を重視しました。")
-    }
 
-    subsection("ハッカソン") {
-      p("大会： [大会名] — 短期間でプロトタイプを実装し、MVPのデモとPitchを実施。こだわり：ユーザーに伝わるデモシナリオを必ず用意します。")
-    }
 
-    subsection("チーム開発") {
-      p("役割：チームのフルスタック担当。継続的デリバリの構築、コードレビュー運用、ガイドライン整備に注力しました。こだわり：開発プロセスの安定化とドキュメント整備。")
-    }
 
-    subsection("研究") {
-      p("テーマ： [研究テーマ] — 手法と結果を簡潔に。こだわり：再現性と評価指標の厳密化を重視。")
-    }
-  }
+#v(0.5em)
 
-  // Skills
-  section("技術スタック") {
-    columns(2) {
-      list("フロントエンド", ["React", "TypeScript", "Next.js", "Tailwind"])
-      list("バックエンド", ["Node.js", "Go", "FastAPI (Python)"])
-    }
-    columns(2) {
-      list("インフラ/運用", ["Docker", "Kubernetes", "Terraform", "GCP/AWS"])
-      list("ML/AI", ["PyTorch", "Transformers", "推論最適化"])
-    }
-  }
+// Skills
+== 技術スタック
 
-  section("仕事で大切にしていること") {
-    p("1. 要件の曖昧さを早期に解消する\n2. 再現性のある開発（IaC・コンテナ化）\n3. 可観測性と運用性（ログ・メトリクス）\n4. ドキュメント重視\n5. 保守性とスピードの両立")
-  }
+#grid(
+  columns: (1fr, 1fr, 1fr),
+  gutter: 1em,
+  [
+    *フロントエンド*
+    - React
+      - React Router
+    - Vue
+    - UnoCSS / Tailwind CSS
+  ],
+  [
+    *バックエンド*
+    - Bun / Node.js
+      - Hono
+  ],
+  [
+    *インフラ/運用*
+    - Cloudflare
+    - SQLite / LibSQL
+    - Docker
+  ],
+)
 
-  // Footer / note
-  foot {
-    rule()
-    p("面接では実際のコードやデプロイ環境の説明が可能です。詳細は GitHub リポジトリをご覧ください。")
-  }
-}
+== 学歴
+
+*大阪公立大学 現代システム科学域 心理学類*
+- 2023/04 \~
+
+*大阪府立北野高等学校*
+- 2020/04 \~ 2023/03

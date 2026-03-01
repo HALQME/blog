@@ -1,7 +1,10 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
 
-const links = [{ href: "/blog", label: "Blog" }];
+const links = [
+  { href: "/blog", label: "Blog", icon: "i-lucide:pen-tool" },
+  { href: "/halqme_portfolio.pdf", label: "CV", icon: "i-lucide:file-text" },
+];
 ---
 
 <header
@@ -19,7 +22,8 @@ const links = [{ href: "/blog", label: "Blog" }];
         {
           links.map((link) => (
             <li>
-              <a href={link.href} class="link-nav rounded-sm px-3 py-1.5">
+              <a href={link.href} class="link-nav flex-inline items-center gap-1 px-3 py-1.5">
+                <div class={link.icon} />
                 {link.label}
               </a>
             </li>
