@@ -41,6 +41,7 @@
             ${if hasBun then ''echo "  - bun: $(bun --version)"'' else ""}
             ${if hasTypst then ''echo "  - typst: $(typst --version)"'' else ""}
             # Nix store fonts
+            echo "🔧 TYPST_FONT_PATHS set to: ${typst-font-paths}"
             export TYPST_FONT_PATHS="${typst-font-paths}"
           '';
 

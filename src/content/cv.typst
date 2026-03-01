@@ -1,7 +1,7 @@
 // 新卒向け 技術経験 / 自己PR (Typst)
 
 #set page(paper: "a4", margin: 20mm)
-#set text(font: "Moralerspace Argon JPDOC", size: 10.5pt)
+#set text(font: "UDEV Gothic 35JPDOC", size: 10.5pt)
 #set par(justify: true)
 
 #let name = "Miharu KOIKE"
