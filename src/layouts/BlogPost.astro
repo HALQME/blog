@@ -23,8 +23,6 @@ const {
   headings,
 } = Astro.props;
 
-const currentUrl = Astro.url.toString();
-
 // OGP画像URLの生成
 const ogImage = heroImage || `/ogp/${slug}.png`;
 ---
@@ -50,9 +48,9 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         />
       )
     }
-    <div class="mb-8 text-center">
-      <h1 class="text-title mb-4" transition:name={`title-${slug}`}>{title}</h1>
-      <div class="flex flex-wrap items-center justify-center gap-4">
+    <div class="mb-8 flex flex-col justify-center gap-4 text-center">
+      <h1 class="text-title" transition:name={`title-${slug}`}>{title}</h1>
+      <div class="flex flex-wrap justify-center gap-4">
         <div class="text-label">
           <div class="i-lucide:calendar"></div>
           <time datetime={pubDate.toISOString()}>
@@ -81,7 +79,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
       </div>
       {
         tags && tags.length > 0 && (
-          <div class="mt-6 flex flex-wrap justify-center gap-2">
+          <div class="flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
               <a
                 href={`/tags/${tag.toLowerCase()}`}
@@ -95,6 +93,9 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
           </div>
         )
       }
+      <div class="mx-auto">
+        <ShareButtons path={Astro.url.pathname.toString()} title={title} />
+      </div>
     </div>
 
     <div
@@ -115,11 +116,6 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         <div class="prose prose-lg prose-neutral dark:prose-invert max-w-none">
           <slot />
         </div>
-
-        {/* 記事フッター - シェアボタン */}
-        <div class="border-base mt-12 flex justify-end border-t pt-8">
-          <ShareButtons url={currentUrl} title={title} />
-        </div>
       </div>
 
       {
@@ -129,6 +125,10 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
           </aside>
         )
       }
+    </div>
+    {/* 記事フッター - シェアボタン */}
+    <div class="mt-12 flex justify-end">
+      <ShareButtons path={Astro.url.pathname.toString()} title={title} />
     </div>
   </article>
 </Layout>
