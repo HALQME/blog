@@ -6,7 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils }:
     let
       # systems you want to support (add/remove as needed)
       supportSystems = [ "x86_64-linux" "aarch64-darwin" ];
@@ -51,29 +51,6 @@
           # Ensure we use a proper interactive shell
           shellWrapper = pkgs.writeShellScript "dev-shell" ''
             exec ${pkgs.zsh}/bin/zsh "$@"
-          '';
-        };
-
-        # CV PDF build output
-        packages.cv-pdf = pkgs.stdenv.mkDerivation {
-          name = "cv-pdf";
-          src = ./src/content;
-          buildInputs = [ pkgs.typst ];
-          nativeBuildInputs = [ pkgs.makeWrapper ];
-
-          buildPhase = ''
-            runHook preBuild
-
-            export TYPST_FONT_PATHS="${typst-font-paths}"
-
-            typst compile cv.typst ./dist/halqme_portfolio.pdf
-
-            runHook postBuild
-          '';
-
-          installPhase = ''
-            mkdir -p $out
-            cp cv.pdf $out/
           '';
         };
       }
