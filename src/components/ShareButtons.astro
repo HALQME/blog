@@ -6,15 +6,14 @@ export interface Props {
 
 const { url, title } = Astro.props;
 
-// 各SNSのシェアURLを生成
 const shareUrls = {
   x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
   bluesky: `https://bsky.app/intent/compose?text=${encodeURIComponent(title + " " + url)}`,
   mastodon: `https://mastodonshare.com/?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
-  hatena: `https://b.hatena.ne.jp/entry/s/${encodeURIComponent(url.replace(/^https?:\/\//, ""))}`,
+  hatena: `https://b.hatena.ne.jp/add?mode=confirm&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
   facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
   linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
-  copy: url,
+  copy: `[${title}](${url})`,
 };
 ---
 
