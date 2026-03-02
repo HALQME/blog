@@ -139,10 +139,7 @@ const codeObserver = new MutationObserver((mutations) => {
     mutation.addedNodes.forEach((node) => {
       if (node.nodeType === Node.ELEMENT_NODE) {
         const element = node as Element;
-        if (
-          element.classList?.contains("astro-code") ||
-          element.querySelector?.(".astro-code")
-        ) {
+        if (element.classList?.contains("astro-code") || element.querySelector?.(".astro-code")) {
           shouldInit = true;
         }
       }

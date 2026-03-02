@@ -6,11 +6,13 @@ import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
-const CACHE_DIR = join(process.cwd(), "dist", ".cache");
+const CACHE_DIR = join(process.cwd(), ".cache");
 const FONT_CACHE_DIR = join(CACHE_DIR, "ogp-fonts");
 const IMAGE_CACHE_DIR = join(CACHE_DIR, "ogp-images");
+const FAVICON_CACHE_DIR = join(CACHE_DIR, "favicon-png");
 const REGULAR_FONT_PATH = join(FONT_CACHE_DIR, "noto-sans-jp-400.woff");
 const BOLD_FONT_PATH = join(FONT_CACHE_DIR, "noto-sans-jp-700.woff");
+const FAVICON_PATH = join(process.cwd(), "public", "favicon.svg");
 
 async function loadFonts() {
   // キャッシュディレクトリがなければ作成
@@ -47,6 +49,47 @@ async function loadFonts() {
   return { regular, bold };
 }
 
+async function loadFavicon(): Promise<Uint8Array> {
+  // ファビコンキャッシュディレクトリ
+  if (!existsSync(FAVICON_CACHE_DIR)) {
+    await mkdir(FAVICON_CACHE_DIR, { recursive: true });
+  }
+
+  const cachedPath = join(FAVICON_CACHE_DIR, "favicon-48.png");
+
+  // キャッシュがあればそれを使用
+  if (existsSync(cachedPath)) {
+    const buffer = await readFile(cachedPath);
+    return new Uint8Array(buffer);
+  }
+
+  // SVGを読み込んでPNGに変換
+  let svgContent: string;
+  if (existsSync(FAVICON_PATH)) {
+    svgContent = await readFile(FAVICON_PATH, "utf-8");
+  } else {
+    svgContent = `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="400" fill="#1a1a1a"/>
+      <text x="200" y="280" font-size="200" font-weight="bold" fill="white" text-anchor="middle">H</text>
+    </svg>`;
+  }
+
+  const resvg = new Resvg(svgContent, {
+    fitTo: {
+      mode: "width",
+      value: 48,
+    },
+  });
+
+  const pngData = resvg.render();
+  const pngBuffer = pngData.asPng();
+
+  // キャッシュに保存
+  await writeFile(cachedPath, new Uint8Array(pngBuffer));
+
+  return new Uint8Array(pngBuffer);
+}
+
 function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength - 1) + "…";
@@ -76,6 +119,11 @@ export const GET: APIRoute = async ({ params, props }) => {
 
   const truncatedTitle = truncateText(title, 60);
   const { regular, bold } = await loadFonts();
+  const faviconPng = await loadFavicon();
+
+  // PNGをBase64に変換してimageとして使う
+  const faviconBase64 = Buffer.from(faviconPng).toString("base64");
+  const faviconDataUrl = `data:image/png;base64,${faviconBase64}`;
 
   const svg = await satori(
     {
@@ -141,21 +189,12 @@ export const GET: APIRoute = async ({ params, props }) => {
                     },
                     children: [
                       {
-                        type: "div",
+                        type: "img",
                         props: {
-                          style: {
-                            width: "48px",
-                            height: "48px",
-                            backgroundColor: "#1a1a1a",
-                            borderRadius: "50%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: "#ffffff",
-                            fontSize: "24px",
-                            fontWeight: 700,
-                          },
-                          children: "H",
+                          src: faviconDataUrl,
+                          width: 48,
+                          height: 48,
+                          alt: "HALQME",
                         },
                       },
                       {

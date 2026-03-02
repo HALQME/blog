@@ -12,9 +12,7 @@ const isActiveTag = (tag: string) =>
   activeTag && activeTag.toLowerCase() === tag.toLowerCase();
 ---
 
-<article
-  class="card-interactive group relative flex flex-col"
->
+<article class="card-interactive group relative flex flex-col">
   <div class="flex-1 p-6">
     <h2 class="text-headline mb-2" transition:name={`title-${post.id}`}>
       <a

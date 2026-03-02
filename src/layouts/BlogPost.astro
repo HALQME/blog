@@ -96,10 +96,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         )
       }
       <div class="mx-auto">
-        <ShareButtons
-          path={Astro.url.pathname.toString()}
-          title={title}
-        />
+        <ShareButtons path={Astro.url.pathname.toString()} title={title} />
       </div>
     </div>
 

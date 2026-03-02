@@ -154,9 +154,8 @@ const shareUrls = {
             }, 2000);
           }
 
-          const liveRegion = button
-            .closest(".share-buttons")
-            ?.nextElementSibling;
+          const liveRegion =
+            button.closest(".share-buttons")?.nextElementSibling;
           if (liveRegion && liveRegion.getAttribute("role") === "status") {
             liveRegion.textContent = "URLをコピーしました";
             setTimeout(() => {
@@ -166,10 +165,8 @@ const shareUrls = {
         } catch (err) {
           console.error("Failed to copy URL:", err);
 
-
-          const liveRegion = button
-            .closest(".share-buttons")
-            ?.nextElementSibling;
+          const liveRegion =
+            button.closest(".share-buttons")?.nextElementSibling;
           if (liveRegion && liveRegion.getAttribute("role") === "status") {
             liveRegion.textContent = "コピーに失敗しました";
             setTimeout(() => {
@@ -186,7 +183,6 @@ const shareUrls = {
   } else {
     initCopyButtons();
   }
-
 
   document.addEventListener("astro:page-load", initCopyButtons);
 </script>

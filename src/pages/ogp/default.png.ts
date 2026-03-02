@@ -5,8 +5,10 @@ import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
-const CACHE_DIR = join(process.cwd(), "dist", ".cache", "ogp-fonts");
+const CACHE_DIR = join(process.cwd(), ".cache", "ogp-fonts");
 const BOLD_FONT_PATH = join(CACHE_DIR, "noto-sans-jp-700.woff");
+const FAVICON_PATH = join(process.cwd(), "public", "favicon.svg");
+const FAVICON_CACHE_DIR = join(process.cwd(), "dist", ".cache", "favicon-png");
 
 async function loadFont() {
   if (!existsSync(CACHE_DIR)) {
@@ -26,8 +28,49 @@ async function loadFont() {
   return bold;
 }
 
+async function loadFavicon(): Promise<Uint8Array> {
+  if (!existsSync(FAVICON_CACHE_DIR)) {
+    await mkdir(FAVICON_CACHE_DIR, { recursive: true });
+  }
+
+  const cachedPath = join(FAVICON_CACHE_DIR, "favicon-120.png");
+
+  if (existsSync(cachedPath)) {
+    const buffer = await readFile(cachedPath);
+    return new Uint8Array(buffer);
+  }
+
+  let svgContent: string;
+  if (existsSync(FAVICON_PATH)) {
+    svgContent = await readFile(FAVICON_PATH, "utf-8");
+  } else {
+    svgContent = `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="400" fill="#1a1a1a"/>
+      <text x="200" y="280" font-size="200" font-weight="bold" fill="white" text-anchor="middle">H</text>
+    </svg>`;
+  }
+
+  const resvg = new Resvg(svgContent, {
+    fitTo: {
+      mode: "width",
+      value: 120,
+    },
+  });
+
+  const pngData = resvg.render();
+  const pngBuffer = pngData.asPng();
+  await writeFile(cachedPath, new Uint8Array(pngBuffer));
+
+  return new Uint8Array(pngBuffer);
+}
+
 export const GET: APIRoute = async () => {
   const bold = await loadFont();
+  const faviconPng = await loadFavicon();
+
+  // PNGをBase64に変換してimageとして使う
+  const faviconBase64 = Buffer.from(faviconPng).toString("base64");
+  const faviconDataUrl = `data:image/png;base64,${faviconBase64}`;
 
   const svg = await satori(
     {
@@ -46,31 +89,15 @@ export const GET: APIRoute = async () => {
         },
         children: [
           {
-            type: "div",
+            type: "img",
             props: {
+              src: faviconDataUrl,
+              width: 120,
+              height: 120,
+              alt: "HALQME",
               style: {
-                width: "120px",
-                height: "120px",
-                backgroundColor: "#ffffff",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
                 marginBottom: "40px",
               },
-              children: [
-                {
-                  type: "span",
-                  props: {
-                    style: {
-                      fontSize: "64px",
-                      fontWeight: 700,
-                      color: "#1a1a1a",
-                    },
-                    children: "H",
-                  },
-                },
-              ],
             },
           },
           {
