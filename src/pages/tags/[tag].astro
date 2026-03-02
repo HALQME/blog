@@ -35,11 +35,11 @@ const { posts } = Astro.props;
         class="text-headline bg-base mb-0 flex items-center gap-3 select-none"
         transition:animate="slide"
       >
-        <div class="i-lucide:tag"></div>
+        <div class="i-lucide:tag" aria-hidden="true"></div>
         {tag}
       </h1>
       <a href="/tags" class="btn-ghost text-sm">
-        <div class="i-lucide:tags"></div>
+        <div class="i-lucide:tags" aria-hidden="true"></div>
         Tags
       </a>
     </div>

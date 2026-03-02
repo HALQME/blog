@@ -15,11 +15,11 @@ const posts = (await getCollection("blog")).sort(
         class="text-headline mb-0 flex items-center gap-3"
         transition:animate="slide"
       >
-        <div class="i-lucide:pen-tool"></div>
+        <div class="i-lucide:pen-tool" aria-hidden="true"></div>
         Blog
       </h1>
       <a href="/tags" class="btn-ghost text-sm">
-        <div class="i-lucide:tags"></div>
+        <div class="i-lucide:tags" aria-hidden="true"></div>
         Tags
       </a>
     </div>

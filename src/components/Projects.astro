@@ -29,7 +29,7 @@ const projects = [
 
 <section class="section-border">
   <h2 class="text-headline mb-8 flex items-center gap-3 select-none">
-    <div class="i-lucide:folder-git-2"></div>
+    <div class="i-lucide:folder-git-2" aria-hidden="true"></div>
     Projects
   </h2>
   <div class="grid gap-6 md:grid-cols-2">
@@ -39,13 +39,17 @@ const projects = [
           <a
             href={project.url}
             target="_blank"
+            rel="noopener noreferrer"
             class="card-content group block"
           >
             <h3 class="text-subhead mb-2 flex items-center justify-between">
               <span class="decoration-2 underline-offset-4 group-hover:underline">
                 {project.name}
               </span>
-              <div class="i-lucide:external-link transition-colors" />
+              <div
+                class="i-lucide:external-link transition-colors"
+                aria-hidden="true"
+              />
             </h3>
             <p class="text-body mb-2">{project.description}</p>
             <div class="flex flex-wrap items-center gap-2 select-none">

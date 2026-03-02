@@ -14,7 +14,7 @@ const links = [{ href: "/blog", label: "Blog", icon: "i-lucide:pen-tool" }];
     HALQME
   </a>
   <div class="flex items-center gap-2">
-    <nav>
+    <nav aria-label="メインナビゲーション">
       <ul class="flex gap-4">
         {
           links.map((link) => (
@@ -22,8 +22,11 @@ const links = [{ href: "/blog", label: "Blog", icon: "i-lucide:pen-tool" }];
               <a
                 href={link.href}
                 class="link-nav flex-inline items-center gap-1 py-1.5"
+                aria-current={
+                  Astro.url.pathname.startsWith(link.href) ? "page" : undefined
+                }
               >
-                <div class={link.icon} />
+                <div class={link.icon} aria-hidden="true" />
                 {link.label}
               </a>
             </li>
@@ -33,9 +36,10 @@ const links = [{ href: "/blog", label: "Blog", icon: "i-lucide:pen-tool" }];
           <a
             href="/halqme_portfolio.pdf"
             target="_blank"
+            rel="noopener noreferrer"
             class="link-nav flex-inline items-center gap-1 py-1.5"
           >
-            <div class="i-lucide:file-text"></div>
+            <div class="i-lucide:file-text" aria-hidden="true"></div>
             CV
           </a>
         </li>

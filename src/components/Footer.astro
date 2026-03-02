@@ -14,23 +14,34 @@ const today = new Date();
       >
         <span
           class="flex-inline items-center text-sm opacity-0 transition-opacity group-hover:opacity-100"
-          >GitHub &nbsp;<div class="i-lucide:external-link"></div></span
+          >GitHub &nbsp;<div class="i-lucide:external-link" aria-hidden="true">
+          </div></span
         >
-        <div class="i-lucide:github text-xl"></div>
+        <div class="i-lucide:github text-xl" aria-hidden="true"></div>
       </a>
       <a
         href="https://x.com/halqme_dev"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn-ghost group flex flex-col p-2"
+        class="btn-ghost group flex flex-col items-center p-2"
         aria-label="X (Twitter)"
       >
         <span
-          class="flex-inline items-center text-sm opacity-0 transition-opacity group-hover:opacity-100"
-          >Twitter &nbsp;<div class="i-lucide:external-link"></div></span
+          class="inline-flex items-center text-sm opacity-0 transition-opacity group-hover:opacity-100"
         >
-        <div class="i-lucide:twitter text-xl hidden group-hover:block"></div>
-        <div class="i-simple-icons:x text-xl block group-hover:hidden"></div>
+          Twitter <span class="i-lucide:external-link ml-1" aria-hidden="true"
+          ></span>
+        </span>
+        <div
+          class="relative flex h-[1.25em] w-[1.25em] items-center justify-center text-xl"
+        >
+          <span
+            class="i-simple-icons:x absolute opacity-100 transition-opacity group-hover:opacity-0"
+            aria-hidden="true"></span>
+          <span
+            class="i-lucide:twitter absolute opacity-0 transition-opacity group-hover:opacity-100"
+            aria-hidden="true"></span>
+        </div>
       </a>
       <a
         href="https://zenn.dev/hal227"
@@ -41,9 +52,10 @@ const today = new Date();
       >
         <span
           class="flex-inline items-center text-sm opacity-0 transition-opacity group-hover:opacity-100"
-          >Zenn &nbsp;<div class="i-lucide:external-link"></div></span
+          >Zenn &nbsp;<div class="i-lucide:external-link" aria-hidden="true">
+          </div></span
         >
-        <div class="i-simple-icons:zenn text-xl"></div>
+        <div class="i-simple-icons:zenn text-xl" aria-hidden="true"></div>
       </a>
     </div>
     <p class="text-caption">

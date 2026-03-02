@@ -29,7 +29,7 @@ const { post, activeTag = null } = Astro.props;
       {post.data.title}
     </h2>
     <div class="text-label mb-3">
-      <div class="i-lucide:calendar"></div>
+      <div class="i-lucide:calendar" aria-hidden="true"></div>
       <time datetime={post.data.pubDate.toISOString()}>
         {post.data.pubDate.toLocaleDateString("ja-JP")}
       </time>
@@ -58,7 +58,7 @@ const { post, activeTag = null } = Astro.props;
                   : "",
               ]}
             >
-              <div class="i-lucide:tag" />
+              <div class="i-lucide:tag" aria-hidden="true" />
               {tag}
             </a>
           ))}

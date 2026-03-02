@@ -28,11 +28,11 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => {
         class="text-headline mb-0 flex items-center gap-3"
         transition:animate="slide"
       >
-        <div class="i-lucide:tags"></div>
+        <div class="i-lucide:tags" aria-hidden="true"></div>
         Tags
       </h1>
       <a href="/blog" class="btn-ghost text-sm">
-        <div class="i-lucide:pen-tool"></div>
+        <div class="i-lucide:pen-tool" aria-hidden="true"></div>
         Blog
       </a>
     </div>
@@ -44,7 +44,10 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => {
         <div class="flex flex-wrap gap-3">
           {sortedTags.map(([tag, count]) => (
             <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover group">
-              <div class="i-lucide:tag text-light group-hover:text-muted transition-colors" />
+              <div
+                class="i-lucide:tag text-light group-hover:text-muted transition-colors"
+                aria-hidden="true"
+              />
               <span class="text-subtle">{tag}</span>
               <span class="border-base text-muted ml-1 border-l pl-1.5 text-xs">
                 {count}

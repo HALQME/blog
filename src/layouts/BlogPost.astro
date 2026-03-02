@@ -52,7 +52,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
       <h1 class="text-title" transition:name={`title-${slug}`}>{title}</h1>
       <div class="flex flex-wrap justify-center gap-4">
         <div class="text-label">
-          <div class="i-lucide:calendar"></div>
+          <div class="i-lucide:calendar" aria-hidden="true"></div>
           <time datetime={pubDate.toISOString()}>
             {pubDate.toLocaleDateString("ja-JP")}
           </time>
@@ -60,7 +60,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         {
           updatedDate && (
             <div class="text-label">
-              <div class="i-lucide:refresh-cw" />
+              <div class="i-lucide:refresh-cw" aria-hidden="true" />
               <span>Updated:</span>
               <time datetime={updatedDate.toISOString()}>
                 {updatedDate.toLocaleDateString("ja-JP")}
@@ -71,7 +71,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         {
           readingTime && (
             <div class="text-label">
-              <div class="i-lucide:clock" />
+              <div class="i-lucide:clock" aria-hidden="true" />
               <span>{readingTime}</span>
             </div>
           )
@@ -86,7 +86,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
                 class="tag tag-hover"
                 transition:name={`tags-${tag}`}
               >
-                <div class="i-lucide:tag text-light" />
+                <div class="i-lucide:tag text-light" aria-hidden="true" />
                 {tag}
               </a>
             ))}
@@ -106,7 +106,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
           headings && headings.length > 0 && (
             <details class="bg-base border-base mb-8 rounded-xs border p-4 lg:hidden">
               <summary class="no-marker flex cursor-pointer items-center select-none">
-                <div class="i-lucide:list text-light mr-2" />
+                <div class="i-lucide:list text-light mr-2" aria-hidden="true" />
                 <span>目次</span>
               </summary>
               <TableOfContents headings={headings} />
@@ -120,7 +120,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
 
       {
         headings && headings.length > 0 && (
-          <aside class="relative hidden font-sans lg:block">
+          <aside aria-label="目次" class="relative hidden font-sans lg:block">
             <TableOfContents headings={headings} />
           </aside>
         )

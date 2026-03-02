@@ -54,7 +54,7 @@ function addCopyButton(codeBlock: HTMLElement): void {
   button.setAttribute("data-code-id", codeId);
   button.setAttribute("aria-label", "コードをコピー");
   button.innerHTML = `
-    <span class="i-lucide:copy w-3.5 h-3.5"></span>
+    <span class="i-lucide:copy w-3.5 h-3.5" aria-hidden="true"></span>
     <span class="copy-text">コピー</span>
   `;
 
@@ -75,7 +75,7 @@ function addCopyButton(codeBlock: HTMLElement): void {
       const originalContent = targetButton.innerHTML;
 
       targetButton.innerHTML = `
-        <span class="i-lucide:check w-3.5 h-3.5 text-green-400"></span>
+        <span class="i-lucide:check w-3.5 h-3.5 text-green-400" aria-hidden="true"></span>
         <span class="copy-text text-green-400">コピー済</span>
       `;
       targetButton.classList.add("bg-green-900/80");
