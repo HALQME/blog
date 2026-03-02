@@ -79,22 +79,27 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
       </div>
       {
         tags && tags.length > 0 && (
-          <div class="flex flex-wrap justify-center gap-2">
+          <ul class="flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
-              <a
-                href={`/tags/${tag.toLowerCase()}`}
-                class="tag tag-hover"
-                transition:name={`tags-${tag}`}
-              >
-                <div class="i-lucide:tag text-light" aria-hidden="true" />
-                {tag}
-              </a>
+              <li>
+                <a
+                  href={`/tags/${tag.toLowerCase()}`}
+                  class="tag tag-hover"
+                  transition:name={`tags-${tag}`}
+                >
+                  <div class="i-lucide:tag text-light" aria-hidden="true" />
+                  {tag}
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         )
       }
       <div class="mx-auto">
-        <ShareButtons path={Astro.url.pathname.toString()} title={title} />
+        <ShareButtons
+          path={Astro.url.pathname.toString()}
+          title={title}
+        />
       </div>
     </div>
 
@@ -120,7 +125,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
 
       {
         headings && headings.length > 0 && (
-          <aside aria-label="目次" class="relative hidden font-sans lg:block">
+          <aside class="relative hidden font-sans lg:block">
             <TableOfContents headings={headings} />
           </aside>
         )
@@ -147,6 +152,18 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
   }
   summary.no-marker {
     list-style: none;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
   .rlc-container {

@@ -10,6 +10,7 @@ const links = [{ href: "/blog", label: "Blog", icon: "i-lucide:pen-tool" }];
   <a
     href="/"
     class="text-primary hover:text-subtle text-xl font-black tracking-tighter transition-colors"
+    aria-current={Astro.url.pathname === "/" ? "page" : undefined}
   >
     HALQME
   </a>

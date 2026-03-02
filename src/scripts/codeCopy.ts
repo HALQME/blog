@@ -46,6 +46,13 @@ function addCopyButton(codeBlock: HTMLElement): void {
     codeBlock.style.margin = "0";
   }
 
+  // ライブリージョン作成（スクリーンリーダー用）
+  const liveRegion = document.createElement("div");
+  liveRegion.setAttribute("role", "status");
+  liveRegion.setAttribute("aria-live", "polite");
+  liveRegion.setAttribute("aria-atomic", "true");
+  liveRegion.className = "sr-only";
+
   // コピーボタン作成
   const button = document.createElement("button");
   button.type = "button";
@@ -80,17 +87,26 @@ function addCopyButton(codeBlock: HTMLElement): void {
       `;
       targetButton.classList.add("bg-green-900/80");
 
+      // ライブリージョンに通知
+      liveRegion.textContent = "コードをコピーしました";
+
       setTimeout(() => {
         targetButton.innerHTML = originalContent;
         targetButton.classList.remove("bg-green-900/80");
+        liveRegion.textContent = "";
       }, 2000);
     } catch (err) {
       console.error("Failed to copy code:", err);
       const copyText = targetButton.querySelector(".copy-text");
       if (copyText) {
         copyText.textContent = "失敗";
+
+        // エラーをライブリージョンに通知
+        liveRegion.textContent = "コピーに失敗しました";
+
         setTimeout(() => {
           copyText.textContent = "コピー";
+          liveRegion.textContent = "";
         }, 2000);
       }
     }
@@ -100,6 +116,7 @@ function addCopyButton(codeBlock: HTMLElement): void {
   codeBlock.parentNode?.insertBefore(wrapper, codeBlock);
   wrapper.appendChild(codeBlock);
   wrapper.appendChild(button);
+  wrapper.appendChild(liveRegion);
 }
 
 // 既存のコードブロックに適用
@@ -122,7 +139,10 @@ const codeObserver = new MutationObserver((mutations) => {
     mutation.addedNodes.forEach((node) => {
       if (node.nodeType === Node.ELEMENT_NODE) {
         const element = node as Element;
-        if (element.classList?.contains("astro-code") || element.querySelector?.(".astro-code")) {
+        if (
+          element.classList?.contains("astro-code") ||
+          element.querySelector?.(".astro-code")
+        ) {
           shouldInit = true;
         }
       }

@@ -22,9 +22,10 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => {
 ---
 
 <Layout title="Tags | Blog | HALQME">
-  <section>
+  <section aria-labelledby="tags-title">
     <div class="mb-8 flex items-start justify-between">
       <h1
+        id="tags-title"
         class="text-headline mb-0 flex items-center gap-3"
         transition:animate="slide"
       >

@@ -19,20 +19,9 @@ const blogTags = new Set(
 );
 ---
 
-<section class="section-border">
-  <h2 class="text-headline mb-6 flex items-center justify-between gap-3">
+<section class="section-border" aria-labelledby="about-title">
+  <h2 id="about-title" class="text-headline mb-6 flex items-center justify-between gap-3">
     About Me
-    <small class="text-label">
-      <a
-        href="/halqme_portfolio.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex-inline decoration-none items-center gap-1"
-      >
-        CV / Portfolio (PDF)
-        <div class="i-lucide:external-link" aria-hidden="true"></div>
-      </a>
-    </small>
   </h2>
   <div class="text-body">
     <p>
@@ -40,6 +29,15 @@ const blogTags = new Set(
       Psychology. I have a passion for web development and creating useful
       tools.
     </p>
+    <a
+      href="/halqme_portfolio.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-label flex-inline decoration-none items-center gap-1"
+    >
+      See CV / Portfolio (PDF)
+      <div class="i-lucide:external-link" aria-hidden="true"></div>
+    </a>
 
     <ul class="mt-4 flex list-none flex-wrap gap-3 pl-0 select-none">
       {

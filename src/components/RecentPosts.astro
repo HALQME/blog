@@ -6,9 +6,9 @@ const posts = (await getCollection("blog"))
   .slice(0, 3);
 ---
 
-<section class="section-border">
+<section class="section-border" aria-labelledby="recent-posts-title">
   <div class="flex items-start justify-between select-none">
-    <h2 class="text-headline mb-8 flex items-center gap-3">
+    <h2 id="recent-posts-title" class="text-headline mb-8 flex items-center gap-3">
       <div class="i-lucide:pen-tool" aria-hidden="true"></div>
       Recent Posts
     </h2>
@@ -20,10 +20,16 @@ const posts = (await getCollection("blog"))
   <div class="grid gap-6 md:grid-cols-3">
     {
       posts.map((post) => (
-        <article class="">
-          <a href={`/blog/${post.id}/`} class="group block">
-            <h3 class="text-subhead mb-2 decoration-2 underline-offset-4 group-hover:underline">
-              {post.data.title}
+        <article class="group relative">
+          <div class="block">
+            <h3 class="text-subhead mb-2">
+              <a
+                href={`/blog/${post.id}/`}
+                class="decoration-2 underline-offset-4 group-hover:underline"
+              >
+                <span class="absolute inset-0 z-10" aria-hidden="true" />
+                {post.data.title}
+              </a>
             </h3>
             <div class="text-label flex-inline mb-3 items-center">
               <div class="i-lucide:calendar mr-0.5" aria-hidden="true" />
@@ -32,19 +38,19 @@ const posts = (await getCollection("blog"))
               </time>
             </div>
             {post.data.tags && post.data.tags.length > 0 && (
-              <div class="flex flex-wrap gap-2">
+              <ul class="relative z-20 flex flex-wrap gap-2">
                 {post.data.tags.slice(0, 2).map((tag) => (
-                  <span class="text-caption">
+                  <li class="text-caption">
                     <div class="i-lucide:tag text-light" aria-hidden="true" />
                     {tag}
-                  </span>
+                  </li>
                 ))}
                 {post.data.tags.length > 2 && (
                   <span class="text-caption">+{post.data.tags.length - 2}</span>
                 )}
-              </div>
+              </ul>
             )}
-          </a>
+          </div>
         </article>
       ))
     }

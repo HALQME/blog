@@ -9,9 +9,10 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <Layout title="Blog | HALQME">
-  <section>
+  <section aria-labelledby="blog-title">
     <div class="mb-8 flex items-start justify-between">
       <h1
+        id="blog-title"
         class="text-headline mb-0 flex items-center gap-3"
         transition:animate="slide"
       >

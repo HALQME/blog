@@ -30,6 +30,7 @@ const shareUrls = {
     <span class="i-simple-icons:x text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+      aria-hidden="true"
     >
       Xでシェア
     </span>
@@ -45,6 +46,7 @@ const shareUrls = {
     <span class="i-simple-icons:bluesky text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+      aria-hidden="true"
     >
       Blueskyでシェア
     </span>
@@ -60,6 +62,7 @@ const shareUrls = {
     <span class="i-simple-icons:mastodon text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+      aria-hidden="true"
     >
       Mastodonでシェア
     </span>
@@ -76,6 +79,7 @@ const shareUrls = {
     ></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+      aria-hidden="true"
     >
       はてブに追加
     </span>
@@ -91,6 +95,7 @@ const shareUrls = {
     <span class="i-simple-icons:facebook text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+      aria-hidden="true"
     >
       Facebookでシェア
     </span>
@@ -100,29 +105,35 @@ const shareUrls = {
   <button
     type="button"
     class="share-btn copy-btn group relative inline-flex h-8 w-8 items-center justify-center"
-    aria-label="URLをコピー"
     data-url={url}
+    aria-label="URLをコピー"
   >
     <span class="i-lucide:link text-sm" aria-hidden="true"></span>
     <span
       class="copy-tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-green-600 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity"
+      aria-hidden="true"
     >
       コピー完了！
     </span>
     <span
       class="default-tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
+      aria-hidden="true"
     >
       URLをコピー
     </span>
   </button>
 </div>
 
+<div role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
 <script>
-  // URLコピー機能
-  document.addEventListener("DOMContentLoaded", () => {
+  const initCopyButtons = () => {
     const copyButtons = document.querySelectorAll(".copy-btn");
 
     copyButtons.forEach((button) => {
+      if (button.hasAttribute("data-copy-initialized")) return;
+      button.setAttribute("data-copy-initialized", "true");
+
       button.addEventListener("click", async () => {
         const url = button.getAttribute("data-url");
         if (!url) return;
@@ -142,12 +153,42 @@ const shareUrls = {
               copyTooltip.classList.add("opacity-0");
             }, 2000);
           }
+
+          const liveRegion = button
+            .closest(".share-buttons")
+            ?.nextElementSibling;
+          if (liveRegion && liveRegion.getAttribute("role") === "status") {
+            liveRegion.textContent = "URLをコピーしました";
+            setTimeout(() => {
+              liveRegion.textContent = "";
+            }, 2000);
+          }
         } catch (err) {
           console.error("Failed to copy URL:", err);
+
+
+          const liveRegion = button
+            .closest(".share-buttons")
+            ?.nextElementSibling;
+          if (liveRegion && liveRegion.getAttribute("role") === "status") {
+            liveRegion.textContent = "コピーに失敗しました";
+            setTimeout(() => {
+              liveRegion.textContent = "";
+            }, 2000);
+          }
         }
       });
     });
-  });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCopyButtons);
+  } else {
+    initCopyButtons();
+  }
+
+
+  document.addEventListener("astro:page-load", initCopyButtons);
 </script>
 
 <style>
@@ -157,5 +198,17 @@ const shareUrls = {
 
   .share-btn:hover {
     transform: translateY(-1px);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 </style>

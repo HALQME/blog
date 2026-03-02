@@ -7,26 +7,23 @@ interface Props {
 }
 
 const { post, activeTag = null } = Astro.props;
+
+const isActiveTag = (tag: string) =>
+  activeTag && activeTag.toLowerCase() === tag.toLowerCase();
 ---
 
-<article class="card-interactive flex flex-col">
-  <a href={`/blog/${post.id}/`} class="group flex-1 p-6">
-    {
-      post.data.heroImage && (
-        <img
-          width={720}
-          height={360}
-          src={post.data.heroImage}
-          alt=""
-          class="border-base mb-4 h-48 w-full rounded-xs border object-cover"
-        />
-      )
-    }
-    <h2
-      class="text-headline mb-2 decoration-2 underline-offset-4 group-hover:underline"
-      transition:name={`title-${post.id}`}
-    >
-      {post.data.title}
+<article
+  class="card-interactive group relative flex flex-col"
+>
+  <div class="flex-1 p-6">
+    <h2 class="text-headline mb-2" transition:name={`title-${post.id}`}>
+      <a
+        href={`/blog/${post.id}/`}
+        class="decoration-2 underline-offset-4 group-hover:underline"
+      >
+        <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+        {post.data.title}
+      </a>
     </h2>
     <div class="text-label mb-3">
       <div class="i-lucide:calendar" aria-hidden="true"></div>
@@ -39,24 +36,21 @@ const { post, activeTag = null } = Astro.props;
         <p class="text-body mb-4 line-clamp-3">{post.data.description}</p>
       )
     }
-  </a>
+  </div>
   {
     post.data.tags && post.data.tags.length > 0 && (
-      <div class="px-6 pt-0 pb-6">
+      <div class="relative z-20 px-6 pt-0 pb-6">
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map((tag) => (
             <a
-              href={`/tags/${
-                activeTag && activeTag.toLowerCase() === tag.toLowerCase()
-                  ? ""
-                  : tag.toLowerCase()
-              }`}
+              href={`/tags/${isActiveTag(tag) ? "" : tag.toLowerCase()}`}
               class:list={[
                 "tag text-xs",
-                activeTag && activeTag.toLowerCase() === tag.toLowerCase()
+                isActiveTag(tag)
                   ? "border-dark bg-primary text-secondary shadow-card-subtle"
                   : "",
               ]}
+              aria-current={isActiveTag(tag) ? "page" : undefined}
             >
               <div class="i-lucide:tag" aria-hidden="true" />
               {tag}

@@ -245,7 +245,7 @@
   gutter: 1.5em,
   [
     #text(weight: "bold", size: 10pt)[大阪府立北野高等学校] \
-    #text(size: 9pt, fill: text-muted)[普通科]
+    #text(size: 9pt, fill: text-muted)[文理学科]
   ],
   [
     #align(right)[#text(size: 9pt, fill: text-muted)[2020/04 \~ 2023/03]]

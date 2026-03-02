@@ -27,38 +27,37 @@ const projects = [
 ];
 ---
 
-<section class="section-border">
-  <h2 class="text-headline mb-8 flex items-center gap-3 select-none">
+<section class="section-border" aria-labelledby="projects-title">
+  <h2 id="projects-title" class="text-headline mb-8 flex items-center gap-3 select-none">
     <div class="i-lucide:folder-git-2" aria-hidden="true"></div>
     Projects
   </h2>
   <div class="grid gap-6 md:grid-cols-2">
     {
       projects.map((project) => (
-        <article class="card-interactive p-4">
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="card-content group block"
-          >
-            <h3 class="text-subhead mb-2 flex items-center justify-between">
-              <span class="decoration-2 underline-offset-4 group-hover:underline">
-                {project.name}
-              </span>
-              <div
-                class="i-lucide:external-link transition-colors"
-                aria-hidden="true"
-              />
-            </h3>
-            <p class="text-body mb-2">{project.description}</p>
-            <div class="flex flex-wrap items-center gap-2 select-none">
-              {project.tech.map((t) => (
-                <span class="tag text-xs">{t}</span>
-              ))}
-            </div>
-          </a>
-        </article>
+        <div class="card-interactive card-content group relative flex flex-col p-4">
+          <h3 class="text-subhead mb-2 flex items-center justify-between">
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="decoration-2 underline-offset-4 group-hover:underline"
+            >
+              <span class="absolute inset-0 z-10" aria-hidden="true" />
+              {project.name}
+            </a>
+            <div
+              class="i-lucide:external-link hidden group-hover:block"
+              aria-hidden="true"
+            />
+          </h3>
+          <p class="text-body mb-2 flex-1">{project.description}</p>
+          <ul class="flex flex-wrap items-center gap-2 select-none">
+            {project.tech.map((t) => (
+              <li class="tag text-xs">{t}</li>
+            ))}
+          </ul>
+        </div>
       ))
     }
   </div>
