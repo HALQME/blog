@@ -1,6 +1,7 @@
 #set page(paper: "a4", margin: (x: 12mm, y: 14mm))
 #set text(font: "UDEV Gothic 35JPDOC", size: 9.5pt, fill: rgb("1F2937"))
-#set par(justify: true, leading: 0.65em)
+#set par(justify: true, leading: 0.55em)
+#set document(title: "HALQME Portfolio", author: "HALQME")
 
 // Color Palette (Tailwind CSS inspired)
 #let primary = rgb("334155")
@@ -14,23 +15,18 @@
 
 // Headings
 #show heading.where(level: 1): it => {
-  v(1.2em)
   text(size: 14pt, weight: "bold", fill: primary, tracking: 0.05em, it.body)
-  v(0.4em)
-  line(length: 100%, stroke: 1.5pt + primary.lighten(70%))
-  v(0.6em)
 }
 
 #show heading.where(level: 2): it => {
-  v(1.2em)
+  line(length: 100%, stroke: 1.5pt + border-color)
+  v(0.3em)
   text(size: 11.5pt, weight: "bold", fill: text-main, it.body)
-  v(0.4em)
 }
 
 #show heading.where(level: 3): it => {
-  v(0.8em)
+  v(0.3em)
   text(size: 10pt, weight: "bold", fill: text-main, it.body)
-  v(0.2em)
 }
 
 // Variables
@@ -41,7 +37,7 @@
 
 // Components
 #let item(title, link_url, role, period, tech, body, obsession) = {
-  v(0.6em)
+  v(0.2em)
   block(width: 100%)[
     // Title and Date
     #grid(
@@ -72,12 +68,10 @@
     ]
 
     // Description
-    #v(0.4em)
     #text(size: 9.5pt, fill: text-main)[#body]
 
     // Obsession / Highlights (Callout box)
     #if obsession != [] and obsession != "" [
-      #v(0.4em)
       #block(
         fill: bg-muted,
         inset: (x: 10pt, y: 8pt),
@@ -197,26 +191,28 @@
   [Goroutineを活用した非同期ファジー検索を実装し、大量の項目でも遅延のない操作性を確保。さらに、YaegiインタプリタによるGoプラグインシステムを導入し、コアの軽量さを保ったままユーザーが自由に拡張できる設計とした。名称の由来は、ホームポジションから打ちやすいヤギの鳴き声「メエェ」である。]
 )
 
-= 技術スタック
+= 経験
+
+== 技術スタック
 
 #v(0.5em)
 #grid(
   columns: (1fr),
   gutter: 1.2em,
   [
-    == *フロントエンド*
+    === *フロントエンド*
     - React / React Router
     - Vue 3
     - UnoCSS / Tailwind CSS
   ],
   [
-    == *バックエンド*
+    === *バックエンド*
     - Bun / Node.js
       - Hono
     - Go?
   ],
   [
-    == *インフラ/運用*
+    === *インフラ/運用*
     - Cloudflare
     - GitHub Actions (CI/CD)
     - SQLite / LibSQL (Turso)
