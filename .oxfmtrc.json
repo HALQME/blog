@@ -1,7 +1,14 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "sortTailwindcss": {},
   "printWidth": 100,
-  "sortPackageJson": false,
-  "ignorePatterns": []
+  "singleQuote": true,
+  "semi": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "sortImports": {},
+  "sortPackageJson": true,
+  "sortTailwindcss": {
+    "config": "./uno.config.ts"
+  },
+  "ignorePatterns": ["dist/", "node_modules/", ".cache/"]
 }

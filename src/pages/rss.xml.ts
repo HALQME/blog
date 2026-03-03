@@ -1,19 +1,20 @@
-import rss from "@astrojs/rss";
-import { getCollection, type CollectionEntry } from "astro:content";
+import rss from '@astrojs/rss'
+import { getCollection } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 
 export async function GET(context: { site?: URL | undefined }) {
-  const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+  const posts: CollectionEntry<'blog'>[] = await getCollection('blog')
 
   return rss({
-    title: "HALQME Blog",
-    description: "HALQMEのブログ",
-    site: context.site ?? "https://halqme.pages.dev",
+    customData: `<language>ja-JP</language>`,
+    description: 'HALQMEのブログ',
     items: posts.map((post) => ({
-      title: post.data.title,
-      pubDate: post.data.pubDate,
       description: post.data.description,
       link: `/blog/${post.id}/`,
+      pubDate: post.data.pubDate,
+      title: post.data.title,
     })),
-    customData: `<language>ja-JP</language>`,
-  });
+    site: context.site ?? 'https://halqme.pages.dev',
+    title: 'HALQME Blog',
+  })
 }

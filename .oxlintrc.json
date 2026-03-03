@@ -1,8 +1,27 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": null,
-  "categories": {},
-  "rules": {},
+  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "no-debugger": "warn",
+    "no-unused-vars": "error",
+    "no-magic-numbers": "warn",
+    "sort-keys": "warn",
+    "import/order": "warn",
+    "unicorn/filename-case": "warn",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "error"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2022": true
+  },
+  "globals": {},
+  "ignorePatterns": ["dist/", ".astro/", "node_modules/", ".cache/"],
   "settings": {
     "jsx-a11y": {
       "polymorphicPropName": null,
@@ -32,9 +51,24 @@
       "typecheck": false
     }
   },
-  "env": {
-    "builtin": true
-  },
-  "globals": {},
-  "ignorePatterns": []
+  "overrides": [
+    {
+      "files": ["*.test.ts", "*.spec.ts", "**/*.test.ts", "**/*.spec.ts"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    },
+    {
+      "files": ["src/pages/**/*.ts", "src/pages/**/*.tsx"],
+      "rules": {
+        "no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": ["**/*.astro"],
+      "rules": {
+        "unicorn/filename-case": "off"
+      }
+    }
+  ]
 }

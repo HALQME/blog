@@ -8,14 +8,17 @@ const { path, title } = Astro.props;
 
 const url = `${Astro.site}${path}`;
 
+// 定数定義
+const TOOLTIP_DURATION_MS = 2000;
+
 const shareUrls = {
-  x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}\n&url=${encodeURIComponent(url)}`,
   bluesky: `https://bsky.app/intent/compose?text=${encodeURIComponent(title + " " + url)}`,
-  mastodon: `https://mastodonshare.com/?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
-  hatena: `https://b.hatena.ne.jp/entry/s/${Astro.site?.hostname}${path}${encodeURIComponent(title)}#bbutton`,
-  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
   copy: `[${title}](${url})`,
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+  hatena: `https://b.hatena.ne.jp/entry/s/${Astro.site?.hostname}${path}${encodeURIComponent(title)}#bbutton`,
+  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+  mastodon: `https://mastodonshare.com/?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
+  x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}\n&url=${encodeURIComponent(url)}`,
 };
 ---
 
@@ -127,16 +130,22 @@ const shareUrls = {
 <div role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
 <script>
+  const TOOLTIP_DURATION_MS = 2000;
+
   const initCopyButtons = () => {
     const copyButtons = document.querySelectorAll(".copy-btn");
 
     copyButtons.forEach((button) => {
-      if (button.hasAttribute("data-copy-initialized")) return;
+      if (button.hasAttribute("data-copy-initialized")) {
+        return;
+      }
       button.setAttribute("data-copy-initialized", "true");
 
       button.addEventListener("click", async () => {
         const url = button.getAttribute("data-url");
-        if (!url) return;
+        if (!url) {
+          return;
+        }
 
         try {
           await navigator.clipboard.writeText(url);
@@ -151,7 +160,7 @@ const shareUrls = {
 
             setTimeout(() => {
               copyTooltip.classList.add("opacity-0");
-            }, 2000);
+            }, TOOLTIP_DURATION_MS);
           }
 
           const liveRegion =
@@ -160,10 +169,10 @@ const shareUrls = {
             liveRegion.textContent = "URLをコピーしました";
             setTimeout(() => {
               liveRegion.textContent = "";
-            }, 2000);
+            }, TOOLTIP_DURATION_MS);
           }
-        } catch (err) {
-          console.error("Failed to copy URL:", err);
+        } catch (error) {
+          console.error("Failed to copy URL:", error);
 
           const liveRegion =
             button.closest(".share-buttons")?.nextElementSibling;
@@ -171,7 +180,7 @@ const shareUrls = {
             liveRegion.textContent = "コピーに失敗しました";
             setTimeout(() => {
               liveRegion.textContent = "";
-            }, 2000);
+            }, TOOLTIP_DURATION_MS);
           }
         }
       });

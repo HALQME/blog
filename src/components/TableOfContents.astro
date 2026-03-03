@@ -5,9 +5,15 @@ interface Props {
   headings: MarkdownHeading[];
 }
 
+// 目次に表示する見出しレベル
+const TOC_HEADING_LEVEL_2 = 2;
+const TOC_HEADING_LEVEL_3 = 3;
+
 const { headings } = Astro.props;
-// h2 と h3 のみを抽出
-const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+// H2 と h3 のみを抽出
+const tocHeadings = headings.filter(
+  (h) => h.depth === TOC_HEADING_LEVEL_2 || h.depth === TOC_HEADING_LEVEL_3,
+);
 ---
 
 <nav
@@ -19,7 +25,7 @@ const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       tocHeadings.map((heading) => (
         <li
           class={`leading-snug transition-colors ${
-            heading.depth === 2
+            heading.depth === TOC_HEADING_LEVEL_2
               ? "text-primary mt-1 font-semibold"
               : "text-subtle pl-4 text-[0.8rem]"
           }`}

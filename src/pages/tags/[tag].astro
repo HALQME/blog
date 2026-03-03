@@ -16,7 +16,7 @@ export async function getStaticPaths() {
       .filter((post) =>
         post.data.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
       )
-      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+      .toSorted((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
     return {
       params: { tag },
       props: { posts: filteredPosts, tag },

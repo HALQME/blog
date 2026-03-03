@@ -2,22 +2,31 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
+// タグ集計の定数
+const INITIAL_TAG_COUNT = 0;
+const INCREMENT_COUNT = 1;
+const TAG_COUNT_INDEX = 1;
+const TAG_NAME_INDEX = 0;
+
 const posts = await getCollection("blog");
 
 const tagCounts = posts.reduce(
   (acc, post) => {
     post.data.tags.forEach((tag) => {
       const normalizedTag = tag.toLowerCase();
-      acc[normalizedTag] = (acc[normalizedTag] || 0) + 1;
+      acc[normalizedTag] =
+        (acc[normalizedTag] || INITIAL_TAG_COUNT) + INCREMENT_COUNT;
     });
     return acc;
   },
   {} as Record<string, number>,
 );
 
-const sortedTags = Object.entries(tagCounts).sort((a, b) => {
-  if (b[1] !== a[1]) return b[1] - a[1];
-  return a[0].localeCompare(b[0]);
+const sortedTags = Object.entries(tagCounts).toSorted((a, b) => {
+  if (b[TAG_COUNT_INDEX] !== a[TAG_COUNT_INDEX]) {
+    return b[TAG_COUNT_INDEX] - a[TAG_COUNT_INDEX];
+  }
+  return a[TAG_NAME_INDEX].localeCompare(b[TAG_NAME_INDEX]);
 });
 ---
 

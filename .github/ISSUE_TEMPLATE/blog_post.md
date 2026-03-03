@@ -1,9 +1,9 @@
 ---
 name: Blog Post
 about: Draft a new blog post using MDX.
-title: "[Blog]: "
-labels: ""
-assignees: ""
+title: '[Blog]: '
+labels: ''
+assignees: ''
 ---
 
 ---

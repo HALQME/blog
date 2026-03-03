@@ -45,7 +45,9 @@
 
 <script is:inline>
   (() => {
-    const getTheme = () => {
+    const NOTIFICATION_DURATION_MS = 2000;
+
+    function getTheme() {
       if (
         typeof localStorage !== "undefined" &&
         localStorage.getItem("theme")
@@ -68,8 +70,8 @@
       if (button) {
         const labels = {
           auto: "自動",
-          light: "ライトモード",
           dark: "ダークモード",
+          light: "ライトモード",
         };
         button.setAttribute(
           "aria-label",
@@ -83,7 +85,7 @@
             liveRegion.textContent = `テーマを${labels[theme]}に変更しました`;
             setTimeout(() => {
               liveRegion.textContent = "";
-            }, 2000);
+            }, NOTIFICATION_DURATION_MS);
           }
         }
       }
@@ -92,22 +94,23 @@
     applyTheme(getTheme(), false);
 
     const setupButton = () => {
-      const button = document.getElementById("theme-toggle");
-      if (button) {
-        // 既にイベントリスナーが設定されている場合はスキップ
-        if (button.hasAttribute("data-theme-initialized")) return;
-        button.setAttribute("data-theme-initialized", "true");
+          const button = document.getElementById("theme-toggle");
+          if (button) {
+            if (button.hasAttribute("data-theme-initialized")) {
+              return;
+            }
+            button.setAttribute("data-theme-initialized", "true");
 
-        button.onclick = () => {
-          const current = getTheme();
-          const next =
-            current === "auto" ? "dark" : current === "dark" ? "light" : "auto";
-          localStorage.setItem("theme", next);
-          applyTheme(next, true);
+            button.addEventListener("click", () => {
+              const current = getTheme();
+              const next =
+                current === "auto" ? "dark" : current === "dark" ? "light" : "auto";
+              localStorage.setItem("theme", next);
+              applyTheme(next, true);
+            });
+            applyTheme(getTheme(), false);
+          }
         };
-        applyTheme(getTheme(), false);
-      }
-    };
 
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", setupButton);
