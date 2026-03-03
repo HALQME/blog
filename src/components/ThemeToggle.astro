@@ -3,12 +3,12 @@
   class="btn-ghost p-2"
   aria-label="テーマを切り替え: 現在は自動"
 >
-  <div id="theme-icon-auto" class="i-lucide:monitor text-md" aria-hidden="true">
-  </div>
-  <div id="theme-icon-light" class="i-lucide:sun text-md" aria-hidden="true">
-  </div>
-  <div id="theme-icon-dark" class="i-lucide:moon text-md" aria-hidden="true">
-  </div>
+  <span id="theme-icon-auto" class="i-lucide:monitor text-md" aria-hidden="true"
+  ></span>
+  <span id="theme-icon-light" class="i-lucide:sun text-md" aria-hidden="true"
+  ></span>
+  <span id="theme-icon-dark" class="i-lucide:moon text-md" aria-hidden="true"
+  ></span>
 </button>
 
 <!-- ライブリージョン for スクリーンリーダー -->
@@ -55,7 +55,7 @@
         return localStorage.getItem("theme");
       }
       return "auto";
-    };
+    }
 
     const applyTheme = (theme, announce = false) => {
       const isDark =
@@ -94,23 +94,23 @@
     applyTheme(getTheme(), false);
 
     const setupButton = () => {
-          const button = document.getElementById("theme-toggle");
-          if (button) {
-            if (button.hasAttribute("data-theme-initialized")) {
-              return;
-            }
-            button.setAttribute("data-theme-initialized", "true");
+      const button = document.getElementById("theme-toggle");
+      if (button) {
+        if (button.hasAttribute("data-theme-initialized")) {
+          return;
+        }
+        button.setAttribute("data-theme-initialized", "true");
 
-            button.addEventListener("click", () => {
-              const current = getTheme();
-              const next =
-                current === "auto" ? "dark" : current === "dark" ? "light" : "auto";
-              localStorage.setItem("theme", next);
-              applyTheme(next, true);
-            });
-            applyTheme(getTheme(), false);
-          }
-        };
+        button.addEventListener("click", () => {
+          const current = getTheme();
+          const next =
+            current === "auto" ? "dark" : current === "dark" ? "light" : "auto";
+          localStorage.setItem("theme", next);
+          applyTheme(next, true);
+        });
+        applyTheme(getTheme(), false);
+      }
+    };
 
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", setupButton);

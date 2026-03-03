@@ -18,7 +18,8 @@ const shareUrls = {
   hatena: `https://b.hatena.ne.jp/entry/s/${Astro.site?.hostname}${path}${encodeURIComponent(title)}#bbutton`,
   linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
   mastodon: `https://mastodonshare.com/?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
-  x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}\n&url=${encodeURIComponent(url)}`,
+  // Avoid raw newlines in href (breaks HTML). Put text and url in same query param like Twitter expects.
+  x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title + " " + url)}`,
 };
 ---
 

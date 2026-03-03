@@ -14,7 +14,7 @@ const isActiveTag = (tag: string) =>
 
 <article class="card-interactive group relative flex flex-col">
   <div class="flex-1 p-6">
-    <h2 class="text-headline mb-2" transition:name={`title-${post.id}`}>
+    <h2 class="text-headline mb-2">
       <a
         href={`/blog/${post.id}/`}
         class="decoration-2 underline-offset-4 group-hover:underline"
@@ -24,7 +24,7 @@ const isActiveTag = (tag: string) =>
       </a>
     </h2>
     <div class="text-label mb-3">
-      <div class="i-lucide:calendar" aria-hidden="true"></div>
+      <span class="i-lucide:calendar" aria-hidden="true"></span>
       <time datetime={post.data.pubDate.toISOString()}>
         {post.data.pubDate.toLocaleDateString("ja-JP")}
       </time>
@@ -50,7 +50,7 @@ const isActiveTag = (tag: string) =>
               ]}
               aria-current={isActiveTag(tag) ? "page" : undefined}
             >
-              <div class="i-lucide:tag" aria-hidden="true" />
+              <span class="i-lucide:tag" aria-hidden="true" />
               {tag}
             </a>
           ))}

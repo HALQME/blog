@@ -1,6 +1,4 @@
 ---
-import { ClientRouter } from "astro:transitions";
-
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
@@ -47,7 +45,9 @@ const absoluteOgImage = ogImage
       name="google-site-verification"
       content="sJQvvU3-0_kqP3PkfIUhC8E_tSSMM12-Ib_VISr1Ax4"
     />
-    <ClientRouter />
+    <!-- ClientRouter removed to avoid injecting experimental view-transition CSS that
+         may include non-standard properties causing validator errors. If you need page
+         transitions, re-enable and handle CSS compatibility separately. -->
     <title>{title}</title>
 
     <script is:inline>
@@ -128,14 +128,12 @@ const absoluteOgImage = ogImage
     background-color: black;
     color: white;
   }
-  html.dark {
-    ::selection {
-      background-color: white;
-      color: black;
-    }
-    ::-moz-selection {
-      background-color: white;
-      color: black;
-    }
+  html.dark ::selection {
+    background-color: white;
+    color: black;
+  }
+  html.dark ::-moz-selection {
+    background-color: white;
+    color: black;
   }
 </style>

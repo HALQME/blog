@@ -17,12 +17,12 @@ const posts = (await getCollection("blog"))
       id="recent-posts-title"
       class="text-headline mb-8 flex items-center gap-3"
     >
-      <div class="i-lucide:pen-tool" aria-hidden="true"></div>
+      <span class="i-lucide:pen-tool" aria-hidden="true"></span>
       Recent Posts
     </h2>
     <a href="/blog" class="btn-ghost text-sm">
       View all
-      <div class="i-lucide:arrow-right" aria-hidden="true"></div>
+      <span class="i-lucide:arrow-right" aria-hidden="true"></span>
     </a>
   </div>
   <div class="grid gap-6 md:grid-cols-3">
@@ -40,7 +40,7 @@ const posts = (await getCollection("blog"))
               </a>
             </h3>
             <div class="text-label flex-inline mb-3 items-center">
-              <div class="i-lucide:calendar mr-0.5" aria-hidden="true" />
+              <span class="i-lucide:calendar mr-0.5" aria-hidden="true" />
               <time datetime={post.data.pubDate.toISOString()}>
                 {post.data.pubDate.toLocaleDateString("ja-JP")}
               </time>
@@ -49,14 +49,14 @@ const posts = (await getCollection("blog"))
               <ul class="relative z-20 flex flex-wrap gap-2">
                 {post.data.tags.slice(0, MAX_TAGS_TO_SHOW).map((tag) => (
                   <li class="text-caption">
-                    <div class="i-lucide:tag text-light" aria-hidden="true" />
+                    <span class="i-lucide:tag text-light" aria-hidden="true" />
                     {tag}
                   </li>
                 ))}
                 {post.data.tags.length > MAX_TAGS_TO_SHOW && (
-                  <span class="text-caption">
+                  <li class="text-caption">
                     +{post.data.tags.length - MAX_TAGS_TO_SHOW}
-                  </span>
+                  </li>
                 )}
               </ul>
             )}

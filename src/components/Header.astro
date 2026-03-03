@@ -27,7 +27,7 @@ const links = [{ href: "/blog", icon: "i-lucide:pen-tool", label: "Blog" }];
                   Astro.url.pathname.startsWith(link.href) ? "page" : undefined
                 }
               >
-                <div class={link.icon} aria-hidden="true" />
+                <span class={link.icon} aria-hidden="true" />
                 {link.label}
               </a>
             </li>
@@ -40,7 +40,7 @@ const links = [{ href: "/blog", icon: "i-lucide:pen-tool", label: "Blog" }];
             rel="noopener noreferrer"
             class="link-nav flex-inline items-center gap-1 py-1.5"
           >
-            <div class="i-lucide:file-text" aria-hidden="true"></div>
+            <span class="i-lucide:file-text" aria-hidden="true"></span>
             CV
           </a>
         </li>
