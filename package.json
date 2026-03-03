@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && bun run build:cv",
-    "build:cv": "typst compile src/content/cv.typst dist/halqme_portfolio.pdf",
+    "build:cv": "typst compile src/content/cv.typst dist/cv.pdf",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write . && oxfmt .",

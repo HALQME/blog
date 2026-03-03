@@ -4,29 +4,42 @@
 #set document(title: "HALQME Portfolio", author: "HALQME")
 
 // Color Palette (Tailwind CSS inspired)
-#let primary = rgb("334155")
-#let text-main = rgb("1F2937")
-#let text-muted = rgb("6B7280")
-#let border-color = rgb("E5E7EB")
-#let bg-muted = rgb("F3F4F6")
+#let primary = rgb("292C3C")
+#let text-main = rgb("232634")
+#let subtext = rgb("303446")
+#let overlay = rgb("4C4F69")
+#let border-color = rgb("626880")
+#let bg-muted = rgb("EFF1F5")
 
 // Link styling
 #show link: it => text(fill: primary, weight: "medium")[#it]
 
 // Headings
 #show heading.where(level: 1): it => {
-  text(size: 14pt, weight: "bold", fill: primary, tracking: 0.05em, it.body)
+  v(0.5em)
+  block(
+    width: 100%,
+    stroke: (bottom: 1.5pt + subtext),
+    inset: (bottom: 0.3em),
+    text(size: 13pt, weight: "bold", fill: text-main, tracking: 0.05em, it.body)
+  )
+  v(0.4em)
 }
 
 #show heading.where(level: 2): it => {
-  line(length: 100%, stroke: 1.5pt + border-color)
-  v(0.3em)
-  text(size: 11.5pt, weight: "bold", fill: text-main, it.body)
+  v(0.4em)
+  block(
+    stroke: (left: 2.5pt + overlay),
+    inset: (left: 6pt),
+    text(size: 11.5pt, weight: "bold", fill: text-main, it.body)
+  )
+  v(0.2em)
 }
 
 #show heading.where(level: 3): it => {
-  v(0.3em)
+  v(0.2em)
   text(size: 10pt, weight: "bold", fill: text-main, it.body)
+  v(0.2em)
 }
 
 // Variables
@@ -51,14 +64,14 @@
         ]
       ],
       [
-        #align(right)[#text(size: 9pt, fill: text-muted, weight: "medium", period)]
+        #align(right)[#text(size: 9pt, fill: subtext, weight: "medium", period)]
       ]
     )
 
     // Role and Tech Stack
     #if role != "" or tech != "" [
       #v(0.3em)
-      #text(size: 8.5pt, fill: text-muted)[
+      #text(size: 8.5pt, fill: subtext)[
         #if role != "" [
           #text(fill: primary, weight: "bold")[#role]
         ]
@@ -68,7 +81,7 @@
     ]
 
     // Description
-    #text(size: 9.5pt, fill: text-main)[#body]
+    #text(size: 9pt, fill: text-main)[#body]
 
     // Obsession / Highlights (Callout box)
     #if obsession != [] and obsession != "" [
@@ -80,7 +93,7 @@
         stroke: 0.5pt + border-color
       )[
         #set par(leading: 0.6em)
-        #text(size: 8.5pt, fill: rgb("4B5563"))[#obsession]
+        #text(size: 8.5pt, fill: subtext)[#obsession]
       ]
     ]
   ]
@@ -92,7 +105,7 @@
   #text(size: 18pt, weight: "black", fill: text-main, tracking: 0.05em)[#name]
 
   #v(0.6em)
-  #text(size: 10pt, fill: text-muted)[
+  #text(size: 10pt, fill: subtext)[
     #link("mailto:" + email)[#email]  |
     #link(github)[GitHub: HALQME]  |
     #link(website)[Portfolio: halqme.pages.dev]
@@ -228,10 +241,10 @@
   gutter: 1.5em,
   [
     #text(weight: "bold", size: 10pt)[大阪公立大学] \
-    #text(size: 9pt, fill: text-muted)[現代システム科学域 心理学類]
+    #text(size: 9pt, fill: subtext)[現代システム科学域 心理学類]
   ],
   [
-    #align(right)[#text(size: 9pt, fill: text-muted)[2023/04 \~ 現在]]
+    #align(right)[#text(size: 9pt, fill: subtext)[2023/04 \~ 現在]]
   ]
 )
 
@@ -241,9 +254,9 @@
   gutter: 1.5em,
   [
     #text(weight: "bold", size: 10pt)[大阪府立北野高等学校] \
-    #text(size: 9pt, fill: text-muted)[文理学科]
+    #text(size: 9pt, fill: subtext)[文理学科]
   ],
   [
-    #align(right)[#text(size: 9pt, fill: text-muted)[2020/04 \~ 2023/03]]
+    #align(right)[#text(size: 9pt, fill: subtext)[2020/04 \~ 2023/03]]
   ]
 )
