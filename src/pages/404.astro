@@ -16,12 +16,13 @@ import Layout from "../layouts/Layout.astro";
     </div>
 
     <div class="flex gap-4">
-      <a href="/" class="btn-primary">
-        <span class="i-lucide:home" aria-hidden="true"></span>
+      <a href="/" class="btn-primary before:content-empty before:i-lucide:home">
         Home
       </a>
-      <a href="/blog" class="btn-secondary">
-        <span class="i-lucide:book-open" aria-hidden="true"></span>
+      <a
+        href="/blog"
+        class="btn-secondary before:content-empty before:i-lucide:book-open"
+      >
         Blog
       </a>
     </div>

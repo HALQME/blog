@@ -23,8 +23,7 @@ const isActiveTag = (tag: string) =>
         {post.data.title}
       </a>
     </h2>
-    <div class="text-label mb-3">
-      <span class="i-lucide:calendar" aria-hidden="true"></span>
+    <div class="text-label before:content-empty before:i-lucide:calendar mb-3">
       <time datetime={post.data.pubDate.toISOString()}>
         {post.data.pubDate.toLocaleDateString("ja-JP")}
       </time>
@@ -43,14 +42,13 @@ const isActiveTag = (tag: string) =>
             <a
               href={`/tags/${isActiveTag(tag) ? "" : tag.toLowerCase()}`}
               class:list={[
-                "tag text-xs",
+                "tag before:content-empty before:i-lucide:tag text-xs",
                 isActiveTag(tag)
                   ? "border-dark bg-primary text-secondary shadow-card-subtle"
                   : "",
               ]}
               aria-current={isActiveTag(tag) ? "page" : undefined}
             >
-              <span class="i-lucide:tag" aria-hidden="true" />
               {tag}
             </a>
           ))}

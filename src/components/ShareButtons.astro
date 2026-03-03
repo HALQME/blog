@@ -28,10 +28,9 @@ const shareUrls = {
     href={shareUrls.x}
     target="_blank"
     rel="noopener noreferrer"
-    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    class="share-btn group before:content-empty before:i-simple-icons:x relative inline-flex h-8 w-8 items-center justify-center text-sm"
     aria-label="Xでシェア"
   >
-    <span class="i-simple-icons:x text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
       aria-hidden="true"
@@ -44,10 +43,9 @@ const shareUrls = {
     href={shareUrls.bluesky}
     target="_blank"
     rel="noopener noreferrer"
-    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    class="share-btn group before:content-empty before:i-simple-icons:bluesky relative inline-flex h-8 w-8 items-center justify-center text-sm"
     aria-label="Blueskyでシェア"
   >
-    <span class="i-simple-icons:bluesky text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
       aria-hidden="true"
@@ -60,10 +58,9 @@ const shareUrls = {
     href={shareUrls.mastodon}
     target="_blank"
     rel="noopener noreferrer"
-    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    class="share-btn group before:content-empty before:i-simple-icons:mastodon relative inline-flex h-8 w-8 items-center justify-center text-sm"
     aria-label="Mastodonでシェア"
   >
-    <span class="i-simple-icons:mastodon text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
       aria-hidden="true"
@@ -79,8 +76,6 @@ const shareUrls = {
     class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
     aria-label="はてなブックマークに追加"
   >
-    <span class="i-simple-icons:hatenabookmark text-sm" aria-hidden="true"
-    ></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
       aria-hidden="true"
@@ -93,10 +88,9 @@ const shareUrls = {
     href={shareUrls.facebook}
     target="_blank"
     rel="noopener noreferrer"
-    class="share-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    class="share-btn group before:content-empty before:i-simple-icons:facebook relative inline-flex h-8 w-8 items-center justify-center text-sm"
     aria-label="Facebookでシェア"
   >
-    <span class="i-simple-icons:facebook text-sm" aria-hidden="true"></span>
     <span
       class="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-700"
       aria-hidden="true"
@@ -108,11 +102,10 @@ const shareUrls = {
   <!-- URLコピー -->
   <button
     type="button"
-    class="share-btn copy-btn group relative inline-flex h-8 w-8 items-center justify-center"
+    class="share-btn copy-btn group before:content-empty before:i-lucide:link relative inline-flex h-8 w-8 items-center justify-center before:text-sm"
     data-url={url}
     aria-label="URLをコピー"
   >
-    <span class="i-lucide:link text-sm" aria-hidden="true"></span>
     <span
       class="copy-tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-green-600 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity"
       aria-hidden="true"

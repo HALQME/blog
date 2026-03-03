@@ -51,16 +51,14 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
     <div class="mb-8 flex flex-col justify-center gap-4 text-center">
       <h1 class="text-title">{title}</h1>
       <div class="flex flex-wrap justify-center gap-4">
-        <div class="text-label">
-          <span class="i-lucide:calendar" aria-hidden="true"></span>
+        <div class="text-label before:content-empty before:i-lucide:calendar">
           <time datetime={pubDate.toISOString()}>
             {pubDate.toLocaleDateString("ja-JP")}
           </time>
         </div>
         {
           updatedDate && (
-            <div class="text-label">
-              <span class="i-lucide:refresh-cw" aria-hidden="true" />
+            <div class="text-label before:content-empty before:i-lucide:refresh-cw">
               <span>Updated:</span>
               <time datetime={updatedDate.toISOString()}>
                 {updatedDate.toLocaleDateString("ja-JP")}
@@ -70,8 +68,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         }
         {
           readingTime && (
-            <div class="text-label">
-              <span class="i-lucide:clock" aria-hidden="true" />
+            <div class="text-label before:content-empty before:i-lucide:clock">
               <span>{readingTime}</span>
             </div>
           )
@@ -82,8 +79,10 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
           <ul class="flex flex-wrap justify-center gap-2">
             {tags.map((tag) => (
               <li>
-                <a href={`/tags/${tag.toLowerCase()}`} class="tag tag-hover">
-                  <span class="i-lucide:tag text-light" aria-hidden="true" />
+                <a
+                  href={`/tags/${tag.toLowerCase()}`}
+                  class="tag tag-hover before:content-empty before:i-lucide:tag before:text-light"
+                >
                   {tag}
                 </a>
               </li>
@@ -103,11 +102,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         {
           headings && headings.length > 0 && (
             <details class="bg-base border-base mb-8 rounded-xs border p-4 lg:hidden">
-              <summary class="no-marker flex cursor-pointer items-center select-none">
-                <span
-                  class="i-lucide:list text-light mr-2"
-                  aria-hidden="true"
-                />
+              <summary class="no-marker before:content-empty before:i-lucide:list before:text-light flex cursor-pointer items-center select-none before:mr-2">
                 <span>目次</span>
               </summary>
               <TableOfContents headings={headings} />
@@ -131,7 +126,166 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
     <div class="mt-12 flex justify-end">
       <ShareButtons path={Astro.url.pathname.toString()} title={title} />
     </div>
-    <script is:inline src="../scripts/code-copy"></script>
+    <script>
+      interface WindowWithCodeCopy extends Window {
+        initCodeCopyButtons?: () => void;
+      }
+
+      type CodeBlockCache = Record<string, string>;
+
+      const codeContentCache: CodeBlockCache = {};
+
+      const RADIX_BASE36 = 36;
+      const CODE_ID_START = 2;
+      const CODE_ID_END = 9;
+      const NOTIFICATION_DURATION_MS = 2000;
+
+      function generateCodeId(): string {
+        return `code-${Math.random().toString(RADIX_BASE36).substring(CODE_ID_START, CODE_ID_END)}`;
+      }
+
+      function addCopyButton(codeBlock: HTMLElement): void {
+        if (codeBlock.hasAttribute("data-has-copy-button")) {
+          return;
+        }
+        codeBlock.setAttribute("data-has-copy-button", "true");
+
+        const codeId = generateCodeId();
+        codeBlock.dataset.codeId = codeId;
+
+        const codeElement = codeBlock.querySelector("code");
+        if (codeElement) {
+          codeContentCache[codeId] = codeElement.textContent || "";
+        }
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-block-wrapper relative group block w-full";
+        wrapper.style.position = "relative";
+
+        if (typeof window !== "undefined") {
+          const cs = window.getComputedStyle(codeBlock);
+          wrapper.style.marginTop = cs.marginTop;
+          wrapper.style.marginBottom = cs.marginBottom;
+          wrapper.style.marginLeft = cs.marginLeft;
+          wrapper.style.marginRight = cs.marginRight;
+          codeBlock.style.margin = "0";
+        }
+
+        const liveRegion = document.createElement("div");
+        liveRegion.setAttribute("role", "status");
+        liveRegion.setAttribute("aria-live", "polite");
+        liveRegion.setAttribute("aria-atomic", "true");
+        liveRegion.className = "sr-only";
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className =
+          "code-copy-button absolute top-2 right-2 flex items-center gap-1 px-2 py-1 text-xs font-medium text-white bg-black/80 dark:bg-white/20 backdrop-blur-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-black dark:hover:bg-white/30 z-10 before:content-empty before:i-lucide:copy before:w-3.5 before:h-3.5";
+        button.setAttribute("data-code-id", codeId);
+        button.setAttribute("aria-label", "コードをコピー");
+        button.innerHTML = `
+        <span class="copy-text">コピー</span>
+      `;
+
+        button.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const targetButton = e.currentTarget as HTMLButtonElement;
+          const targetCodeId = targetButton.getAttribute("data-code-id");
+          if (!targetCodeId) {
+            return;
+          }
+
+          const codeText = codeContentCache[targetCodeId];
+          if (!codeText) {
+            return;
+          }
+
+          try {
+            await navigator.clipboard.writeText(codeText);
+
+            const originalContent = targetButton.innerHTML;
+
+            targetButton.innerHTML = `
+            <span class="copy-text text-green-400">コピー済</span>
+          `;
+            targetButton.classList.remove("before:i-lucide:copy");
+            targetButton.classList.add(
+              "bg-green-900/80",
+              "before:i-lucide:check",
+              "before:text-green-400",
+            );
+
+            liveRegion.textContent = "コードをコピーしました";
+
+            setTimeout(() => {
+              targetButton.innerHTML = originalContent;
+              targetButton.classList.add("before:i-lucide:copy");
+              targetButton.classList.remove(
+                "bg-green-900/80",
+                "before:i-lucide:check",
+                "before:text-green-400",
+              );
+              liveRegion.textContent = "";
+            }, NOTIFICATION_DURATION_MS);
+          } catch (error) {
+            console.error("Failed to copy code:", error);
+            const copyText = targetButton.querySelector(".copy-text");
+            if (copyText) {
+              copyText.textContent = "失敗";
+
+              liveRegion.textContent = "コピーに失敗しました";
+
+              setTimeout(() => {
+                copyText.textContent = "コピー";
+                liveRegion.textContent = "";
+              }, NOTIFICATION_DURATION_MS);
+            }
+          }
+        });
+
+        codeBlock.parentNode?.insertBefore(wrapper, codeBlock);
+        wrapper.appendChild(codeBlock);
+        wrapper.appendChild(button);
+        wrapper.appendChild(liveRegion);
+      }
+
+      function initCodeCopyButtons(): void {
+        const codeBlocks =
+          document.querySelectorAll<HTMLElement>(".astro-code");
+        codeBlocks.forEach(addCopyButton);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initCodeCopyButtons);
+      } else {
+        initCodeCopyButtons();
+      }
+
+      const codeObserver = new MutationObserver((mutations) => {
+        let shouldInit = false;
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node as Element;
+              if (
+                element.classList?.contains("astro-code") ||
+                element.querySelector?.(".astro-code")
+              ) {
+                shouldInit = true;
+              }
+            }
+          });
+        });
+        if (shouldInit) {
+          initCodeCopyButtons();
+        }
+      });
+
+      codeObserver.observe(document.body, { childList: true, subtree: true });
+
+      const codeWin = window as WindowWithCodeCopy;
+      codeWin.initCodeCopyButtons = initCodeCopyButtons;
+    </script>
 
     <style is:global>
       summary.no-marker::-webkit-details-marker {

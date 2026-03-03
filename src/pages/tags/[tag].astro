@@ -30,26 +30,26 @@ const { posts } = Astro.props;
 
 <Layout title={`#${tag} | Blog | HALQME`}>
   <section aria-labelledby="tag-title">
-    <div class="mb-4 flex items-start justify-between">
+    <div class="flex items-center justify-between">
       <h1
-        id="tag-title"
-        class="text-headline bg-base mb-0 flex items-center gap-3 select-none"
+        class="text-headline bg-base before:content-empty before:i-lucide:tag mb-0 flex items-center gap-3 select-none"
         transition:animate="slide"
       >
-        <span class="i-lucide:tag" aria-hidden="true"></span>
         {tag}
       </h1>
-      <a href="/tags" class="btn-ghost text-sm">
-        <span class="i-lucide:tags" aria-hidden="true"></span>
+      <a
+        href="/tags"
+        class="btn-ghost before:content-empty before:i-lucide:tags text-sm"
+      >
         Tags
       </a>
     </div>
-    <p class="text-body mt-2 mb-4 font-mono">
-      {posts.length} 件の記事
-    </p>
-
-    <div class="grid gap-8 md:grid-cols-2">
-      {posts.map((post) => <BlogCard post={post} activeTag={tag} />)}
-    </div>
   </section>
+  <p class="text-body mt-2 mb-4 font-mono">
+    {posts.length} 件の記事
+  </p>
+
+  <div class="grid gap-8 md:grid-cols-2">
+    {posts.map((post) => <BlogCard post={post} activeTag={tag} />)}
+  </div>
 </Layout>

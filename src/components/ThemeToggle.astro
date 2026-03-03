@@ -1,33 +1,22 @@
 <button
   id="theme-toggle"
-  class="btn-ghost p-2"
+  class="btn-ghost before:content-empty before:text-md p-2"
   aria-label="テーマを切り替え: 現在は自動"
 >
-  <span id="theme-icon-auto" class="i-lucide:monitor text-md" aria-hidden="true"
-  ></span>
-  <span id="theme-icon-light" class="i-lucide:sun text-md" aria-hidden="true"
-  ></span>
-  <span id="theme-icon-dark" class="i-lucide:moon text-md" aria-hidden="true"
-  ></span>
 </button>
 
 <!-- ライブリージョン for スクリーンリーダー -->
 <div role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
 <style>
-  #theme-icon-auto,
-  #theme-icon-light,
-  #theme-icon-dark {
-    display: none;
+  :global(html[data-theme="auto"]) #theme-toggle {
+    --at-apply: "before:i-lucide:monitor";
   }
-  :global(html[data-theme="auto"]) #theme-icon-auto {
-    display: block;
+  :global(html[data-theme="light"]) #theme-toggle {
+    --at-apply: "before:i-lucide:sun";
   }
-  :global(html[data-theme="light"]) #theme-icon-light {
-    display: block;
-  }
-  :global(html[data-theme="dark"]) #theme-icon-dark {
-    display: block;
+  :global(html[data-theme="dark"]) #theme-toggle {
+    --at-apply: "before:i-lucide:moon";
   }
 
   .sr-only {

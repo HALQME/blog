@@ -30,16 +30,15 @@ const projects = [
 <section class="section-border" aria-labelledby="projects-title">
   <h2
     id="projects-title"
-    class="text-headline mb-8 flex items-center gap-3 select-none"
+    class="text-headline before:content-empty before:i-lucide:folder-git-2 mb-8 flex items-center gap-3 select-none"
   >
-    <span class="i-lucide:folder-git-2" aria-hidden="true"></span>
     Projects
   </h2>
   <div class="grid gap-6 md:grid-cols-2">
     {
       projects.map((project) => (
         <div class="card-interactive card-content group relative flex flex-col p-4">
-          <h3 class="text-subhead mb-2 flex items-center justify-between">
+          <h3 class="text-subhead after:content-empty after:i-lucide:external-link mb-2 flex items-center justify-between after:hidden group-hover:after:block">
             <a
               href={project.url}
               target="_blank"
@@ -49,10 +48,6 @@ const projects = [
               <span class="absolute inset-0 z-10" aria-hidden="true" />
               {project.name}
             </a>
-            <span
-              class="i-lucide:external-link hidden group-hover:block"
-              aria-hidden="true"
-            />
           </h3>
           <p class="text-body mb-2 flex-1">{project.description}</p>
           <ul class="flex flex-wrap items-center gap-2 select-none">
