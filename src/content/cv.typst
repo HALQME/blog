@@ -48,6 +48,20 @@
 #let github = "https://github.com/HALQME"
 #let website = "https://halqme.pages.dev"
 
+// ファイルメタデータ（ビルド時に自動更新）
+#let file-hash = "4c3743"
+#let last-updated = "2026-03-05"
+
+// フッター
+#show: page.with(footer: {
+  v(1em)
+  align(right)[
+    #text(size: 7.5pt)[
+      updated: #last-updated  |  ver: #file-hash  |  https://halqme.pages.dev/cv.pdf
+    ]
+  ]
+})
+
 // Components
 #let item(title, link_url, role, period, tech, body, obsession) = {
   v(0.2em)
@@ -117,7 +131,27 @@
 // Layout: Use 2 columns for the content below header
 #show: columns.with(2, gutter: 3%)
 
-= 主な経験
+
+= 開発経験
+
+== 技術スタック
+
+=== *フロントエンド*
+- React / React Router
+- Vue 3
+- UnoCSS / Tailwind CSS
+
+=== *バックエンド*
+- Bun / Node.js
+  - Hono
+- Go?
+
+=== *インフラ/運用*
+- Cloudflare
+- GitHub Actions (CI/CD)
+- SQLite / LibSQL (Turso)
+- Docker
+
 
 == 個人開発
 
@@ -146,7 +180,7 @@
   "https://github.com/HALQME/blog",
   "個人開発",
   "current",
-  "Astro / UnoCSS / Nix / GitHub Actions / Typst",
+  "Astro / UnoCSS / Nix / Typst",
   [自身の経歴や制作物、ブログ記事を発信する静的サイト。],
   [AstroとUnoCSSを用いた高速な静的サイト。開発環境はNix Flakeによりパッケージや日本語フォントを含め再現性を確保。GitHub Actionsを活用し、Cloudflare Pagesへの自動デプロイやTypstによる本履歴書PDFのビルドパイプラインを構築している。]
 )
@@ -202,35 +236,6 @@
   "Go",
   [プラグインシステムを備え、クロスプラットフォームで動作するコマンドランチャーの開発。],
   [Goroutineを活用した非同期ファジー検索を実装し、大量の項目でも遅延のない操作性を確保。さらに、YaegiインタプリタによるGoプラグインシステムを導入し、コアの軽量さを保ったままユーザーが自由に拡張できる設計とした。名称の由来は、ホームポジションから打ちやすいヤギの鳴き声「メエェ」である。]
-)
-
-= 経験
-
-== 技術スタック
-
-#v(0.5em)
-#grid(
-  columns: (1fr),
-  gutter: 1.2em,
-  [
-    === *フロントエンド*
-    - React / React Router
-    - Vue 3
-    - UnoCSS / Tailwind CSS
-  ],
-  [
-    === *バックエンド*
-    - Bun / Node.js
-      - Hono
-    - Go?
-  ],
-  [
-    === *インフラ/運用*
-    - Cloudflare
-    - GitHub Actions (CI/CD)
-    - SQLite / LibSQL (Turso)
-    - Docker
-  ],
 )
 
 = 学歴

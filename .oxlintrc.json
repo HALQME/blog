@@ -8,7 +8,7 @@
   "rules": {
     "no-debugger": "warn",
     "no-unused-vars": "error",
-    "no-magic-numbers": "warn",
+    "no-magic-numbers": "allow",
     "sort-keys": "warn",
     "import/order": "warn",
     "unicorn/filename-case": "warn",
