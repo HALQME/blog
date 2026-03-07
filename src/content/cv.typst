@@ -1,15 +1,14 @@
 #set page(paper: "a4", margin: (x: 12mm, y: 14mm))
 #set text(font: "UDEV Gothic 35JPDOC", size: 9.5pt, fill: rgb("1F2937"))
 #set par(justify: true, leading: 0.55em)
-#set document(title: "HALQME Portfolio", author: "HALQME")
+#set document(title: "HALQME Portfolio", author: "HAL")
 
-// Color Palette (Tailwind CSS inspired)
-#let primary = rgb("292C3C")
-#let text-main = rgb("232634")
-#let subtext = rgb("303446")
-#let overlay = rgb("4C4F69")
-#let border-color = rgb("626880")
-#let bg-muted = rgb("EFF1F5")
+// Color Palette (Portfolio site aligned - Neutral grays)
+#let primary = rgb("000000")
+#let text-main = rgb("111827")
+#let subtext = rgb("4B5563")
+#let muted = rgb("6B7280")
+#let border-color = rgb("E5E7EB")
 
 // Link styling
 #show link: it => text(fill: primary, weight: "medium")[#it]
@@ -19,7 +18,7 @@
   v(0.5em)
   block(
     width: 100%,
-    stroke: (bottom: 1.5pt + subtext),
+    stroke: (bottom: 1.5pt + border-color),
     inset: (bottom: 0.3em),
     text(size: 13pt, weight: "bold", fill: text-main, tracking: 0.05em, it.body)
   )
@@ -28,11 +27,7 @@
 
 #show heading.where(level: 2): it => {
   v(0.4em)
-  block(
-    stroke: (left: 2.5pt + overlay),
-    inset: (left: 6pt),
-    text(size: 11.5pt, weight: "bold", fill: text-main, it.body)
-  )
+  text(size: 11.5pt, weight: "bold", fill: text-main, it.body)
   v(0.2em)
 }
 
@@ -49,15 +44,13 @@
 #let website = "https://halqme.pages.dev"
 
 // ファイルメタデータ（ビルド時に自動更新）
-#let file-hash = "4c3743"
-#let last-updated = "2026-03-05"
+#let file-hash = "147fba"
+#let last-updated = "2026-03-07"
 
-// フッター
 #show: page.with(footer: {
-  v(1em)
   align(right)[
-    #text(size: 7.5pt)[
-      updated: #last-updated  |  ver: #file-hash  |  https://halqme.pages.dev/cv.pdf
+    #text(size: 7.5pt, fill: muted)[
+      updated: #last-updated \##file-hash |  https://halqme.pages.dev/cv.pdf
     ]
   ]
 })
@@ -65,7 +58,7 @@
 // Components
 #let item(title, link_url, role, period, tech, body, obsession) = {
   v(0.2em)
-  block(width: 100%)[
+  block(breakable: false, width: 100%)[
     // Title and Date
     #grid(
       columns: (1fr, auto),
@@ -97,21 +90,30 @@
     // Description
     #text(size: 9pt, fill: text-main)[#body]
 
-    // Obsession / Highlights (Callout box)
+    // Obsession / Highlights
     #if obsession != [] and obsession != "" [
-      #block(
-        fill: bg-muted,
-        inset: (x: 10pt, y: 8pt),
-        radius: 4pt,
-        width: 100%,
-        stroke: 0.5pt + border-color
-      )[
-        #set par(leading: 0.6em)
-        #text(size: 8.5pt, fill: subtext)[#obsession]
-      ]
+      #set par(leading: 0.6em)
+      #pad(left: 0.6em)[#text(size: 8.5pt, fill: muted)[#obsession]]
     ]
   ]
   v(0.4em)
+}
+
+#let job-item(title, period, role: "") = {
+  v(0.2em)
+  grid(
+    columns: (1fr, auto),
+    gutter: 1em,
+    [
+      #text(size: 10pt)[#title]
+      #if role != "" [
+        #v(0.1em)
+        #text(size: 8.5pt, fill: subtext)[#text(fill: primary, weight: "bold")[#role]]
+      ]
+    ],
+    [#align(right)[#text(size: 9pt, fill: subtext)[#period]]]
+  )
+  v(0.3em)
 }
 
 // Header
@@ -131,8 +133,7 @@
 // Layout: Use 2 columns for the content below header
 #show: columns.with(2, gutter: 3%)
 
-
-= 開発経験
+= 開発
 
 == 技術スタック
 
@@ -185,7 +186,7 @@
   [AstroとUnoCSSを用いた高速な静的サイト。開発環境はNix Flakeによりパッケージや日本語フォントを含め再現性を確保。GitHub Actionsを活用し、Cloudflare Pagesへの自動デプロイやTypstによる本履歴書PDFのビルドパイプラインを構築している。]
 )
 
-== 共同開発・コントリビューション
+== コントリビューション
 
 #item(
   "Moodle Plus",
