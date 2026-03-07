@@ -6,7 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { nixpkgs, flake-utils, ... }:
     let
       # systems you want to support (add/remove as needed)
       supportSystems = [ "x86_64-linux" "aarch64-darwin" ];
