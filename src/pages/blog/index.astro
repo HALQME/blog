@@ -14,12 +14,11 @@ const posts = (await getCollection("blog")).toSorted(
       <h1
         id="blog-title"
         class="text-headline before:content-empty before:i-lucide:pen-tool flex items-center gap-3"
-        transition:animate="slide"
       >
         Blog
       </h1>
       <a
-        href="/tags"
+        href="/blog/tags"
         class="btn-ghost before:content-empty before:i-lucide:tags text-sm"
       >
         Tags

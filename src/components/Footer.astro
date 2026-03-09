@@ -1,52 +1,54 @@
 ---
 const today = new Date();
+
+const socialLinks = [
+  {
+    ariaLabel: "GitHubプロフィール",
+    href: "https://github.com/HALQME",
+    icon: "i-lucide:github",
+    name: "GitHub",
+  },
+  {
+    ariaLabel: "Xプロフィール",
+    href: "https://x.com/halqme_dev",
+    icon: "i-simple-icons:x",
+    name: "X",
+  },
+  {
+    ariaLabel: "Zennプロフィール",
+    href: "https://zenn.dev/hal227",
+    icon: "i-simple-icons:zenn",
+    name: "Zenn",
+  },
+];
 ---
 
 <footer class="border-lighter mt-auto w-full border-t py-8 text-center">
   <div class="container-narrow">
     <div class="mb-4 flex justify-center">
-      <a
-        href="https://github.com/HALQME"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-ghost group after:content-empty after:i-lucide:github flex flex-col p-2 after:text-xl"
-        aria-label="GitHubプロフィール"
-      >
-        <span
-          class="flex-inline after:content-empty after:i-lucide:external-link items-center text-sm opacity-0 transition-opacity group-hover:opacity-100"
-          aria-hidden="true">GitHub &nbsp;</span
-        >
-      </a>
-      <a
-        href="https://x.com/halqme_dev"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-ghost group flex flex-col items-center p-2"
-        aria-label="Twitterプロフィール"
-      >
-        <span
-          class="after:content-empty after:i-lucide:external-link inline-flex items-center text-sm opacity-0 transition-opacity group-hover:opacity-100 after:ml-1"
-          aria-hidden="true"
-        >
-          Twitter
-        </span>
-        <span
-          class="after:content-empty after:i-simple-icons:x before:content-empty before:i-lucide:twitter relative flex h-[1.25em] w-[1.25em] items-center justify-center text-xl before:absolute before:opacity-0 before:transition-opacity group-hover:before:opacity-100 after:absolute after:opacity-100 after:transition-opacity group-hover:after:opacity-0"
-        >
-        </span>
-      </a>
-      <a
-        href="https://zenn.dev/hal227"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-ghost group after:content-empty after:i-simple-icons:zenn flex flex-col p-2 after:text-xl"
-        aria-label="Zennプロフィール"
-      >
-        <span
-          class="flex-inline after:content-empty after:i-lucide:external-link items-center text-sm opacity-0 transition-opacity group-hover:opacity-100"
-          aria-hidden="true">Zenn &nbsp;</span
-        >
-      </a>
+      {
+        socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-ghost group flex flex-col items-center p-2"
+            aria-label={link.ariaLabel}
+          >
+            <span
+              class={`before:content-empty before:text-xl ${link.icon}`}
+              aria-hidden="true"
+            />
+            <span
+              class="flex-inline items-center gap-1 text-xs opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              aria-hidden="true"
+            >
+              {link.name}
+              <span class="i-lucide:external-link text-xs" aria-hidden="true" />
+            </span>
+          </a>
+        ))
+      }
     </div>
     <p class="text-caption">
       &copy; {today.getFullYear()} HALQME. All rights reserved.

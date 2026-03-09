@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../../layouts/Layout.astro";
+import BlogCard from "../../../components/BlogCard.astro";
 
 // タグ集計の定数
 const INITIAL_TAG_COUNT = 0;
@@ -8,7 +9,9 @@ const INCREMENT_COUNT = 1;
 const TAG_COUNT_INDEX = 1;
 const TAG_NAME_INDEX = 0;
 
-const posts = await getCollection("blog");
+const posts = (await getCollection("blog")).toSorted(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 
 const tagCounts = posts.reduce(
   (acc, post) => {
@@ -30,21 +33,20 @@ const sortedTags = Object.entries(tagCounts).toSorted((a, b) => {
 });
 ---
 
-<Layout title="Tags | Blog | HALQME">
-  <section aria-labelledby="tags-title">
+<Layout title="Blog | All Tags | HALQME">
+  <section aria-labelledby="blog-title">
     <div class="mb-4 flex items-center justify-between">
       <h1
-        id="tags-title"
-        class="text-headline before:content-empty before:i-lucide:tags mb-0 flex items-center gap-3"
-        transition:animate="slide"
+        id="blog-title"
+        class="text-headline before:content-empty before:i-lucide:pen-tool flex items-center gap-3"
       >
-        Tags
+        Blog
       </h1>
       <a
         href="/blog"
-        class="btn-ghost before:content-empty before:i-lucide:pen-tool text-sm"
+        class="btn-primary before:content-empty before:i-lucide:tags text-sm"
       >
-        Blog
+        Tags
       </a>
     </div>
   </section>
@@ -56,7 +58,7 @@ const sortedTags = Object.entries(tagCounts).toSorted((a, b) => {
       <div class="flex flex-wrap gap-3">
         {sortedTags.map(([tag, count]) => (
           <a
-            href={`/tags/${tag.toLowerCase()}`}
+            href={`/blog/tags/${tag.toLowerCase()}`}
             class="tag tag-hover group before:content-empty before:i-lucide:tag before:text-light hover:before:text-muted before:transition-colors"
           >
             <span class="text-subtle">{tag}</span>
@@ -68,4 +70,10 @@ const sortedTags = Object.entries(tagCounts).toSorted((a, b) => {
       </div>
     )
   }
+
+  <hr class="border-light my-8" />
+
+  <div class="grid gap-8 md:grid-cols-2">
+    {posts.map((post) => <BlogCard post={post} />)}
+  </div>
 </Layout>

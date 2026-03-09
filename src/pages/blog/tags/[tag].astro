@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import BlogCard from "../../components/BlogCard.astro";
+import Layout from "../../../layouts/Layout.astro";
+import BlogCard from "../../../components/BlogCard.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -28,7 +28,7 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 
-<Layout title={`#${tag} | Blog | HALQME`}>
+<Layout title={`Blog | #${tag} | HALQME`}>
   <section aria-labelledby="tag-title">
     <div class="flex items-center justify-between">
       <h1
@@ -39,7 +39,7 @@ const { posts } = Astro.props;
         {tag}
       </h1>
       <a
-        href="/tags"
+        href="/blog/tags"
         class="btn-ghost before:content-empty before:i-lucide:tags text-sm"
       >
         Tags

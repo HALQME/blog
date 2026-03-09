@@ -213,9 +213,10 @@ export default defineConfig({
       'btn-secondary': 'btn bg-base text-primary border-light hover:border-dark hover:bg-hover',
 
       // Card Components
-      card: 'bg-base border border-base rounded-xs transition-all duration-300',
-      'card-hover': 'hover:border-dark hover:shadow-card',
+      card: 'bg-base border border-base rounded-xs transition-colors duration-300',
+      'card-hover': 'hover:border-dark hover:shadow-card hover:-translate-y-0.5',
       'card-interactive': 'card card-hover cursor-pointer',
+      'card-content': 'transition-transform duration-300 ease-out',
 
       // Container
       'container-article': 'max-w-6xl mx-auto px-6 md:px-12',

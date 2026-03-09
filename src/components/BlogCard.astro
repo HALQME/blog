@@ -12,12 +12,16 @@ const isActiveTag = (tag: string) =>
   activeTag && activeTag.toLowerCase() === tag.toLowerCase();
 ---
 
-<article class="card-interactive group relative flex flex-col">
+<article
+  class="card-interactive group relative flex flex-col"
+  transition:name={`blog-card-${post.id}`}
+>
   <div class="flex-1 p-6">
-    <h2 class="text-headline mb-2">
+    <h2 class="text-headline relative mb-2">
       <a
         href={`/blog/${post.id}/`}
         class="decoration-2 underline-offset-4 group-hover:underline"
+        transition:name={`blog-title-${post.id}`}
       >
         <span class="absolute inset-0 z-10" aria-hidden="true"></span>
         {post.data.title}
@@ -40,7 +44,7 @@ const isActiveTag = (tag: string) =>
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map((tag) => (
             <a
-              href={`/tags/${isActiveTag(tag) ? "" : tag.toLowerCase()}`}
+              href={`/blog/tags/${isActiveTag(tag) ? "" : tag.toLowerCase()}`}
               class:list={[
                 "tag before:content-empty before:i-lucide:tag text-xs",
                 isActiveTag(tag)

@@ -49,7 +49,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
       )
     }
     <div class="mb-8 flex flex-col justify-center gap-4 text-center">
-      <h1 class="text-title">{title}</h1>
+      <h1 class="text-title" transition:name={`blog-title-${slug}`}>{title}</h1>
       <div class="flex flex-wrap justify-center gap-4">
         <div class="text-label before:content-empty before:i-lucide:calendar">
           <time datetime={pubDate.toISOString()}>
@@ -80,7 +80,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
             {tags.map((tag) => (
               <li>
                 <a
-                  href={`/tags/${tag.toLowerCase()}`}
+                  href={`/blog/tags/${tag.toLowerCase()}`}
                   class="tag tag-hover before:content-empty before:i-lucide:tag before:text-light"
                 >
                   {tag}
@@ -308,33 +308,6 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
         clip: rect(0, 0, 0, 0);
         white-space: nowrap;
         border-width: 0;
-      }
-
-      .rlc-container {
-        display: flex;
-        flex-direction: column-reverse;
-        text-decoration: none !important;
-        --at-apply: "card p-3";
-      }
-
-      .rlc-title {
-        --at-apply: "text-subhead mb-1 line-clamp-1";
-      }
-
-      .rlc-description {
-        --at-apply: "text-body-sm line-clamp-3 text-light";
-      }
-
-      .rlc-url-container {
-        --at-apply: "text-caption flex items-center gap-1";
-      }
-
-      img.rlc-favicon {
-        margin: 0;
-      }
-
-      img.rlc-image {
-        margin: 0;
       }
     </style>
   </article>

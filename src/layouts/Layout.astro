@@ -106,8 +106,14 @@ const absoluteOgImage = ogImage
   <body
     class="pattern-dots bg-base flex min-h-screen flex-col font-sans text-base"
   >
+    <a
+      href="#main-content"
+      class="focus:bg-primary focus:text-secondary sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:px-4 focus:py-2 focus:outline-none"
+    >
+      メインコンテンツへスキップ
+    </a>
     <Header />
-    <main class="container-main w-full flex-1 py-6 md:py-20">
+    <main id="main-content" class="container-main w-full flex-1 py-6 md:py-20">
       <slot />
     </main>
     <Footer />
@@ -115,24 +121,48 @@ const absoluteOgImage = ogImage
 </html>
 
 <style is:global>
+  :root {
+    --color-selection-bg: black;
+    --color-selection-text: white;
+  }
+
+  html.dark {
+    --color-selection-bg: white;
+    --color-selection-text: black;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
   ::selection {
-    background-color: black;
-    color: white;
+    background-color: var(--color-selection-bg);
+    color: var(--color-selection-text);
   }
   ::-webkit-selection {
-    background-color: black;
-    color: white;
+    background-color: var(--color-selection-bg);
+    color: var(--color-selection-text);
   }
   ::-moz-selection {
-    background-color: black;
-    color: white;
+    background-color: var(--color-selection-bg);
+    color: var(--color-selection-text);
   }
-  html.dark ::selection {
-    background-color: white;
-    color: black;
-  }
-  html.dark ::-moz-selection {
-    background-color: white;
-    color: black;
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
