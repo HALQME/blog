@@ -190,104 +190,124 @@ export default defineConfig({
     'code-block-wrapper',
   ],
   shortcuts: [
+    // ===========================================
+    // Colors
+    // ===========================================
     {
-      // Background colors
       'bg-base': 'bg-white dark:bg-neutral-900',
       'bg-hover': 'bg-neutral-100 dark:bg-neutral-700',
       'bg-primary': 'bg-black dark:bg-white',
       'bg-subtle': 'bg-neutral-50 dark:bg-neutral-800',
-
-      // Border colors
+    },
+    {
       'border-base': 'border-neutral-200 dark:border-neutral-700',
       'border-dark': 'border-black dark:border-white',
       'border-light': 'border-neutral-300 dark:border-neutral-600',
       'border-lighter': 'border-neutral-100 dark:border-neutral-800',
+      'section-border': 'py-6 border-t border-neutral-200 first:border-t-0',
+    },
+    // ===========================================
+    // Typography
+    // ===========================================
+    {
+      'text-base': 'text-neutral-900 dark:text-neutral-50',
+      'text-body': 'text-base leading-relaxed text-subtle',
+      'text-body-sm': 'text-sm leading-relaxed text-subtle',
+      'text-caption': 'text-xs text-muted',
+    },
+    {
+      // Headings
+      'text-display': 'text-5xl md:text-7xl font-bold tracking-tighter text-primary',
+      'text-headline': 'text-2xl font-semibold tracking-tight text-primary',
+      'text-subhead': 'text-lg font-semibold tracking-tight text-primary',
+      'text-title': 'text-3xl md:text-4xl font-bold tracking-tight text-primary',
+    },
+    {
+      // Labels/Meta
+      'text-label': 'text-xs uppercase tracking-wider font-semibold text-muted',
+    },
+    {
+      // Colors
+      'text-light': 'text-neutral-400 dark:text-neutral-600',
+      'text-lighter': 'text-neutral-300 dark:text-neutral-700',
+      'text-muted': 'text-neutral-500 dark:text-neutral-400',
+      'text-primary': 'text-black dark:text-white',
+      'text-secondary': 'text-white dark:text-black',
+      'text-subtle': 'text-neutral-600 dark:text-neutral-300',
+    },
 
-      // Button base
-      btn: 'inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium transition-all duration-300 ease-out cursor-pointer border rounded-xs relative overflow-hidden z-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary',
-
-      // Button variants
-      'btn-ghost': 'btn bg-transparent text-primary border-transparent',
-      'btn-primary':
-        'btn bg-primary text-secondary border-dark hover:bg-neutral-800 dark:hover:bg-neutral-200',
-      'btn-secondary': 'btn bg-base text-primary border-light hover:border-dark hover:bg-hover',
-
-      // Card Components
-      card: 'bg-base border border-base rounded-xs transition-colors duration-300',
-      'card-hover': 'hover:border-dark hover:shadow-card hover:-translate-y-0.5',
-      'card-interactive': 'card card-hover cursor-pointer',
-      'card-content': 'transition-transform duration-300 ease-out',
-
-      // Container
+    // ===========================================
+    // Layout
+    // ===========================================
+    {
       'container-article': 'max-w-6xl mx-auto px-6 md:px-12',
       'container-main': 'max-w-5xl mx-auto px-6 md:px-12',
       'container-narrow': 'max-w-3xl mx-auto px-6 md:px-12',
       'container-wide': 'max-w-7xl mx-auto px-6 md:px-12',
-
-      // Form Elements
-      focused:
-        'focus:outline-none focus:border-dark focus:ring-2 focus:ring-primary focus:ring-offset-2',
-
-      // Visual Effects
-      'gradient-fill':
-        'bg-gradient-to-r from-base to-base bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] bg-left-bottom transition-all duration-500',
-
-      // Layout helpers
+    },
+    {
       'grid-responsive': 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6',
-
+    },
+    {
+      row: 'flex flex-row',
+      'row-center': 'row items-center',
+    },
+    {
+      stack: 'flex flex-col',
+      'stack-center': 'stack items-center',
+    },
+    // ===========================================
+    // Components
+    // ===========================================
+    {
+      btn: 'inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium transition-all duration-300 ease-out cursor-pointer border rounded-xs relative overflow-hidden z-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary',
+      'btn-ghost': 'btn bg-transparent text-primary border-transparent',
+      'btn-primary':
+        'btn bg-primary text-secondary border-dark hover:bg-neutral-800 dark:hover:bg-neutral-200',
+      'btn-secondary': 'btn bg-base text-primary border-light hover:border-dark hover:bg-hover',
+    },
+    {
+      card: 'bg-base border border-base rounded-xs transition-colors duration-300',
+      'card-content': 'transition-transform duration-300 ease-out',
+      'card-hover': 'hover:border-dark hover:shadow-card hover:-translate-y-0.5',
+      'card-interactive': 'card card-hover cursor-pointer',
+    },
+    {
+      tag: 'inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-base text-primary border border-base rounded-xs transition-all duration-200',
+      'tag-hover': 'hover:border-dark hover:shadow-card-sm',
+    },
+    {
       input:
         'w-full px-4 py-2.5 bg-base border border-light rounded-xs text-base transition-all duration-200 focused',
-
-      // Link styles
+    },
+    {
       link: 'text-primary underline underline-offset-4 hover:text-subtle transition-colors',
       'link-nav': 'text-sm font-medium text-subtle hover:text-primary transition-colors',
       'link-subtle': 'text-subtle hover:text-primary transition-colors',
+    },
 
-      'pattern-dots':
-        'bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2f48_1px,transparent_1px)] [background-size:16px_16px]',
-
-      row: 'flex flex-row',
-      'row-center': 'row items-center',
-
-      // Page sections
-      'section-border': 'py-6 border-t border-neutral-200 first:border-t-0',
-
-      // Shadow utilities
+    // ===========================================
+    // Effects / Shadows / Patterns
+    // ===========================================
+    {
       'shadow-card':
         'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.8)]',
       'shadow-card-sm':
         'shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.8)]',
       'shadow-card-subtle':
         'shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.7)]',
-
-      stack: 'flex flex-col',
-      'stack-center': 'stack items-center',
-
-      // Tag/Badge Components
-      tag: 'inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-base text-primary border border-base rounded-xs transition-all duration-200',
-      'tag-hover': 'hover:border-dark hover:shadow-card-sm',
-
-      // Text colors
-      'text-base': 'text-neutral-900 dark:text-neutral-50',
-      // Body text
-      'text-body': 'text-base leading-relaxed text-subtle',
-      'text-body-sm': 'text-sm leading-relaxed text-subtle',
-      'text-caption': 'text-xs text-muted',
-
-      // Headings (Tight, Bold)
-      'text-display': 'text-5xl md:text-7xl font-bold tracking-tighter text-primary',
-      'text-headline': 'text-2xl font-semibold tracking-tight text-primary',
-
-      // Meta/Label
-      'text-label': 'text-xs uppercase tracking-wider font-semibold text-muted',
-      'text-light': 'text-neutral-400 dark:text-neutral-600',
-      'text-lighter': 'text-neutral-300 dark:text-neutral-700',
-      'text-muted': 'text-neutral-500 dark:text-neutral-400',
-      'text-primary': 'text-black dark:text-white',
-      'text-secondary': 'text-white dark:text-black',
-      'text-subhead': 'text-lg font-semibold tracking-tight text-primary',
-      'text-subtle': 'text-neutral-600 dark:text-neutral-300',
-      'text-title': 'text-3xl md:text-4xl font-bold tracking-tight text-primary',
+    },
+    {
+      'pattern-dots':
+        'bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2f48_1px,transparent_1px)] [background-size:16px_16px]',
+    },
+    {
+      'gradient-fill':
+        'bg-gradient-to-r from-base to-base bg-no-repeat bg-[length:0%_100%] hover:bg-[length:100%_100%] bg-left-bottom transition-all duration-500',
+    },
+    {
+      focused:
+        'focus:outline-none focus:border-dark focus:ring-2 focus:ring-primary focus:ring-offset-2',
     },
   ],
   theme: {
