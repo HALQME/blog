@@ -71,7 +71,8 @@ const tokens = {
   },
   // Typography
   font: {
-    sans: 'ui-sans-serif, system-ui, sans-serif',
+    mono: '"Geist Mono", ui-monospace, monospace',
+    sans: '"Geist Sans", ui-sans-serif, system-ui, sans-serif',
     size: {
       '2xl': '1.5rem', // 24px
       '3xl': '1.875rem', // 30px
@@ -216,11 +217,11 @@ export default defineConfig({
       'text-caption': 'text-xs text-muted',
     },
     {
-      // Headings
-      'text-display': 'text-5xl md:text-7xl font-bold tracking-tighter text-primary',
-      'text-headline': 'text-2xl font-semibold tracking-tight text-primary',
-      'text-subhead': 'text-lg font-semibold tracking-tight text-primary',
-      'text-title': 'text-3xl md:text-4xl font-bold tracking-tight text-primary',
+      // Headings - Geist has distinctive character
+      'text-display': 'text-5xl md:text-7xl font-bold tracking-tighter text-primary font-sans',
+      'text-headline': 'text-2xl font-semibold tracking-tight text-primary font-sans',
+      'text-subhead': 'text-lg font-medium tracking-tight text-primary font-sans',
+      'text-title': 'text-3xl md:text-4xl font-bold tracking-tight text-primary font-sans',
     },
     {
       // Labels/Meta
