@@ -7,14 +7,18 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog");
   const uniqueTags = [
     ...new Set(
-      posts.flatMap((post) => post.data.tags.map((t) => t.toLowerCase())),
+      posts.flatMap((post) =>
+        post.data.tags.map((t: string) => t.toLowerCase()),
+      ),
     ),
   ];
 
   return uniqueTags.map((tag) => {
     const filteredPosts = posts
       .filter((post) =>
-        post.data.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
+        post.data.tags.some(
+          (t: string) => t.toLowerCase() === tag.toLowerCase(),
+        ),
       )
       .toSorted((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
     return {

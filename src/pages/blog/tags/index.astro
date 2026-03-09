@@ -15,7 +15,7 @@ const posts = (await getCollection("blog")).toSorted(
 
 const tagCounts = posts.reduce(
   (acc, post) => {
-    post.data.tags.forEach((tag) => {
+    post.data.tags.forEach((tag: string) => {
       const normalizedTag = tag.toLowerCase();
       acc[normalizedTag] =
         (acc[normalizedTag] || INITIAL_TAG_COUNT) + INCREMENT_COUNT;

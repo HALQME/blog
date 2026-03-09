@@ -15,7 +15,9 @@ const tags = [
 // Get all unique tags from blog posts
 const blogPosts = await getCollection("blog");
 const blogTags = new Set(
-  blogPosts.flatMap((post) => post.data.tags.map((t) => t.toLowerCase())),
+  blogPosts.flatMap((post) =>
+    post.data.tags.map((t: string) => t.toLowerCase()),
+  ),
 );
 ---
 
