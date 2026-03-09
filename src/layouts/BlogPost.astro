@@ -36,7 +36,7 @@ const ogImage = heroImage || `/ogp/${slug}.png`;
   modifiedDate={updatedDate}
   tags={tags}
 >
-  <article class="container-article py-8">
+  <article class="container-article py-8" transition:name={`blog-card-${slug}`}>
     {
       heroImage && (
         <img
