@@ -56,17 +56,14 @@ const shareItems = [
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        class="share-btn group relative inline-flex h-11 w-11 items-center justify-center"
+        class="share-btn tooltip-container group inline-flex h-11 w-11 items-center justify-center"
         aria-label={item.ariaLabel}
       >
         <span
           class={`before:content-empty before:text-base ${item.icon}`}
           aria-hidden="true"
         />
-        <span
-          class="tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-xs bg-neutral-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-neutral-200 dark:text-black"
-          aria-hidden="true"
-        >
+        <span class="tooltip opacity-0 group-hover:opacity-100" aria-hidden="true">
           {item.label}
         </span>
       </a>
@@ -75,25 +72,17 @@ const shareItems = [
 
   <button
     type="button"
-    class="share-btn copy-btn group relative inline-flex h-11 w-11 items-center justify-center"
+    class="share-btn copy-btn tooltip-container group inline-flex h-11 w-11 items-center justify-center"
     data-url={url}
     aria-label="URLをコピー"
   >
     <span
       class="before:content-empty before:i-lucide:link before:text-base"
       aria-hidden="true"></span>
-    <span
-      class="copy-tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-xs bg-green-600 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity"
-      aria-hidden="true"
-    >
+    <span class="tooltip tooltip-success opacity-0 group-hover:opacity-100" aria-hidden="true">
       コピー完了！
     </span>
-    <span
-      class="default-tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-xs bg-neutral-800 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100 dark:bg-neutral-200 dark:text-black"
-      aria-hidden="true"
-    >
-      URLをコピー
-    </span>
+    <span class="tooltip opacity-0 group-hover:opacity-100" aria-hidden="true"> URLをコピー </span>
   </button>
 </div>
 
@@ -120,8 +109,10 @@ const shareItems = [
         try {
           await navigator.clipboard.writeText(url);
 
-          const copyTooltip = button.querySelector(".copy-tooltip");
-          const defaultTooltip = button.querySelector(".default-tooltip");
+          const copyTooltip = button.querySelector(".tooltip-success");
+          const defaultTooltip = button.querySelector(
+            ".tooltip:not(.tooltip-success)",
+          );
 
           if (copyTooltip && defaultTooltip) {
             defaultTooltip.classList.add("opacity-0");
@@ -187,26 +178,9 @@ const shareItems = [
     .share-btn:hover {
       transform: none;
     }
-    .tooltip,
-    .copy-tooltip,
-    .default-tooltip {
+    .tooltip {
       transition: none;
-    }
-    .tooltip,
-    .default-tooltip {
       opacity: 1;
     }
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
   }
 </style>

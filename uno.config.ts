@@ -154,6 +154,7 @@ export default defineConfig({
       },
     }),
   ],
+  rules: [[/^clip-\[(.+)\]$/, ([, value]) => ({ clip: value })]],
   safelist: [
     'absolute',
     'top-2',
@@ -236,6 +237,11 @@ export default defineConfig({
       'text-secondary': 'text-white dark:text-black',
       'text-subtle': 'text-neutral-600 dark:text-neutral-300',
     },
+    {
+      // Icon + Text combinations
+      'icon-text': 'inline-flex items-center gap-1',
+      'icon-text-before': 'inline-flex items-center gap-1 before:content-empty',
+    },
 
     // ===========================================
     // Layout
@@ -256,6 +262,9 @@ export default defineConfig({
     {
       stack: 'flex flex-col',
       'stack-center': 'stack items-center',
+    },
+    {
+      section: 'py-6 border-t border-base first:border-t-0',
     },
     // ===========================================
     // Components
@@ -286,10 +295,19 @@ export default defineConfig({
       'link-nav': 'text-sm font-medium text-subtle hover:text-primary transition-colors',
       'link-subtle': 'text-subtle hover:text-primary transition-colors',
     },
+    {
+      'social-btn': 'btn-ghost flex flex-col items-center p-2',
+      'social-link-icon': 'before:content-empty before:text-xl',
+    },
 
     // ===========================================
     // Effects / Shadows / Patterns
     // ===========================================
+    {
+      // Accessibility utilities
+      'sr-only':
+        'absolute w-px h-px p-0 -m-px overflow-hidden clip-[rect(0_0_0_0)] whitespace-nowrap border-0',
+    },
     {
       'shadow-card':
         'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.8)]',
@@ -297,6 +315,13 @@ export default defineConfig({
         'shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.8)]',
       'shadow-card-subtle':
         'shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.7)]',
+    },
+    {
+      // Tooltip patterns
+      tooltip:
+        'absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-xs bg-neutral-800 px-2 py-1 text-xs whitespace-nowrap text-white  transition-opacity dark:bg-neutral-200 dark:text-black',
+      'tooltip-container': 'relative',
+      'tooltip-success': 'bg-green-600 text-white',
     },
     {
       'pattern-dots':

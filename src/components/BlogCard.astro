@@ -42,7 +42,7 @@ const isActiveTag = (tag: string) =>
     post.data.tags && post.data.tags.length > 0 && (
       <div class="relative z-20 px-6 pt-0 pb-6">
         <div class="flex flex-wrap gap-2">
-          {post.data.tags.map((tag) => (
+          {post.data.tags.map((tag: string) => (
             <a
               href={`/blog/tags/${isActiveTag(tag) ? "" : tag.toLowerCase()}`}
               class:list={[
