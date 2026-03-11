@@ -71,8 +71,8 @@ const tokens = {
   },
   // Typography
   font: {
-    mono: '"Geist Mono", ui-monospace, monospace',
-    sans: '"Geist Sans", ui-sans-serif, system-ui, sans-serif',
+    mono: 'var(--font-ia-writer-mono), ui-monospace, monospace',
+    sans: 'var(--font-shippori-antique), ui-sans-serif, system-ui, sans-serif',
     size: {
       '2xl': '1.5rem', // 24px
       '3xl': '1.875rem', // 30px
@@ -340,6 +340,10 @@ export default defineConfig({
     borderRadius: tokens.radius,
     colors: {
       primary: tokens.color.primary,
+    },
+    font: {
+      mono: tokens.font.mono,
+      sans: tokens.font.sans,
     },
     fontSize: tokens.font.size,
     fontWeight: tokens.font.weight,
