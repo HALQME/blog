@@ -1,14 +1,12 @@
-name: Build and Deploy
-
+name: CI
 on:
-  push:
+  pull_request:
     branches: [main]
-
-permissions:
-  contents: read
+  push:
 
 jobs:
-  build-and-deploy:
+  ci:
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -23,15 +21,7 @@ jobs:
           purge-created: 0
           purge-last-accessed: P1DT12H
           purge-primary-key: never
-
-      - name: Enter Nix devShell, build and deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          nix develop --command bash -lc '
-            set -euo pipefail
-            bun install --frozen-lockfile
-            bun run build
-            bunx wrangler pages deploy ./dist --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          '
+      - run: nix develop -c bun install --frozen-lockfile
+      - run: nix develop -c bun run format
+      - run: nix develop -c bun run lint
+      - run: nix develop -c bun run build
