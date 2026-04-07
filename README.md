@@ -33,7 +33,7 @@ bun run lint     # リント
 
 ## CV
 
-CVは `src/content/cv.typst` で管理され、ビルド時にPDFとして出力されます。
+CVは `public/cv.typ` で管理され、ビルド時にPDFとして出力されます。
 
 ## 構成
 

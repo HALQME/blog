@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 
-// Tag configuration
 const tags = [
   "Osaka, Japan",
   "TypeScript",
@@ -12,7 +11,6 @@ const tags = [
   "Astro",
 ] as const;
 
-// Get all unique tags from blog posts
 const blogPosts = await getCollection("blog");
 const blogTags = new Set(
   blogPosts.flatMap((post) =>

@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
@@ -100,6 +101,9 @@ const absoluteOgImage = ogImage
         tags &&
         tags.map((tag) => <meta property="article:tag" content={tag} />)
     }
+
+    <Font cssVariable="--font-ia-writer-mono" preload />
+    <Font cssVariable="--font-shippori-antique" preload />
 
     <link rel="canonical" href={canonicalURL} />
   </head>

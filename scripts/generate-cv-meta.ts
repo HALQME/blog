@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import { readFileSync, writeFileSync } from 'node:fs'
 
-const cvPath = 'src/content/cv.typst'
+const cvPath = 'public/cv.typ'
 const content = readFileSync(cvPath, 'utf-8')
 
 const currentHashMatch = content.match(/#let file-hash = "([^"]+)"/)
